@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matemàtiques - Vídeos Educatius</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link">Inici</a></li>
+            <li><a href="index.html#arees" class="nav-link">Àrees</a></li>
+            <!-- OPCIÓ 1: S'ha afegit directament al menú de navegació superior -->
+            <li><a href="https://www.youtube.com/@XavierCatal%C3%A01/videos" target="_blank" class="nav-link">Vídeos educatius</a></li>
+            <li><a id="btn-page-back" class="nav-link" style="background-color: rgba(255,255,255,0.15); cursor: pointer;">⬅ Pàgina anterior</a></li>
+        </ul>
+    </nav>
+
+    <main class="content-container">
+        <div style="margin-bottom: 25px;">
+            <a href="index.html#arees" style="color: #1d563e; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                ⬅ Pàgina anterior
+            </a>
+        </div>
+
+        <section class="units-section">
+            <h2 style="text-align: left; margin-bottom: 25px; color: #1d563e;">Vídeos educatius de matemàtiques</h2>
+            
+            <p style="font-size: 1.1rem; line-height: 1.6; color: #333; margin-bottom: 20px;">
+                Fes clic a la llista d'avall per accedir als vídeos educatius de matemàtiques.
+            </p>
+
+            <ul class="units-list">
+                <li>
+                    <!-- OPCIÓ 2: S'ha convertit la llista de contingut en un enllaç clicable -->
+                    <a href="https://www.youtube.com/@XavierCatal%C3%A01/videos" target="_blank" style="text-decoration: none; color: inherit; display: flex; width: 100%; align-items: center;">
+                        <span class="unit-badge" style="cursor: pointer;">Vídeos educatius</span>
+                        <div class="unit-info" style="margin-left: 15px;">
+                            <strong>Accedeix al canal de vídeos de Matemàtiques</strong>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+    <script>
+        document.getElementById('btn-page-back').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = "index.html#arees";
+        });
+    </script>
+
+</body>
+</html>

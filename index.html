@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprenem Junts - Classes Virtuals</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#inici" class="nav-link active">Inici</a></li>
+            <li><a href="#arees" class="nav-link">Àrees</a></li>
+            <li id="back-tab-container" style="display: none;"><a id="btn-back" class="nav-link" style="background-color: rgba(255,255,255,0.15);">⬅ Pàgina anterior</a></li>
+        </ul>
+    </nav>
+
+    <main class="content-container">
+        <section id="inici" class="tab-content welcome-section">
+            <h2>Benvinguts a Aprenem Junts!</h2>
+            <p>Oferim un espai virtual d'aprenentatge dissenyat especialment per a l'alumnat d'educació primària. El nostre objectiu és reforçar els coneixements d'una forma divertida, dinàmica i personalitzada.</p>
+        </section>
+
+        <section id="arees" class="tab-content features-grid" style="display: none;">
+            <a href="unitats.html" class="card" style="text-decoration: none; color: inherit; display: block;">
+                <h3>Coneixement del Medi Natural, Social i Cultural</h3>
+                            </a>
+            
+            <a href="matematiques.html" target="_blank" class="card" style="text-decoration: none; color: inherit; display: block;">
+                <h3>Matemàtiques</h3>
+                
+            </a>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+    <script>
+        const backTab = document.getElementById('back-tab-container');
+
+        // Control de les pestanyes del menú de navegació
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.id === 'btn-back') return;
+
+                e.preventDefault();
+                
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                document.querySelectorAll('.tab-content').forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetId === '#cursos' || targetId === '#arees') {
+                    targetSection.style.display = 'grid';
+                    backTab.style.display = 'block'; 
+                } else {
+                    targetSection.style.display = 'block';
+                    backTab.style.display = 'none';  
+                }
+            });
+        });
+
+        // Acció del botó de tornar enrere propi de la pàgina d'inici
+        document.getElementById('btn-back').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('.nav-link[href="#inici"]').click();
+        });
+
+        // Detecta si entrem directament des de unitats.html cap a #arees
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.location.hash === '#arees') {
+                const areesLink = document.querySelector('.nav-link[href="#arees"]');
+                if (areesLink) areesLink.click();
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unitats - Coneixement del Medi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link">Inici</a></li>
+            <li><a href="index.html#arees" class="nav-link">Àrees</a></li>
+            <li><a id="btn-page-back" class="nav-link" style="background-color: rgba(255,255,255,0.15); cursor: pointer;">⬅ Pàgina anterior</a></li>
+        </ul>
+    </nav>
+
+    <main class="content-container">
+        
+        <section class="units-section">
+            <h2 style="text-align: left; margin-bottom: 25px; color: #1d563e;">Unitats Didàctiques: Coneixement del Medi</h2>
+            
+            <ul class="units-list">
+                <li>
+                    <span class="unit-badge">Unitat 1</span>
+                    <div class="unit-info">
+                        <h4>Les persones</h4>
+                        <p>En aquesta unitat treballarem:</p>
+                        <ul class="sub-list">
+                            <li class="has-dropdown">
+                                <span class="dropdown-trigger">Les funcions vitals. <small>▼</small></span>
+                                <div class="sub-desplegable">
+                                    <a href="flipped.html" style="color: #1d563e; text-decoration: none;">Accedir a: Flipped Classroom ➜</a>
+                                </div>
+                            </li>
+                            <li>Els aliments.</li>
+                            <li>Les emocions.</li>
+                            <li>Les parts del nostre cos.</li>
+                            <li>Els òrgans.</li>
+                            <li>Les etapes de la vida.</li>
+                            <li>Els hàbits saludables.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <span class="unit-badge">Unitat 2</span>
+                    <div class="unit-info">
+                        <h4>El nostre entorn</h4>
+                        <p>Explorem la natura, els animals i el relleu que ens envolta.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="unit-badge">Unitat 3</span>
+                    <div class="unit-info">
+                        <h4>Història i societat</h4>
+                        <p>Un viatge en el temps per conèixer el passat i el funcionament de la societat actual.</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+    <script>
+        // Control de l'obertura del desplegable intern (Les funcions vitals)
+        const trigger = document.querySelector('.dropdown-trigger');
+        if (trigger) {
+            trigger.addEventListener('click', function() {
+                this.parentElement.classList.toggle('open');
+            });
+        }
+
+        // Acció modificada: Redirecciona directament a la pestanya Àrees de l'index
+        document.getElementById('btn-page-back').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = "index.html#arees";
+        });
+    </script>
+
+</body>
+</html>
