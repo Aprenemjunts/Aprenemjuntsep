@@ -334,3 +334,28 @@ body {
         margin-bottom: 15px;
     }
 }
+/* S'aplica només a mòbils (pantalles de menys de 768px) */
+@media (max-width: 768px) {
+    
+    /* Redueix l'espai al voltant de la capçalera */
+    .main-header {
+        padding-bottom: 5px; 
+        margin-bottom: 5px;
+    }
+
+    /* Redueix l'espai al voltant del menú de navegació */
+    .main-nav {
+        margin-bottom: 10px; /* Ajusta aquest valor si vols menys espai */
+    }
+
+    /* Redueix l'espai superior del contenidor de text */
+    .content-container {
+        padding-top: 0px;
+        margin-top: 0px;
+    }
+
+    /* Redueix el marge superior del títol principal */
+    .welcome-section h2 {
+        margin-top: 10px; 
+    }
+}
