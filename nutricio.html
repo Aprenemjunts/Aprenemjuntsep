@@ -3,42 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unitats - Coneixement del Medi</title>
+    <title>La Nutrició - Coneixement del Medi</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estils per a les finestres verticals */
-        .finestres-container {
-            display: none;          /* Per defecte comença PLEGAT */
-            flex-direction: column; /* Una sota de l'altra */
-            gap: 10px;              /* Espai entre finestres */
-            margin-top: 12px;
-            background: transparent !important; /* Treu el color verd llima de fons */
-            padding: 5px 0;
+        /* Estils exclusius per centrar la imatge i el botó de descàrrega */
+        .nutrition-content {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            text-align: center;
         }
 
-        /* Quan el llistat pare té la classe 'open', es DESPLEGA */
-        .has-dropdown.open .finestres-container {
-            display: flex !important;
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
         }
 
-        .finestra-link {
-            color: #1d563e;
+        .btn-download {
+            display: inline-block;
+            background-color: #1d563e;
+            color: #ffffff;
             text-decoration: none;
-            padding: 12px 16px;
-            background-color: #ffffff; /* Fons blanc net per a la finestra */
-            border: 2px solid #1d563e; /* Vora verda fosca */
-            border-radius: 6px;        /* Cantonades arrodonides */
-            font-size: 0.95em;
+            padding: 12px 24px;
             font-weight: bold;
-            display: block;            /* Ocupa tot l'ample disponible */
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Petita ombra d'efecte finestra */
+            border-radius: 5px;
+            transition: background 0.2s ease;
         }
 
-        /* Efecte en passar el ratolí */
-        .finestra-link:hover {
-            background-color: #f5f9f7; /* Un gris/verd molt suau, gens cridaner */
-            transform: translateX(4px); /* Petit moviment cap a la dreta */
+        .btn-download:hover {
+            background-color: #143d2c;
         }
     </style>
 </head>
@@ -59,77 +56,27 @@
         <ul>
             <li><a href="index.html" class="nav-link">Inici</a></li>
             <li><a href="index.html#arees" class="nav-link">Àrees</a></li>
-            <li><a id="btn-page-back" class="nav-link" style="background-color: rgba(255,255,255,0.15); cursor: pointer;">⬅ Pàgina anterior</a></li>
+            <li><a href="unitats.html" class="nav-link">⬅ Pàgina anterior</a></li>
         </ul>
     </nav>
 
     <main class="content-container">
-        
-        <section class="units-section">
-            <h2 style="text-align: left; margin-bottom: 25px; color: #1d563e;">Unitats Didàctiques: Coneixement del Medi</h2>
+        <section class="nutrition-content">
+            <h2 style="text-align: left; margin-bottom: 20px; color: #1d563e;">La Funció de Nutrició</h2>
             
-            <ul class="units-list">
-                <li>
-                    <span class="unit-badge">Unitat 1</span>
-                    <div class="unit-info">
-                        <h4>Les persones</h4>
-                        <p>En aquesta unitat treballarem:</p>
-                        <ul class="sub-list">
-                            <li class="has-dropdown">
-                                <span class="dropdown-trigger" style="cursor: pointer;">Les funcions vitals. <small>▼</small></span>
-                                <div class="sub-desplegable finestres-container">
-                                    <a href="flipped.html" class="finestra-link">Flipped Classroom: Les funcions vitals</a>
-                                    <a href="nutricio.html" class="finestra-link">La nutrició</a>
-                                    <a href="relacio.html" class="finestra-link">La relació</a>
-                                </div>
-                            </li>
-                            <li>Els aliments.</li>
-                            <li>Les emotions.</li>
-                            <li>Les parts del nostre cos.</li>
-                            <li>Els òrgans.</li>
-                            <li>Les etapes de la vida.</li>
-                            <li>Els hàbits saludables.</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                    <span class="unit-badge">Unitat 2</span>
-                    <div class="unit-info">
-                        <h4>El nostre entorn</h4>
-                        <p>Explorem la natura, els animals i el relleu que ens envolta.</p>
-                    </div>
-                </li>
-                <li>
-                    <span class="unit-badge">Unitat 3</span>
-                    <div class="unit-info">
-                        <h4>Història i societat</h4>
-                        <p>Un viatge en el temps per conèixer el passat i el funcionament de la societat actual.</p>
-                    </div>
-                </li>
-            </ul>
+            <div class="img-container">
+                <img src="Funció de nutrició.png" alt="Esquema de la Funció de Nutrició">
+            </div>
+
+            <a href="Funció de nutrició.png" download="Funció de nutrició.png" class="btn-download">
+                📥 Descarregar Esquema
+            </a>
         </section>
     </main>
 
     <footer class="main-footer">
         <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
     </footer>
-
-    <script>
-        // Control de l'obertura del desplegable intern (Les funcions vitals)
-        const trigger = document.querySelector('.dropdown-trigger');
-        if (trigger) {
-            trigger.addEventListener('click', function() {
-                // Alterna la classe 'open' al pare (el <li>) per obrir/tancar
-                this.parentElement.classList.toggle('open');
-            });
-        }
-
-        // Acció modificada: Redirecciona directament a la pestanya Àrees de l'index
-        document.getElementById('btn-page-back').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.location.href = "index.html#arees";
-        });
-    </script>
 
 </body>
 </html>

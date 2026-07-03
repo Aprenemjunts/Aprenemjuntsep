@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Relació - Coneixement del Medi</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .fitxa-container {
+            background-color: #ffffff;
+            border: 2px solid #1d563e;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .fitxa-titol {
+            color: #1d563e;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #1d563e;
+            padding-bottom: 10px;
+        }
+        .fitxa-descarrega {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #1d563e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .fitxa-descarrega:hover {
+            background-color: #277353;
+        }
+        /* Estils per simular el contingut del PDF si no vols posar una imatge fixa */
+        .pdf-contingut {
+            background: #f9f9f9;
+            border: 1px dashed #ccc;
+            padding: 20px;
+            border-radius: 6px;
+            font-family: Arial, sans-serif;
+        }
+        .pdf-linia {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link">Inici</a></li>
+            <li><a href="unitats.html" class="nav-link">Unitats</a></li>
+            <li><a href="unitats.html" class="nav-link">⬅ Pàgina anterior</a></li>
+        </ul>
+    </nav>
+
+    <main class="content-container">
+        <section class="fitxa-container">
+            <h2 class="fitxa-titol">Fitxa de Treball: La Funció de Relació</h2>
+            
+            <div class="pdf-contingut">
+                <div class="pdf-linia"><strong>NOM:</strong> ____________________________________ <strong>DATA:</strong> _______________</div>
+                
+                <p><strong>1- Dibuixa, en el requadre, quin dels cinc sentits utilitzaries en cada cas. Després escriu una altra situació diferent al costat.</strong></p>
+                <ul>
+                    <li>a) Un semàfor es posa de color vermell.</li>
+                    <li>b) Fa olor a cremat.</li>
+                    <li>c) Saber si un got està fred o calent.</li>
+                    <li>d) Saber si un aliment és dolç o salat.</li>
+                    <li>e) Se sent un crit.</li>
+                </ul>
+
+                <p><strong>2- Explica com es desenvolupa la funció de relació en cada cas. Fixa't en l'exemple.</strong></p>
+                <blockquote>
+                    <em>Exemple: Un nen acosta la mà per escalfar-se. Gràcies al sentit del tacte, sap que si s'hi acosta més, es cremarà.</em>
+                </blockquote>
+            </div>
+
+            <a href="Funció de relació.pdf" target="_blank" class="fitxa-descarrega">📄 Obrir / Descarregar PDF Original</a>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+</body>
+</html>
