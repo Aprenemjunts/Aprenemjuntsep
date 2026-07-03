@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprenem Junts - Joc Interactiu: Els nostres òrgans</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --blue-bg: #e3f2fd;
+            --blue-border: #90caf9;
+            --blue-dark: #1565c0;
+            --pink-bg: #fce4ec;
+            --pink-border: #f48fb1;
+            --pink-dark: #c2185b;
+        }
+
+        /* S'elimina el padding del body per respectar l'estructura general */
+        body {
+            background-color: #f0f4f2;
+            font-family: Arial, sans-serif;
+        }
+
+        #joc-reproduccio-container {
+            display: flex;
+            background-color: #f7f9fa;
+            color: #333;
+            padding: 30px 20px;
+            border-radius: 12px;
+            border: 2px dashed #1d563e;
+            box-sizing: border-box;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1100px;
+            margin: 20px auto; /* Afegit marge superior i inferior */
+        }
+
+        #joc-reproduccio-container h1 {
+            color: #2e7d32;
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 1.8rem;
+        }
+
+        p.instruccions {
+            font-size: 1.1rem;
+            text-align: center;
+            max-width: 600px;
+            margin-bottom: 25px;
+        }
+
+        .game-container {
+            display: flex;
+            gap: 30px;
+            width: 100%;
+            max-width: 1000px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .column {
+            flex: 1;
+            min-width: 320px;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .column-male {
+            background-color: var(--blue-bg);
+            border: 3px solid var(--blue-border);
+        }
+
+        .column-female {
+            background-color: var(--pink-bg);
+            border: 3px solid var(--pink-border);
+        }
+
+        .column h2 {
+            margin-top: 0;
+            font-size: 1.6rem;
+        }
+
+        .column-male h2 { color: var(--blue-dark); }
+        .column-female h2 { color: var(--pink-dark); }
+
+        .body-outline {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .body-image {
+            height: 350px;
+            margin-bottom: 20px;
+        }
+
+        /* Zones de destí (Slots) */
+        .drop-zone {
+            width: 90%;
+            height: 110px;
+            border: 2px dashed #aaa;
+            border-radius: 10px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            color: #555;
+            transition: all 0.3s ease;
+            text-align: center;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .drop-zone.hover {
+            border-color: #333;
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Pestanyes que s'arrosseguen */
+        .pestanyes-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .pestanya {
+            padding: 15px;
+            background-color: #ffffff;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+            cursor: grab;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            user-select: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            touch-action: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 160px;
+            box-sizing: border-box;
+        }
+
+        .pestanya:active {
+            cursor: grabbing;
+        }
+
+        .pestanya-image {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 8px;
+        }
+
+        .pestanya-label {
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .pestanya.correct-male {
+            background-color: #2196f3;
+            color: white;
+            border-color: var(--blue-dark);
+            cursor: default;
+        }
+        .pestanya.correct-male svg {
+            stroke: white;
+        }
+        .pestanya.correct-male .pestanya-label { color: white; }
+
+        .pestanya.correct-female {
+            background-color: #e91e63;
+            color: white;
+            border-color: var(--pink-dark);
+            cursor: default;
+        }
+        .pestanya.correct-female svg {
+            stroke: white;
+        }
+        .pestanya.correct-female .pestanya-label { color: white; }
+
+        /* Missatge de felicitació i cartell final */
+        #feedback {
+            margin-top: 25px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2e7d32;
+            min-height: 35px;
+            text-align: center;
+        }
+
+        #reward-poster {
+            display: none;
+            margin-top: 20px;
+            max-width: 90%;
+            width: 700px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            border: 4px solid #2e7d32;
+        }
+
+        #reset-btn {
+            margin-top: 20px;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+            font-weight: bold;
+        }
+        #reset-btn:hover { background-color: #1b5e20; }
+    </style>
+</head>
+<body>
+
+    <!-- CAPÇALERA IDÈNTICA A INDEX.HTML -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <!-- MENÚ DE NAVEGACIÓ ENLLAÇAT A INDEX.HTML -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html#inici" class="nav-link">Inici</a></li>
+            <li><a href="index.html#arees" class="nav-link">Àrees</a></li>
+            <li id="back-tab-container"><a href="unitats.html" id="btn-back" class="nav-link" style="background-color: rgba(255,255,255,0.15);">⬅ Pàgina anterior</a></li>
+        </ul>
+    </nav>
+
+    <!-- CONTENIDOR PRINCIPAL DE LA PÀGINA -->
+    <main class="content-container">
+
+        <section id="joc-reproduccio-container">
+            <h1>JOC INTERACTIU: ELS NOSTRES ÒRGANS</h1>
+            <p class="instruccions">Arrossega cada òrgan amb el seu dibuix cap al requadre buit del cos corresponent.</p>
+
+            <div class="game-container">
+                <div class="column column-male">
+                    <h2>NEN</h2>
+                    <div class="body-outline">
+                        <svg viewBox="0 0 100 220" class="body-image">
+                            <circle cx="50" cy="30" r="18" fill="#ffdbac"/>
+                            <path d="M32,25 C32,10 68,10 68,25 C62,15 38,15 32,25 Z" fill="#624a2e"/>
+                            <rect x="46" y="45" width="8" height="10" fill="#ffdbac"/>
+                            <path d="M30,55 L70,55 L75,95 L65,95 L65,120 L35,120 L35,95 L25,95 Z" fill="#2196f3"/>
+                            <path d="M25,55 L15,90 C13,95 18,98 20,93 L28,65" fill="#ffdbac" stroke="#2196f3" stroke-width="2"/>
+                            <path d="M75,55 L85,90 C87,95 82,98 80,93 L72,65" fill="#ffdbac" stroke="#2196f3" stroke-width="2"/>
+                            <rect x="35" y="120" width="12" height="70" fill="#ffdbac"/>
+                            <rect x="53" y="120" width="12" height="70" fill="#ffdbac"/>
+                            <path d="M33,120 L67,120 L67,140 L51,140 L50,125 L49,140 L33,140 Z" fill="#0d47a1"/>
+                            <ellipse cx="37" cy="190" rx="10" ry="6" fill="#555"/>
+                            <ellipse cx="63" cy="190" rx="10" ry="6" fill="#555"/>
+                        </svg>
+                    </div>
+                    <div class="drop-zone" data-target="masculi">Arrossega un òrgan del nen aquí</div>
+                    <div class="drop-zone" data-target="masculi">Arrossega un òrgan del nen aquí</div>
+                </div>
+
+                <div class="column column-female">
+                    <h2>NENA</h2>
+                    <div class="body-outline">
+                        <svg viewBox="0 0 100 220" class="body-image">
+                            <circle cx="28" cy="25" r="8" fill="#e5a93b"/>
+                            <circle cx="72" cy="25" r="8" fill="#e5a93b"/>
+                            <circle cx="50" cy="30" r="18" fill="#ffdbac"/>
+                            <path d="M32,25 C32,12 68,12 68,25" fill="#e5a93b" stroke="#e5a93b" stroke-width="4"/>
+                            <rect x="46" y="45" width="8" height="10" fill="#ffdbac"/>
+                            <path d="M35,55 L65,55 L75,125 L25,125 Z" fill="#e91e63"/>
+                            <path d="M32,55 L20,90 C18,95 23,98 25,93 L32,65" fill="#ffdbac"/>
+                            <path d="M68,55 L80,90 C82,95 77,98 75,93 L68,65" fill="#ffdbac"/>
+                            <rect x="36" y="125" width="11" height="65" fill="#ffdbac"/>
+                            <rect x="53" y="125" width="11" height="65" fill="#ffdbac"/>
+                            <ellipse cx="38" cy="190" rx="10" ry="6" fill="#c2185b"/>
+                            <ellipse cx="58" cy="190" rx="10" ry="6" fill="#c2185b"/>
+                        </svg>
+                    </div>
+                    <div class="drop-zone" data-target="femeni">Arrossega un òrgan de la nena aquí</div>
+                    <div class="drop-zone" data-target="femeni">Arrossega un òrgan de la nena aquí</div>
+                </div>
+            </div>
+
+            <div class="pestanyes-container" id="pestanyes-box">
+                <div class="pestanya" draggable="true" id="p1" data-type="masculi">
+                    <svg viewBox="0 0 100 100" class="pestanya-image" fill="none" stroke="#2196f3" stroke-width="4">
+                        <path d="M50,15 C25,15 25,75 50,85 C75,75 75,15 50,15 Z" fill="#e3f2fd" stroke-dasharray="2,2"/>
+                        <ellipse cx="38" cy="50" rx="12" ry="18" fill="#90caf9"/>
+                        <ellipse cx="62" cy="50" rx="12" ry="18" fill="#90caf9"/>
+                    </svg>
+                    <span class="pestanya-label">Testicle</span>
+                </div>
+
+                <div class="pestanya" draggable="true" id="p2" data-type="masculi">
+                    <svg viewBox="0 0 100 100" class="pestanya-image" fill="none" stroke="#2196f3" stroke-width="4">
+                        <path d="M40,85 L40,30 C40,20 60,20 60,30 L60,85" fill="#e3f2fd"/>
+                        <line x1="50" y1="28" x2="50" y2="85" stroke="#0d47a1" stroke-width="2" stroke-dasharray="4,4"/>
+                    </svg>
+                    <span class="pestanya-label">Penis</span>
+                </div>
+
+                <div class="pestanya" draggable="true" id="p3" data-type="femeni">
+                    <svg viewBox="0 0 100 100" class="pestanya-image" fill="none" stroke="#e91e63" stroke-width="4">
+                        <path d="M15,35 C30,35 35,55 50,55 C65,55 70,35 85,35" stroke-width="3"/>
+                        <circle cx="15" cy="35" r="10" fill="#f48fb1"/>
+                        <circle cx="85" cy="35" r="10" fill="#f48fb1"/>
+                        <path d="M40,55 L40,80 L60,80 L60,55 Z" fill="#fce4ec"/>
+                    </svg>
+                    <span class="pestanya-label">Ovari</span>
+                </div>
+
+                <div class="pestanya" draggable="true" id="p4" data-type="femeni">
+                    <svg viewBox="0 0 100 100" class="pestanya-image" fill="none" stroke="#e91e63" stroke-width="4">
+                        <path d="M50,15 C40,15 35,35 35,50 C35,70 45,90 50,90 C55,90 65,70 65,50 C65,35 60,15 50,15 Z" fill="#fce4ec"/>
+                        <path d="M42,50 L58,50 M44,65 L56,65" stroke="#c2185b" stroke-width="2"/>
+                    </svg>
+                    <span class="pestanya-label">Vagina</span>
+                </div>
+            </div>
+
+            <div id="feedback"></div>
+            <img id="reward-poster" src="cartell_tresor.png" alt="El teu cos és el teu tresor">
+            <button id="reset-btn" onclick="reiniciarJoc()">Tornar a jugar</button>
+        </section>
+
+    </main>
+
+    <!-- PEU DE PÀGINA IDÈNTICA A INDEX.HTML -->
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+    <!-- LÒGICA DEL JOC -->
+    <script>
+        const pestanyes = document.querySelectorAll('.pestanya');
+        const zones = document.querySelectorAll('.drop-zone');
+        const feedback = document.getElementById('feedback');
+        const resetBtn = document.getElementById('reset-btn');
+        const poster = document.getElementById('reward-poster');
+        let encerts = 0;
+
+        // Barrejar les pestanyes a l'inici
+        const box = document.getElementById('pestanyes-box');
+        for (let i = box.children.length; i >= 0; i--) {
+            box.appendChild(box.children[Math.random() * i | 0]);
+        }
+
+        // --- ESDEVENIMENTS PER A ORDINADOR ---
+        pestanyes.forEach(p => {
+            p.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', e.target.id);
+            });
+        });
+
+        zones.forEach(zona => {
+            zona.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                if(!zona.firstChild || zona.firstChild.nodeType === Node.TEXT_NODE) {
+                    zona.classList.add('hover');
+                }
+            });
+
+            zona.addEventListener('dragleave', () => {
+                zona.classList.remove('hover');
+            });
+
+            zona.addEventListener('drop', (e) => {
+                e.preventDefault();
+                zona.classList.remove('hover');
+                const id = e.dataTransfer.getData('text/plain');
+                const elementArrossegat = document.getElementById(id);
+                processarEncert(elementArrossegat, zona);
+            });
+        });
+
+        // --- ADAPTACIÓ PER A PANTALLES TÀCTILS ---
+        pestanyes.forEach(p => {
+            p.addEventListener('touchstart', (e) => {
+                p.style.transform = "scale(1.1)";
+            }, {passive: true});
+
+            p.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                const touchLocation = e.targetTouches[0];
+                p.style.position = 'fixed';
+                p.style.left = touchLocation.clientX - (p.offsetWidth / 2) + 'px';
+                p.style.top = touchLocation.clientY - (p.offsetHeight / 2) + 'px';
+                p.style.zIndex = '1000';
+            }, {passive: false});
+
+            p.addEventListener('touchend', (e) => {
+                p.style.transform = "none";
+                p.style.position = 'static';
+                p.style.zIndex = 'auto';
+
+                const canvi = e.changedTouches[0];
+                const elemSota = document.elementFromPoint(canvi.clientX, canvi.clientY);
+                
+                if (elemSota) {
+                    const zona = elemSota.closest('.drop-zone');
+                    if (zona) {
+                        processarEncert(p, zona);
+                        return;
+                    }
+                }
+                document.getElementById('pestanyes-box').appendChild(p);
+            });
+        });
+
+        // --- LÒGICA PRINCIPAL DEL JOC ---
+        function processarEncert(element, zonaDesti) {
+            if (zonaDesti.children.length > 0) return;
+
+            const tipusElement = element.getAttribute('data-type');
+            const targetZona = zonaDesti.getAttribute('data-target');
+
+            if (tipusElement === targetZona) {
+                zonaDesti.innerHTML = ''; 
+                zonaDesti.appendChild(element);
+                element.setAttribute('draggable', 'false');
+                
+                if (tipusElement === 'masculi') element.classList.add('correct-male');
+                if (tipusElement === 'femeni') element.classList.add('correct-female');
+
+                encerts++;
+                comprovarFinal();
+            } else {
+                feedback.style.color = 'red';
+                feedback.innerText = "Torna-ho a provar! Aquest òrgan no va aquí.";
+                setTimeout(() => { if(encerts < 4) feedback.innerText = ""; }, 2000);
+            }
+        }
+
+        function comprovarFinal() {
+            if (encerts === 4) {
+                feedback.style.color = '#2e7d32';
+                feedback.innerText = "🌟 Molt bé! Has classificat tots els òrgans correctament! 🌟";
+                poster.style.display = 'block';
+                resetBtn.style.display = 'block';
+                poster.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function reiniciarJoc() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>

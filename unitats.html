@@ -80,8 +80,8 @@
                                 <div class="sub-desplegable finestres-container">
                                     <a href="flipped.html" class="finestra-link">Flipped Classroom</a>
                                     <a href="nutricio.html" class="finestra-link">La nutrició</a>
-                                    <!-- MODIFICAT: Enllaç que redirigeix a la pàgina nova amb la fitxa de la relació -->
                                     <a href="relacio.html" class="finestra-link">La relació</a>
+                                    <a id="pestanya-reproduccio" href="joc.html" target="_blank" class="finestra-link">La reproducció</a>
                                 </div>
                             </li>
                             <li>Els aliments.</li>
@@ -109,6 +109,7 @@
                 </li>
             </ul>
         </section>
+
     </main>
 
     <footer class="main-footer">
@@ -120,12 +121,11 @@
         const trigger = document.querySelector('.dropdown-trigger');
         if (trigger) {
             trigger.addEventListener('click', function() {
-                // Alterna la classe 'open' al pare (el <li>) per obrir/tancar
                 this.parentElement.classList.toggle('open');
             });
         }
 
-        // Acció modificada: Redirecciona directament a la pestanya Àrees de l'index
+        // Acció: Redirecciona directament a la pestanya Àrees de l'index
         document.getElementById('btn-page-back').addEventListener('click', function(e) {
             e.preventDefault();
             window.location.href = "index.html#arees";
