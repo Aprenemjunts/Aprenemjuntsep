@@ -297,3 +297,40 @@ body {
         gap: 10px;
     }
 }
+/* Contenidor per organitzar la imatge i el text en línia */
+.bio-container {
+    display: flex;
+    flex-direction: row; /* Posa la imatge a l'esquerra i el text a la dreta */
+    gap: 25px;          /* Espai de separació entre la imatge i el text */
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+/* Control de la mida i l'aspecte de la fotografia */
+.bio-image {
+    width: 220px;       /* Ajusta la mida segons el teu gust */
+    height: auto;       /* Manté la proporció de la imatge */
+    border-radius: 8px; /* Opcional: Arrodoneix una mica les cantonades */
+    object-fit: cover;
+}
+
+/* Configuració del bloc de text del mestre */
+.bio-text p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    text-align: justify; /* Fa que el text quedi ben alineat pels dos costats */
+}
+
+/* Disseny adaptatiu: si la pantalla és petita (com un mòbil), la imatge es posarà a dalt centrada */
+@media (max-width: 768px) {
+    .bio-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .bio-image {
+        width: 180px; /* Una mica més petita en pantalles petites */
+        margin-bottom: 15px;
+    }
+}

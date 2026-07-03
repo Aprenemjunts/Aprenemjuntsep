@@ -5,6 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flipped Classroom - Les Funcions Vitals</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estils per a les pestanyes */
+        .tabs-container {
+            margin-bottom: 20px;
+        }
+        .tabs {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border-bottom: 2px solid #ccc;
+        }
+        .tab-item {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            margin-right: 5px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            font-weight: bold;
+            color: #555;
+            transition: background-color 0.3s;
+        }
+        .tab-item:hover {
+            background-color: #ddd;
+        }
+        .tab-item.active {
+            background-color: #ffffff;
+            border-bottom: 2px solid #ffffff;
+            margin-bottom: -2px;
+            color: #1d563e; /* Color verd coherent amb el teu disseny */
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-top: none;
+            background-color: #ffffff;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .pdf-link {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #1d563e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .pdf-link:hover {
+            background-color: #143d2c;
+        }
+    </style>
 </head>
 <body>
 
@@ -37,6 +97,25 @@
                 Et recomano que primer miris el vídeo sencer i després responguis tot el que sàpigues. Després, el podràs tornar a veure tantes vegades com necessitis.
             </p>
 
+<!-- Sistema de Pestanyes a sobre del vídeo -->
+<div class="tabs-container">
+    <ul class="tabs">
+        <li class="tab-item active" onclick="openTab(event, 'preguntes')">Preguntes a respondre</li>
+        <li class="tab-item" onclick="openTab(event, 'respostes')">Respostes per corregir</li>
+    </ul>
+
+    <div id="preguntes" class="tab-content active">
+        <p>Fes clic al següent botó per obrir el document de preguntes:</p>
+        <a href="Preguntes%20flipped%20classroom.pdf" target="_blank" class="pdf-link">Obrir Preguntes Flipped Classroom</a>
+    </div>
+
+    <div id="respostes" class="tab-content">
+        <p>Fes clic al següent botó per anar a la pantalla de correcció:</p>
+        <a href="Correcci%C3%B3%20Flipped%20Classroom.pdf" target="_blank" class="pdf-link">Obrir Correcció Flipped Classroom</a>
+    </div>
+</div>
+
+            <!-- Contenidor del Vídeo -->
             <div class="video-container">
                 <iframe 
                     src="https://www.youtube.com/embed/UdoTZWXWGbE" 
@@ -52,6 +131,29 @@
     <footer class="main-footer">
         <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
     </footer>
+
+    <!-- Script per fer funcionar les pestanyes -->
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            // Amaga tots els continguts de les pestanyes
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            // Treu la classe "active" de totes les pestanyes (botons)
+            tablinks = document.getElementsByClassName("tab-item");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            // Mostra la pestanya actual i afegeix una classe "active" al botó que l'ha activat
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
 
 </body>
 </html>
