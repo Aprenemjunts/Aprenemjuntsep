@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joc de la Piràmide Alimentària (3 Nivells)</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --primary-color: #2c3e50;
+            --level-3: #ff6b6b; /* Ocasional - Vermell */
+            --level-2: #feca57; /* Setmanal - Groc/Taronja */
+            --level-1: #1dd1a1; /* Diari - Verd */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            margin: 0;
+            padding: 0; /* Canviat a 0 perquè la capçalera ocupi tot l'ample, com a l'índex */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Contenidor per al contingut del joc */
+        .game-wrapper {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        p.instruccions {
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: #7f8c8d;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+            max-width: 1100px;
+            width: 100%;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* Contenidor d'aliments */
+        .foods-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            width: 300px;
+            max-height: 550px;
+            overflow-y: auto;
+        }
+
+        .foods-container h3 {
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            background: white;
+        }
+
+        .foods-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .food-item {
+            background-color: #f8f9fa;
+            border: 2px solid #e2e8f0;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: grab;
+            user-select: none;
+            font-weight: 600;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .food-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .food-item.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        /* Estructura de la Piràmide de 3 Pisos */
+        .pyramid-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 550px;
+            align-items: center;
+        }
+
+        .pyramid-level {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+            transition: transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+
+        .pyramid-level.drag-over {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+        }
+
+        .level-title {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            pointer-events: none;
+        }
+
+        .drop-zone {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            min-height: 60px;
+            width: 100%;
+            border: 2px dashed rgba(255,255,255,0.4);
+            border-radius: 6px;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        /* Amples visuals per a la piràmide de 3 pisos */
+        #level-3 { width: 60%; background-color: var(--level-3); }
+        #level-2 { width: 80%; background-color: var(--level-2); }
+        #level-1 { width: 100%; background-color: var(--level-1); }
+
+        /* Aliments dins la piràmide */
+        .pyramid-level .food-item {
+            color: var(--primary-color);
+            text-shadow: none;
+            background: white;
+            padding: 5px 10px;
+            font-size: 0.9em;
+            border: none;
+        }
+
+        /* Controls */
+        .controls {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-check {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .btn-check:hover { background-color: #27ae60; }
+
+        .btn-reset {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        .btn-reset:hover { background-color: #7f8c8d; }
+
+        .feedback {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            min-height: 30px;
+            text-align: center;
+        }
+        .correct { color: #2ecc71; }
+        .incorrect { color: #e74c3c; }
+
+        @media (max-width: 850px) {
+            .game-container {
+                flex-direction: column-reverse;
+                align-items: center;
+            }
+            .pyramid-container {
+                width: 100%;
+                max-width: 450px;
+            }
+            #level-3, #level-2, #level-1 {
+                width: 100%;
+            }
+            .foods-container {
+                width: 100%;
+                max-width: 450px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html#inici" class="nav-link">Inici</a></li>
+            <li><a href="index.html#arees" class="nav-link">Àrees</a></li>
+            <li><a href="#" class="nav-link">Medi</a></li>
+            <li><a href="#" class="nav-link" style="background-color: #feca57; color: #2c3e50; font-weight: bold;">Piràmide</a></li>
+            <li id="back-tab-container" style="display: block;"><a href="unitats.html" id="btn-back" class="nav-link" style="background-color: rgba(255,255,255,0.15);">⬅ Pàgina anterior</a></li>
+        </ul>
+    </nav>
+
+    <main class="game-wrapper">
+
+        <h1>Joc de la Piràmide Alimentària</h1>
+        <p class="instruccions">Classifica els aliments segons la seva freqüència ideal: <b>Consum Diari</b>, <b>Consum Setmanal</b> o <b>Consum Ocasional</b>. Quan acabis, prem "Comprovar".</p>
+
+        <div class="game-container">
+            
+            <div class="foods-container">
+                <h3>Aliments per classificar</h3>
+                <div class="foods-grid" id="foods-pool"></div>
+            </div>
+
+            <div class="pyramid-container">
+                
+                <div class="pyramid-level" id="level-3" data-level="3">
+                    <div class="level-title">🔴 Consum Ocasional</div>
+                    <div class="drop-zone"></div>
+                </div>
+
+                <div class="pyramid-level" id="level-2" data-level="2">
+                    <div class="level-title">🟡 Consum Setmanal</div>
+                    <div class="drop-zone"></div>
+                </div>
+
+                <div class="pyramid-level" id="level-1" data-level="1">
+                    <div class="level-title">🟢 Consum Diari</div>
+                    <div class="drop-zone"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="controls">
+            <button class="btn-check" onclick="comprovarResultats()">Comprovar</button>
+            <button class="btn-reset" onclick="reiniciarJoc()">Reiniciar</button>
+        </div>
+
+        <div class="feedback" id="feedback-msg"></div>
+
+    </main>
+
+    <footer class="main-footer" style="width: 100%; text-align: center;">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+    <script>
+        // Aliments classificats: 1 = Diari, 2 = Setmanal, 3 = Ocasional
+        const aliments = [
+            // Nivell 1: Diari
+            { id: "1", nom: "💧 Aigua", nivell: [1] },
+            { id: "2", nom: "🥦 Espinacs", nivell: [1] },
+            { id: "3", nom: "🍎 Poma", nivell: [1] },
+            { id: "4", nom: "🌾 Arròs Integral", nivell: [1] },
+            { id: "5", nom: "🍞 Pa Integral", nivell: [1] },
+            { id: "6", nom: "🥕 Pastanaga", nivell: [1] },
+            { id: "7", nom: "🫒 Oli d'Oliva", nivell: [1] },
+            { id: "8", nom: "🥔 Patata", nivell: [1] },
+            { id: "15", nom: "🥜 Fruits Secs", nivell: [1] }, 
+
+            // Nivell 2: Setmanal
+            { id: "9", nom: "🍗 Pollastre", nivell: [2] },
+            { id: "10", nom: "🐟 Peix", nivell: [2] },
+            { id: "11", nom: "🥚 Ous", nivell: [2] },
+            { id: "12", nom: "🫘 Llenties", nivell: [1, 2] }, 
+            { id: "13", nom: "🧀 Formatge", nivell: [2] },
+            { id: "14", nom: "🥛 Iogurt", nivell: [2] },
+
+            // Nivell 3: Ocasional
+            { id: "16", nom: "🍰 Pastís", nivell: [3] },
+            { id: "17", nom: "🥤 Refresc", nivell: [3] },
+            { id: "18", nom: "🍩 Donut", nivell: [3] },
+            { id: "19", nom: "🍫 Xocolata", nivell: [3] },
+            { id: "20", nom: "🍟 Patates Fregides", nivell: [3] },
+            { id: "21", nom: "🍦 Gelat", nivell: [3] },
+            { id: "22", nom: "🌭 Salsitxa", nivell: [3] }
+        ];
+
+        const pool = document.getElementById('foods-pool');
+        const feedback = document.getElementById('feedback-msg');
+        let elementArrossegat = null;
+
+        function inicialitzarJoc() {
+            pool.innerHTML = '';
+            feedback.innerHTML = '';
+            feedback.className = 'feedback';
+            
+            document.querySelectorAll('.drop-zone').forEach(zone => zone.innerHTML = '');
+
+            const alimentsBarrejats = [...aliments].sort(() => Math.random() - 0.5);
+
+            alimentsBarrejats.forEach(aliment => {
+                const div = document.createElement('div');
+                div.className = 'food-item';
+                div.draggable = true;
+                div.id = `food-${aliment.id}`;
+                div.innerText = aliment.nom;
+                div.setAttribute('data-target-levels', aliment.nivell.join(','));
+                
+                div.addEventListener('dragstart', dragStart);
+                div.addEventListener('dragend', dragEnd);
+
+                pool.appendChild(div);
+            });
+        }
+
+        function dragStart(e) {
+            elementArrossegat = this;
+            this.classList.add('dragging');
+        }
+
+        function dragEnd() {
+            this.classList.remove('dragging');
+            elementArrossegat = null;
+        }
+
+        document.querySelectorAll('.pyramid-level').forEach(level => {
+            level.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('drag-over');
+            });
+
+            level.addEventListener('dragleave', function() {
+                this.classList.remove('drag-over');
+            });
+
+            level.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('drag-over');
+                const dropZone = this.querySelector('.drop-zone');
+                if (elementArrossegat) {
+                    dropZone.appendChild(elementArrossegat);
+                }
+            });
+        });
+
+        pool.addEventListener('dragover', (e) => e.preventDefault());
+        pool.addEventListener('drop', () => {
+            if (elementArrossegat) pool.appendChild(elementArrossegat);
+        });
+
+        function comprovarResultats() {
+            let encerts = 0;
+            let totalAliments = aliments.length;
+            let hiHaErrors = false;
+
+            document.querySelectorAll('.pyramid-level').forEach(level => {
+                const nivellActual = parseInt(level.getAttribute('data-level'));
+                const alimentsEnNivell = level.querySelectorAll('.food-item');
+
+                alimentsEnNivell.forEach(item => {
+                    const nivellsCorrectes = item.getAttribute('data-target-levels').split(',').map(Number);
+                    
+                    if (nivellsCorrectes.includes(nivellActual)) {
+                        encerts++;
+                        item.style.border = "2px solid #2ecc71";
+                    } else {
+                        hiHaErrors = true;
+                        item.style.border = "2px solid #e74c3c";
+                        
+                        setTimeout(() => {
+                            pool.appendChild(item);
+                            item.style.border = "none";
+                        }, 1500);
+                    }
+                });
+            });
+
+            const restants = pool.querySelectorAll('.food-item').length;
+
+            if (restants > 0) {
+                feedback.innerText = "Encara queden aliments a la llista per col·locar!";
+                feedback.className = "feedback incorrect";
+            } else if (hiHaErrors) {
+                feedback.innerText = "Hi ha errors! Els aliments incorrectes han tornat a la llista de l'esquerra.";
+                feedback.className = "feedback incorrect";
+            } else {
+                feedback.innerText = "Molt bé! Has classificat correctament tots els aliments! 🍏🐟🍫";
+                feedback.className = "feedback correct";
+            }
+        }
+
+        function reiniciarJoc() {
+            inicialitzarJoc();
+        }
+
+        window.onload = inicialitzarJoc;
+    </script>
+</body>
+</html>

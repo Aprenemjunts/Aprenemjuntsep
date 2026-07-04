@@ -55,16 +55,15 @@
         </div>
     </header>
 
-    <nav class="main-nav">
+<nav class="main-nav">
         <ul>
             <li><a href="index.html" class="nav-link">Inici</a></li>
             <li><a href="index.html#arees" class="nav-link">Àrees</a></li>
+            <li><a href="#" class="nav-link" style="background-color: #ffd700; color: #000000; font-weight: bold;">Medi</a></li>
             <li><a id="btn-page-back" class="nav-link" style="background-color: rgba(255,255,255,0.15); cursor: pointer;">⬅ Pàgina anterior</a></li>
         </ul>
     </nav>
-
-    <main class="content-container">
-        
+        <main class="content-container">        
         <section class="units-section">
             <h2 style="text-align: left; margin-bottom: 25px; color: #1d563e;">Unitats Didàctiques: Coneixement del Medi</h2>
             
@@ -84,7 +83,14 @@
                                     <a id="pestanya-reproduccio" href="joc.html" target="_blank" class="finestra-link">La reproducció</a>
                                 </div>
                             </li>
-                            <li>Els aliments.</li>
+                            <li class="has-dropdown">
+                                <span class="dropdown-trigger" style="cursor: pointer;">Els aliments. <small>▼</small></span>
+                                <div class="sub-desplegable finestres-container">
+                                    <a href="aliments.html" target="_blank" class="finestra-link">La piràmide dels aliments</a>
+                                    <!-- Nova pestanya afegida correctament a sota -->
+                                    <a href="petits_canvis.html" class="finestra-link">Petits canvis per menjar millor</a>
+                                </div>
+                            </li>
                             <li>Les emocions.</li>
                             <li>Les parts del nostre cos.</li>
                             <li>Els òrgans.</li>
@@ -117,13 +123,13 @@
     </footer>
 
     <script>
-        // Control de l'obertura del desplegable intern (Les funcions vitals)
-        const trigger = document.querySelector('.dropdown-trigger');
-        if (trigger) {
+        // Control de l'obertura dels desplegables interns (Funcions vitals i Aliments)
+        const triggers = document.querySelectorAll('.dropdown-trigger');
+        triggers.forEach(trigger => {
             trigger.addEventListener('click', function() {
                 this.parentElement.classList.toggle('open');
             });
-        }
+        });
 
         // Acció: Redirecciona directament a la pestanya Àrees de l'index
         document.getElementById('btn-page-back').addEventListener('click', function(e) {
