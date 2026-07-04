@@ -12,6 +12,7 @@
             border-radius: 8px;
             border: 2px solid #1d563e;
             margin-top: 20px;
+            margin-bottom: 30px;
         }
         .btn-video {
             display: inline-block;
@@ -25,6 +26,128 @@
         }
         .btn-video:hover {
             background-color: #2a7a58;
+        }
+
+        /* --- ESTILS DEL JOC DE LA CURSA DE CAVALLS --- */
+        .game-container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #1d563e;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-top: 30px;
+        }
+        .game-title {
+            text-align: left; 
+            margin-bottom: 20px; 
+            color: #1d563e;
+            margin-top: 0;
+        }
+        .track-container {
+            margin: 20px 0;
+            background: #e0e0e0;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .track {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            background: #f5f5f5;
+            padding: 5px;
+            border-radius: 25px;
+            position: relative;
+            height: 40px;
+        }
+        .lane-label {
+            width: 80px;
+            font-weight: bold;
+            font-size: 0.9em;
+            color: #1d563e;
+        }
+        .slots {
+            display: flex;
+            flex-grow: 1;
+            justify-content: space-between;
+            position: relative;
+            padding-right: 40px;
+        }
+        .slot {
+            width: 8%;
+            height: 30px;
+            border-left: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            color: #999;
+        }
+        .goal {
+            position: absolute;
+            right: 5px;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+        .horse {
+            font-size: 1.8em;
+            position: absolute;
+            transition: left 0.5s ease;
+            top: -2px;
+        }
+        .game-zone {
+            text-align: center;
+            margin-top: 20px;
+            padding: 25px;
+            border: 2px solid #1d563e;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            min-height: 220px;
+        }
+        .turn-indicator {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        button.option-btn {
+            padding: 14px 28px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            color: #1d563e;
+            background-color: #ffffff;
+            border: 2px solid #1d563e;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        button.option-btn:hover {
+            background-color: #f5f9f7;
+            transform: translateY(-2px);
+        }
+        button.restart-btn {
+            padding: 12px 25px;
+            font-weight: bold;
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .feedback {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            height: 20px;
         }
     </style>
 </head>
@@ -55,14 +178,159 @@
             
             <div class="info-box">
                 <h3>Vols veure el vídeo sobre alimentació?</h3>
-                <p>Si el vídeo no es carrega correctament, fes clic al botó següent per obrir-lo directament a YouTube:</p>
-                
                 <a href="https://www.youtube.com/watch?v=n5X87i9eTNw" target="_blank" class="btn-video">
                     ▶ Veure vídeo a YouTube
                 </a>
             </div>
+
+            <div class="game-container">
+                <h3 class="game-title">🏆 Joc de la Cursa de Cavalls</h3>
+                <p>Demostra el que has après amb el vídeo! Jugueu per torns, responeu les preguntes i sigueu els primers a creuar la meta.</p>
+
+                <div class="track-container">
+                    <div class="track">
+                        <div class="lane-label">Cavall 1 🐴</div>
+                        <div class="slots">
+                            <div class="slot">1</div><div class="slot">2</div><div class="slot">3</div><div class="slot">4</div><div class="slot">5</div>
+                            <div class="slot">6</div><div class="slot">7</div><div class="slot">8</div><div class="slot">9</div><div class="slot">10</div>
+                            <div class="horse" id="horse1" style="left: 0%;">🐴</div>
+                        </div>
+                        <div class="goal">🏁</div>
+                    </div>
+                    <div class="track">
+                        <div class="lane-label">Cavall 2 🦄</div>
+                        <div class="slots">
+                            <div class="slot">1</div><div class="slot">2</div><div class="slot">3</div><div class="slot">4</div><div class="slot">5</div>
+                            <div class="slot">6</div><div class="slot">7</div><div class="slot">8</div><div class="slot">9</div><div class="slot">10</div>
+                            <div class="horse" id="horse2" style="left: 0%;">🦄</div>
+                        </div>
+                        <div class="goal">🏁</div>
+                    </div>
+                </div>
+
+                <div class="game-zone" id="gameZone">
+                    <div class="turn-indicator" id="turnIndicator">Preparant el sac de preguntes...</div>
+                    <h4 id="questionText" style="color: #1d563e; font-size: 1.2em; margin: 10px 0;">Pregunta</h4>
+                    <div class="btn-container">
+                        <button class="option-btn" onclick="checkAnswer('A')" id="btnA">Opció A</button>
+                        <button class="option-btn" onclick="checkAnswer('B')" id="btnB">Opció B</button>
+                    </div>
+                    <div class="feedback" id="feedbackText"></div>
+                </div>
+            </div>
         </section>
     </main>
 
+    <footer class="main-footer" style="text-align: center; margin-top: 40px; padding: 20px; color: #666; font-size: 0.9em;">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+    <script>
+        const poolDePreguntes = [
+            { q: "Què recomana augmentar el vídeo per a una alimentació saludable?", a: "Fruita i hortalisses", b: "brioixeria industrial", correct: "A" },
+            { q: "Quina font de proteïna vegetal es menciona que hem de menjar MÉS?", a: "Llegum", b: "Formatge curat", correct: "A" },
+            { q: "Quin snack saludable es demana potenciar?", a: "Fruita seca", b: "Patates xips", correct: "A" },
+            { q: "A part del menjar, quin hàbit saludable surt destacat?", a: "Vida activa i social", b: "Mirar la televisió al sofà", correct: "A" },
+            { q: "A quina beguda hem de canviar segons les recomanacions?", a: "A l'aigua", b: "Als sucs amb gas", correct: "A" },
+            { q: "Com han de ser preferiblement el pa, l'arròs o la pasta?", a: "Aliments integrals", b: "Aliments refinats blancs", correct: "A" },
+            { q: "Quin és l'oli recomanat com a base de la nostra cuina?", a: "Oli d'oliva verge", b: "Oli de palma", correct: "A" },
+            { q: "De quin tipus han de ser els aliments frescos que comprem?", a: "De temporada i proximitat", b: "Precuinats i congelats", correct: "A" },
+            { q: "Quins condiments/additius hem de posar MENYS al menjar?", a: "Sal i Sucre", b: "Espècies i herbes", correct: "A" },
+            { q: "Quina carn s'aconsella reduir el seu consum?", a: "Carn vermella i processada", b: "Carn de pollastre", correct: "A" },
+            { q: "Quins productes industrials hem d'evitar comprar?", a: "Aliments ultraprocessats", b: "Verdures congelades", correct: "A" },
+            { q: "L'eslògan del Canal Salut de la Generalitat és...", a: "Petits canvis per menjar millor", b: "Menjar poc i córrer molt", correct: "A" },
+            { q: "Quin d'aquests telèfons surt al final com a suport mèdic?", a: "061 Salut Respon", b: "092 Policia", correct: "A" },
+            { q: "Per a què és important millorar la teva alimentació?", a: "Per gaudir d'una bona salut", b: "Només per perdre pes ràpid", correct: "A" },
+            { q: "Triar opcions saludables a la teva vida és...", a: "Possible amb petits canvis", b: "Impossible avui en dia", correct: "A" }
+        ];
+
+        let preguntesDisponibles = [];
+        let preguntesDescartades = [];
+        let preguntaActual = null;
+        let pos1 = 0;
+        let pos2 = 0;
+        let activePlayer = 1;
+        let botoBloquejat = false;
+
+        function inicialitzarSac() {
+            preguntesDisponibles = [...poolDePreguntes];
+            preguntesDescartades = [];
+            preguntesDisponibles.sort(() => Math.random() - 0.5);
+        }
+
+        function updateBoard() {
+            document.getElementById('horse1').style.left = (pos1 * 9.2) + '%';
+            document.getElementById('horse2').style.left = (pos2 * 9.2) + '%';
+
+            if (pos1 >= 10) { endGame("El Cavall 1 🐴 ha guanyat la cursa!"); return; }
+            if (pos2 >= 10) { endGame("El Cavall 2 🦄 ha guanyat la cursa!"); return; }
+
+            const currentTram = activePlayer === 1 ? pos1 : pos2;
+
+            if (preguntesDisponibles.length === 0) {
+                preguntesDisponibles = [...preguntesDescartades];
+                preguntesDescartades = [];
+                preguntesDisponibles.sort(() => Math.random() - 0.5);
+            }
+
+            preguntaActual = preguntesDisponibles.pop();
+            preguntesDescartades.push(preguntaActual);
+
+            document.getElementById('turnIndicator').innerText = `Torn del Cavall ${activePlayer} ${activePlayer === 1 ? '🐴' : '🦄'} (Tram ${currentTram + 1})`;
+            document.getElementById('turnIndicator').style.backgroundColor = activePlayer === 1 ? '#bbdefb' : '#e1bee7';
+            
+            document.getElementById('questionText').innerText = preguntaActual.q;
+            
+            if (Math.random() > 0.5) {
+                document.getElementById('btnA').innerText = "A) " + preguntaActual.a;
+                document.getElementById('btnB').innerText = "B) " + preguntaActual.b;
+                document.getElementById('btnA').setAttribute('data-correct', 'true');
+                document.getElementById('btnB').setAttribute('data-correct', 'false');
+            } else {
+                document.getElementById('btnA').innerText = "A) " + preguntaActual.b;
+                document.getElementById('btnB').innerText = "B) " + preguntaActual.a;
+                document.getElementById('btnA').setAttribute('data-correct', 'false');
+                document.getElementById('btnB').setAttribute('data-correct', 'true');
+            }
+            botoBloquejat = false;
+        }
+
+        function checkAnswer(opcioTriada) {
+            if (botoBloquejat) return;
+            botoBloquejat = true;
+
+            const boto = opcioTriada === 'A' ? document.getElementById('btnA') : document.getElementById('btnB');
+            const esCorrecte = boto.getAttribute('data-correct') === 'true';
+            const feedback = document.getElementById('feedbackText');
+
+            if (esCorrecte) {
+                feedback.innerText = "💥 Correcte! Avances al següent tram.";
+                feedback.style.color = "green";
+                if (activePlayer === 1) pos1++; else pos2++;
+            } else {
+                feedback.innerText = "❌ Incorrecte! Et quedes a la mateixa casella.";
+                feedback.style.color = "red";
+            }
+
+            activePlayer = activePlayer === 1 ? 2 : 1;
+            
+            setTimeout(() => {
+                feedback.innerText = "";
+                updateBoard();
+            }, 1600);
+        }
+
+        function endGame(message) {
+            document.getElementById('gameZone').innerHTML = `
+                <h3 style="color: #1d563e;">🏁 FI DE LA CURSA 🏁</h3>
+                <p style="font-size:1.3em; font-weight:bold; color:#1d563e;">${message}</p>
+                <button class="restart-btn" onclick="window.location.reload()">Tornar a jugar (Nova partida)</button>
+            `;
+        }
+
+        inicialitzarSac();
+        updateBoard();
+    </script>
 </body>
 </html>
+     
