@@ -284,17 +284,6 @@
             text-align: center;
         }
 
-        #reward-poster {
-            display: none;
-            margin-top: 20px;
-            max-width: 90%;
-            width: 700px;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-            border: 4px solid var(--primary-green);
-        }
-
         #reset-btn {
             margin-top: 20px;
             padding: 12px 24px;
@@ -436,7 +425,7 @@
             </div>
 
             <div id="feedback"></div>
-            <img id="reward-poster" src="cartell_tresor.png" alt="El teu cos és el teu tresor">
+            <!-- S'HA ELIMINAT EL CARTELL DE RECOMPENSA D'AQUÍ -->
             <button id="reset-btn" onclick="reiniciarJoc()">Tornar a jugar</button>
         </section>
 
@@ -453,7 +442,6 @@
         const zones = document.querySelectorAll('.drop-zone');
         const feedback = document.getElementById('feedback');
         const resetBtn = document.getElementById('reset-btn');
-        const poster = document.getElementById('reward-poster');
         let encerts = 0;
 
         // Barrejar les pestanyes a l'inici
@@ -552,9 +540,8 @@
             if (encerts === 4) {
                 feedback.style.color = '#2e7d32';
                 feedback.innerText = "🌟 Molt bé! Has classificat tots els òrgans correctament! 🌟";
-                poster.style.display = 'block';
                 resetBtn.style.display = 'block';
-                poster.scrollIntoView({ behavior: 'smooth' });
+                // S'HA TREUT LA LOGICA DE MOSTRAR I MOURE LA PANTALLA CAP AL CARTELL
             }
         }
 
