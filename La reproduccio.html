@@ -19,12 +19,85 @@
             background-color: #f7f9fa;
             color: #333;
             margin: 0;
-            padding: 20px;
+            padding: 0 0 20px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
+        /* --- LIMITADORS ESTRUCTURALS PER IGUALAR A LA NUTRICIÓ (ESTIL STYLE.CSS) --- */
+        .main-header, .main-nav {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .header-container, .nav-container {
+            width: 100%;
+            max-width: 1200px; /* Aliniat exactament amb l'estàndard del web */
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* --- CAPÇALERA AMB MIDES CORREGIDES --- */
+        .main-header {
+            background-color: #ffffff;
+            padding: 10px 0;
+            box-shadow: none;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-avatar img {
+            display: block;
+            height: 60px; /* Mida idèntica controlada */
+            width: auto;
+        }
+
+        .header-banner {
+            flex-grow: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .header-banner img {
+            display: block;
+            height: 60px; /* Força que el banner s'aliniï en alçada amb l'avatar */
+            width: auto;
+            max-width: 100%;
+        }
+
+        /* --- MENÚ DE NAVEGACIÓ ENCAPSULAT I CENTRAT --- */
+        .main-nav {
+            background-color: #2e7d32;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .main-nav .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        /* --- ESTILS ORIGINALS DEL JOC --- */
         h1 {
             color: #2e7d32;
             text-align: center;
@@ -185,7 +258,7 @@
         }
 
         #reward-poster {
-            display: none; /* Ocult de l'inici */
+            display: none;
             margin-top: 20px;
             max-width: 90%;
             width: 700px;
@@ -211,6 +284,31 @@
     </style>
 </head>
 <body>
+
+    <!-- CAPÇALERA IDÈNTICA EN MIDES I CENTRAT A LA NUTRICIÓ -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <!-- MENÚ DE NAVEGACIÓ AMB CONTENIDOR LIMITADOR -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <ul>
+                <li><a href="index.html" class="nav-link">Inici</a></li>
+                <li><a href="index.html#arees" class="nav-link">Àrees</a></li>
+                <li><a href="unitats.html" class="nav-link">Medi</a></li>
+                <li><a href="#" class="nav-link" style="background-color: #ffd700; color: #000000; font-weight: bold;">Reproducció</a></li>
+                <li><a href="unitats.html" class="nav-link">⬅ Pàgina anterior</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <h1>JOC INTERACTIU: ELS NOSTRES ÒRGANS</h1>
     <p class="instruccions">Arrossega cada òrgan amb el seu dibuix cap al requadre buit del cos corresponent (Nen o Nena).</p>
@@ -309,7 +407,7 @@
         const zones = document.querySelectorAll('.drop-zone');
         const feedback = document.getElementById('feedback');
         const resetBtn = document.getElementById('reset-btn');
-        const poster = document.getElementById('reward-poster'); // Referència al cartell
+        const poster = document.getElementById('reward-poster');
         let encerts = 0;
 
         // Barrejar les pestanyes a l'inici
@@ -409,11 +507,9 @@
                 feedback.style.color = '#2e7d32';
                 feedback.innerText = "🌟 Molt bé! Has classificat tots els òrgans correctament! 🌟";
                 
-                // MODIFICACIÓ: Mostrem el cartell i el botó en acabar el joc
                 poster.style.display = 'block';
                 resetBtn.style.display = 'block';
                 
-                // Opcional: desplacem la pantalla una mica cap avall per veure el premi
                 poster.scrollIntoView({ behavior: 'smooth' });
             }
         }
