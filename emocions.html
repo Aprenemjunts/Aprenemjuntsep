@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sopa de Lletres: Les Emocions</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg-color: #f0f8ff;
+            --accent-color: #ffb6c1;
+            --correct-color: #a8e6cf;
+            --text-color: #2c3e50;
+        }
+
+        /* Estils base per integrar el joc amb el disseny principal */
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .joc-seccio {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: var(--bg-color);
+            flex: 1;
+        }
+
+        h1.titol-joc {
+            color: #ff6b6b;
+            text-shadow: 2px 2px #feca57;
+            font-size: 2.5rem;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        p.instruccions {
+            font-size: 1.1rem;
+            max-width: 600px;
+            text-align: center;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .joc-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            max-width: 900px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        /* Tauler de la Sopa */
+        .graella-container {
+            background: white;
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            border: 4px solid var(--accent-color);
+        }
+
+        .graella {
+            display: grid;
+            grid-template-columns: repeat(10, 45px);
+            grid-template-rows: repeat(10, 45px);
+            gap: 5px;
+            user-select: none;
+        }
+
+        .cella {
+            background-color: #f7f9fa;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .cella:hover {
+            background-color: #ffeaa7;
+            transform: scale(1.05);
+        }
+
+        .cella.seleccionada {
+            background-color: #fdcb6e;
+            color: white;
+        }
+
+        .cella.trobada {
+            background-color: var(--correct-color);
+            color: #10ac84;
+            border-color: #10ac84;
+        }
+
+        /* Panell del Visor */
+        .visor-emocio {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            border: 4px dashed #95afc0;
+            min-width: 250px;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .emocio-emoji {
+            font-size: 5rem;
+            margin: 0;
+            animation: bounce 2s infinite;
+        }
+
+        .emocio-nom {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .comptador {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            background: #f1f2f6;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: #57606f;
+        }
+
+        /* Pantalla de Victòria */
+        .victoria-screen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 10;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .victoria-contingut {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 5px solid #feca57;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-reiniciar {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .graella {
+                grid-template-columns: repeat(10, 32px);
+                grid-template-rows: repeat(10, 32px);
+                gap: 3px;
+            }
+            .cella { font-size: 1rem; }
+            .joc-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link">Inici</a></li>
+            <li><a href="index.html#arees" class="nav-link">Àrees</a></li>
+            <li><a href="unitats.html" class="nav-link">Medi</a></li>
+            <li><a href="emocions.html" class="nav-link" style="background-color: #ffd700; color: #000000; font-weight: bold;">Sopa de lletres</a></li>
+            <li><a id="btn-page-back" class="nav-link" style="background-color: rgba(255,255,255,0.15); cursor: pointer;">⬅ Pàgina anterior</a></li>
+        </ul>
+    </nav>
+
+    <main class="joc-seccio">
+        <h1 class="titol-joc">SOPA DE LLETRES MISTERIOSA 🤔💭</h1>
+        <p class="instruccions">Hi ha 8 emocions amagades de manera horitzontal i vertical. No hi ha llista de pistes! Fes clic a la primera lletra i a l'última per descobrir-les.</p>
+
+        <div class="joc-container">
+            <div class="graella-container">
+                <div class="graella" id="graella"></div>
+            </div>
+
+            <div class="visor-emocio" id="visor-emocio">
+                <p class="emocio-emoji" id="visor-emoji">❓</p>
+                <div class="emocio-nom" id="visor-nom">Troba una emoció!</div>
+                <div class="comptador" id="comptador">Emocions: 0 / 8</div>
+            </div>
+        </div>
+    </main>
+
+    <div class="victoria-screen" id="victoria-screen">
+        <div class="victoria-contingut">
+            <h1 style="font-size: 3.5rem;">🎉 INCREÏBLE! 🎉</h1>
+            <p style="font-size: 1.5rem;">Has trobat les 8 emocions amagades sense cap pista!</p>
+            <p style="font-size: 5rem; margin: 10px 0;">🕵️‍♂️🌈🏆</p>
+            <button class="btn-reiniciar" onclick="reiniciarJoc()">Torna a jugar</button>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+    <script>
+        const EMOCIONS = {
+            "ALEGRIA": { emoji: "😀☀️", nom: "Alegría" },
+            "TRISTESA": { emoji: "😢💧", nom: "Tristesa" },
+            "RABIA": { emoji: "😡⚡", nom: "Ràbia" },
+            "AMOR": { emoji: "🥰💖", nom: "Amor" },
+            "CALMA": { emoji: "🧘‍♂️🍃", nom: "Calma" },
+            "POR": { emoji: "😨👻", nom: "Por" },
+            "SORPRESA": { emoji: "😮💥", nom: "Sorpresa" },
+            "FASTIC": { emoji: "🤢🤮", nom: "Fàstic" }
+        };
+
+        const MATRIU_SOPA = [
+            ['A', 'L', 'E', 'G', 'R', 'I', 'A', 'X', 'P', 'B'],
+            ['T', 'R', 'I', 'S', 'T', 'E', 'S', 'A', 'O', 'V'],
+            ['K', 'U', 'J', 'H', 'N', 'M', 'L', 'K', 'R', 'W'],
+            ['F', 'A', 'S', 'T', 'I', 'C', 'O', 'Q', 'X', 'Z'],
+            ['R', 'A', 'B', 'I', 'A', 'X', 'P', 'Y', 'V', 'K'],
+            ['B', 'D', 'G', 'J', 'L', 'Z', 'C', 'B', 'N', 'A'],
+            ['S', 'O', 'R', 'P', 'R', 'E', 'S', 'A', 'X', 'M'],
+            ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'O'],
+            ['X', 'C', 'V', 'B', 'N', 'M', 'Z', 'W', 'E', 'R'],
+            ['C', 'A', 'L', 'M', 'A', 'E', 'R', 'T', 'Y', 'U']
+        ];
+
+        let paraulesTrobades = [];
+        let primeraCella = null;
+
+        function iniciarJoc() {
+            const graellaEl = document.getElementById('graella');
+            graellaEl.innerHTML = '';
+            paraulesTrobades = [];
+            primeraCella = null;
+
+            document.getElementById('visor-emoji').innerText = "❓";
+            document.getElementById('visor-nom').innerText = "Troba una emoció!";
+            document.getElementById('comptador').innerText = "Emocions: 0 / 8";
+            document.getElementById('visor-emocio').style.borderColor = "#95afc0";
+            document.getElementById('victoria-screen').style.display = 'none';
+
+            for (let r = 0; r < 10; r++) {
+                for (let c = 0; c < 10; c++) {
+                    const cella = document.createElement('div');
+                    cella.classList.add('cella');
+                    cella.innerText = MATRIU_SOPA[r][c];
+                    cella.dataset.row = r;
+                    cella.dataset.col = c;
+                    cella.addEventListener('click', () => alFerClicCella(cella));
+                    graellaEl.appendChild(cella);
+                }
+            }
+        }
+
+        function alFerClicCella(cella) {
+            if (cella.classList.contains('trobada')) return;
+
+            if (!primeraCella) {
+                primeraCella = cella;
+                cella.classList.add('seleccionada');
+            } else {
+                const r1 = parseInt(primeraCella.dataset.row);
+                const c1 = parseInt(primeraCella.dataset.col);
+                const r2 = parseInt(cella.dataset.row);
+                const c2 = parseInt(cella.dataset.col);
+
+                let paraulaFormada = "";
+                let cellesSeleccionades = [];
+
+                if (r1 === r2 && c1 <= c2) {
+                    for (let c = c1; c <= c2; c++) {
+                        const cell = document.querySelector(`[data-row="${r1}"][data-col="${c}"]`);
+                        paraulaFormada += cell.innerText;
+                        cellesSeleccionades.push(cell);
+                    }
+                }
+                else if (c1 === c2 && r1 <= r2) {
+                    for (let r = r1; r <= r2; r++) {
+                        const cell = document.querySelector(`[data-row="${r}"][data-col="${c1}"]`);
+                        paraulaFormada += cell.innerText;
+                        cellesSeleccionades.push(cell);
+                    }
+                }
+
+                if (EMOCIONS[paraulaFormada] && !paraulesTrobades.includes(paraulaFormada)) {
+                    cellesSeleccionades.forEach(c => {
+                        c.classList.remove('seleccionada');
+                        c.classList.add('trobada');
+                    });
+                    marcarComATrobada(paraulaFormada);
+                } else {
+                    primeraCella.classList.remove('seleccionada');
+                }
+                
+                primeraCella = null;
+            }
+        }
+
+        function marcarComATrobada(paraula) {
+            paraulesTrobades.push(paraula);
+            
+            const visorEmoji = document.getElementById('visor-emoji');
+            const visorNom = document.getElementById('visor-nom');
+            const visorContenidor = document.getElementById('visor-emocio');
+            const comptador = document.getElementById('comptador');
+
+            visorEmoji.innerText = EMOCIONS[paraula].emoji;
+            visorNom.innerText = EMOCIONS[paraula].nom;
+            visorContenidor.style.borderColor = "#2ecc71";
+            comptador.innerText = `Emocions: ${paraulesTrobades.length} / 8`;
+
+            if (paraulesTrobades.length === Object.keys(EMOCIONS).length) {
+                setTimeout(() => {
+                    document.getElementById('victoria-screen').style.display = 'flex';
+                }, 800);
+            }
+        }
+
+        function reiniciarJoc() {
+            iniciarJoc();
+        }
+
+        // Acció de control per al botó de pàgina anterior: redirigeix a unitats.html
+        document.getElementById('btn-page-back').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = "unitats.html";
+        });
+
+        window.onload = iniciarJoc;
+    </script>
+</body>
+</html>

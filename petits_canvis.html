@@ -28,7 +28,7 @@
             background-color: #2a7a58;
         }
 
-        /* --- ESTILS DEL JOC DE LA CURSA DE CAVALLS --- */
+        /* --- ESTILS DEL JOC DE LA CURSA DE CAVALLS--- */
         .game-container {
             background: white;
             padding: 25px;
@@ -167,8 +167,10 @@
     <nav class="main-nav">
         <ul>
             <li><a href="index.html" class="nav-link">Inici</a></li>
+            <li><a href="index.html#arees" class="nav-link">Àrees</a></li>            
             <li><a href="unitats.html" class="nav-link">Medi</a></li>
             <li><a href="petits_canvis.html" class="nav-link" style="background-color: #ffd700; color: #000000; font-weight: bold;">Petits canvis</a></li>
+            <li><a id="btn-page-back" class="nav-link" style="background-color: rgba(255,255,255,0.15); cursor: pointer;">⬅ Pàgina anterior</a></li>
         </ul>
     </nav>
 
@@ -178,13 +180,15 @@
             
             <div class="info-box">
                 <h3>Vols veure el vídeo sobre alimentació?</h3>
-                <a href="https://www.youtube.com/watch?v=n5X87i9eTNw" target="_blank" class="btn-video">
+      <p>En aquesta visualització veuràs bons consells que t'ajudaran a tenir uns hàbits alimentaris més saludables.</p>          
+
+ <a href="https://www.youtube.com/watch?v=n5X87i9eTNw" target="_blank" class="btn-video">
                     ▶ Veure vídeo a YouTube
                 </a>
             </div>
 
             <div class="game-container">
-                <h3 class="game-title">🏆 Joc de la Cursa de Cavalls</h3>
+                <h3 class="game-title">🏆 Joc de la Cursa de Cavalls (2 persones)</h3>
                 <p>Demostra el que has après amb el vídeo! Jugueu per torns, responeu les preguntes i sigueu els primers a creuar la meta.</p>
 
                 <div class="track-container">
@@ -239,7 +243,7 @@
             { q: "Quina carn s'aconsella reduir el seu consum?", a: "Carn vermella i processada", b: "Carn de pollastre", correct: "A" },
             { q: "Quins productes industrials hem d'evitar comprar?", a: "Aliments ultraprocessats", b: "Verdures congelades", correct: "A" },
             { q: "L'eslògan del Canal Salut de la Generalitat és...", a: "Petits canvis per menjar millor", b: "Menjar poc i córrer molt", correct: "A" },
-            { q: "Quin d'aquests telèfons surt al final com a suport mèdic?", a: "061 Salut Respon", b: "092 Policia", correct: "A" },
+            { q: "Quin d'aquests telèfons surt al final com a suport médic?", a: "061 Salut Respon", b: "092 Policia", correct: "A" },
             { q: "Per a què és important millorar la teva alimentació?", a: "Per gaudir d'una bona salut", b: "Només per perdre pes ràpid", correct: "A" },
             { q: "Triar opcions saludables a la teva vida és...", a: "Possible amb petits canvis", b: "Impossible avui en dia", correct: "A" }
         ];
@@ -327,6 +331,12 @@
                 <button class="restart-btn" onclick="window.location.reload()">Tornar a jugar (Nova partida)</button>
             `;
         }
+
+        // Acció de control modificada per al botó "Pàgina anterior": ara porta a "unitats.html"
+        document.getElementById('btn-page-back').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = "unitats.html";
+        });
 
         inicialitzarSac();
         updateBoard();

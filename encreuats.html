@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anatomy Challenge - Mots Encreuats</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --accent: #10b981;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-dim: #94a3b8;
+            --cell-size: 40px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .game-wrapper {
+            display: flex;
+            gap: 40px;
+            max-width: 1100px;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* GRID STYLES */
+        .grid-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(11, var(--cell-size));
+            grid-template-rows: repeat(11, var(--cell-size));
+            gap: 5px;
+        }
+
+        .cell {
+            width: var(--cell-size);
+            height: var(--cell-size);
+            border-radius: 6px;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .cell.empty { background: rgba(255,255,255,0.01); }
+
+        .cell.active {
+            background: #334155;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cell input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cell input:focus {
+            outline: none;
+            background: rgba(99, 102, 241, 0.2);
+            box-shadow: inset 0 0 0 2px var(--primary);
+        }
+
+        .cell-num {
+            position: absolute;
+            top: 2px;
+            left: 4px;
+            font-size: 0.65rem;
+            color: #a5b4fc;
+            font-weight: 800;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* CLUES STYLES */
+        .clues-card {
+            flex: 1;
+            min-width: 320px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .clue-group h2 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+        }
+
+        .clue-list { list-style: none; }
+        .clue-item {
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+        }
+        .clue-item b { color: #818cf8; margin-right: 8px; font-family: 'JetBrains Mono'; }
+
+        /* ACTIONS */
+        .controls {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-check { background: var(--accent); color: white; box-shadow: 0 4px 15px rgba(16,185,129,0.3); }
+        .btn-check:hover { background: #059669; transform: translateY(-2px); }
+
+        .btn-reset { background: transparent; color: var(--text-dim); border: 1px solid var(--text-dim); }
+        .btn-reset:hover { background: rgba(255,255,255,0.05); color: white; }
+
+        /* FEEDBACK */
+        .correct { background: rgba(16, 185, 129, 0.25) !important; box-shadow: inset 0 0 0 2px var(--accent) !important; }
+        .incorrect { background: rgba(239, 68, 68, 0.25) !important; box-shadow: inset 0 0 0 2px #ef4444 !important; }
+
+        @media (max-width: 600px) {
+            :root { --cell-size: 28px; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Mots Encreuats del Cos</h1>
+        <p class="subtitle">Escriu les respostes i clica a "Validar Respostes"</p>
+    </div>
+
+    <div class="game-wrapper">
+        <div class="grid-card">
+            <div id="grid" class="grid"></div>
+        </div>
+
+        <div class="clues-card">
+            <div class="clue-group">
+                <h2>Horitzontals</h2>
+                <ul class="clue-list">
+                    <li class="clue-item"><b>1</b> Part de l'extremitat superior entre el colze i el canell.</li>
+                    <li class="clue-item"><b>2</b> Cavitat pectoral que protegeix el cor i els pulmons.</li>
+                    <li class="clue-item"><b>3</b> Zona del tronc inferior (la panxa).</li>
+                    <li class="clue-item"><b>4</b> Segment de la cama situat per sobre del genoll.</li>
+                    <li class="clue-item"><b>5</b> Part final de la cama que trepitja el terra.</li>
+                </ul>
+            </div>
+            <div class="clue-group" style="margin-top: 25px;">
+                <h2>Verticals</h2>
+                <ul class="clue-list">
+                    <li class="clue-item"><b>6</b> Part frontal del cap on hi ha els ulls, el nas i la boca.</li>
+                    <li class="clue-item"><b>7</b> Part de l'extremitat superior entre l'espatlla i el colze.</li>
+                    <li class="clue-item"><b>8</b> Té cinc dits i serveix per agafar coses.</li>
+                    <li class="clue-item"><b>9</b> Part inferior de la cama (va del genoll fins al peu).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="btn btn-check" onclick="check()">Validar Respostes</button>
+        <button class="btn btn-reset" onclick="reset()">Reiniciar</button>
+    </div>
+
+    <script>
+        // MAPA NET DE FILLES I COLUMNES SENSE INTERSECCIONS CONFLICTIVES
+        const solution = {
+            // HORITZONTALS
+            // Fila 0: AVANTBRAÇ (9 lletres)
+            "0-1": "A", "0-2": "V", "0-3": "A", "0-4": "N", "0-5": "T", "0-6": "B", "0-7": "R", "0-8": "A", "0-9": "Ç",
+            
+            // Fila 2: TÒRAX (5 lletres)
+            "2-3": "T", "2-4": "Ò", "2-5": "R", "2-6": "A", "2-7": "X",
+            
+            // Fila 4: ABDOMEN (7 lletres)
+            "4-2": "A", "4-3": "B", "4-4": "D", "4-5": "O", "4-6": "M", "4-7": "E", "4-8": "N",
+            
+            // Fila 6: CUIXA (5 lletres)
+            "6-3": "C", "6-4": "U", "6-5": "I", "6-6": "X", "6-7": "A",
+            
+            // Fila 8: PEU (3 lletres)
+            "8-4": "P", "8-5": "E", "8-6": "U",
+
+            // VERTICALS (Cada una en una columna diferent per evitar col·lisions)
+            // Columna 1: CARA (4 lletres) - Comença a Fila 2
+            "2-1": "C", "3-1": "A", "4-1": "R", "5-1": "A",
+            
+            // Columna 10: BRAÇ (4 lletres) - Comença a Fila 1
+            "1-10": "B", "2-10": "R", "3-10": "A", "4-10": "Ç",
+            
+            // Columna 0: MÀ (2 lletres) - Comença a Fila 4
+            "4-0": "M", "5-0": "À",
+            
+            // Columna 2: CAMA (4 lletres) - Comença a Fila 6
+            "6-2": "C", "7-2": "A", "8-2": "M", "9-2": "A"
+        };
+
+        // NUMERACIÓ DE LES PISTES A LA GRAELLA
+        const numerals = {
+            "0-1": "1", // AVANTBRAÇ
+            "2-3": "2", // TÒRAX
+            "4-2": "3", // ABDOMEN
+            "6-3": "4", // CUIXA
+            "8-4": "5", // PEU
+            "2-1": "6", // CARA
+            "1-10": "7",// BRAÇ
+            "4-0": "8", // MÀ
+            "6-2": "9"  // CAMA
+        };
+
+        const grid = document.getElementById('grid');
+
+        // Generar graella de 11x11 caselles
+        for(let r=0; r<11; r++) {
+            for(let c=0; c<11; c++) {
+                const id = `${r}-${c}`;
+                const cell = document.createElement('div');
+                cell.className = solution[id] ? 'cell active' : 'cell empty';
+                
+                if(solution[id]) {
+                    if(numerals[id]) {
+                        const n = document.createElement('span');
+                        n.className = 'cell-num';
+                        n.innerText = numerals[id];
+                        cell.appendChild(n);
+                    }
+                    const input = document.createElement('input');
+                    input.maxLength = 1;
+                    input.dataset.id = id;
+                    cell.appendChild(input);
+                }
+                grid.appendChild(cell);
+            }
+        }
+
+        // Sistema de validació i efecte confeti
+        function check() {
+            let allCorrect = true;
+            document.querySelectorAll('input').forEach(input => {
+                const id = input.dataset.id;
+                const val = input.value.toUpperCase().trim();
+                const sol = solution[id].toUpperCase();
+                
+                // Normalització d'accents (ex: acceptar O per Ò o A per À)
+                const normVal = val.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                const normSol = sol.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+                if(val === sol || (normVal === normSol && val !== "")) {
+                    input.parentElement.classList.add('correct');
+                    input.parentElement.classList.remove('incorrect');
+                } else {
+                    input.parentElement.classList.add('incorrect');
+                    input.parentElement.classList.remove('correct');
+                    allCorrect = false;
+                }
+            });
+
+            if(allCorrect) {
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#6366f1', '#10b981', '#f1f5f9']
+                });
+            }
+        }
+
+        function reset() {
+            document.querySelectorAll('input').forEach(i => {
+                i.value = '';
+                i.parentElement.classList.remove('correct', 'incorrect');
+            });
+        }
+    </script>
+</body>
+</html>
