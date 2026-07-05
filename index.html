@@ -21,14 +21,14 @@
 
     <nav class="main-nav">
         <ul>
-            <li><a href="#inici" class="nav-link active">Inici</a></li>
+            <li><a href="#Presentació" class="nav-link active">Presentació</a></li>
             <li><a href="#arees" class="nav-link">Àrees</a></li>
             <li id="back-tab-container" style="display: none;"><a id="btn-back" class="nav-link" style="background-color: rgba(255,255,255,0.15);">⬅ Pàgina anterior</a></li>
         </ul>
     </nav>
 
     <main class="content-container">
-        <section id="inici" class="tab-content welcome-section">
+        <section id="Presentació" class="tab-content welcome-section">
             <h2>Benvinguts a Aprenem Junts!</h2>
 <div class="bio-container">
                 <img src="Xavier Català.png" alt="Xavier Català Estapé - Mestre d'Educació Primària" class="bio-image">
@@ -90,7 +90,7 @@ Em dic Xavier Català i soc un dels vostres mestres. He creat aquesta pàgina we
         // Acció del botó de tornar enrere propi de la pàgina d'inici
         document.getElementById('btn-back').addEventListener('click', function(e) {
             e.preventDefault();
-            document.querySelector('.nav-link[href="#inici"]').click();
+            document.querySelector('.nav-link[href="#Presentació"]').click();
         });
 
         // Detecta si entrem directament des de unitats.html cap a #arees

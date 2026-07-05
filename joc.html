@@ -57,11 +57,12 @@
         }
 
         /* --- ESTILS DEL MENÚ DE NAVEGACIÓ (NAV) --- */
-        .main-nav {
-            background-color: var(--primary-green);
-            padding: 10px 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+/* --- ESTILS DEL MENÚ DE NAVEGACIÓ (NAV) --- */
+.main-nav {
+    background-color: #1d563e; /* Color verd fosc actualitzat */
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}        
 
         .main-nav ul {
             list-style: none;
@@ -325,13 +326,16 @@
     </header>
 
     <!-- MENÚ DE NAVEGACIÓ ENLLAÇAT A INDEX.HTML -->
-    <nav class="main-nav">
+   <nav class="main-nav">
         <ul>
-            <li><a href="index.html#inici" class="nav-link">Inici</a></li>
+            <li><a href="index.html" class="nav-link">Presentació</a></li>
             <li><a href="index.html#arees" class="nav-link">Àrees</a></li>
-            <li id="back-tab-container"><a href="unitats.html" id="btn-back" class="nav-link" style="background-color: rgba(255,255,255,0.15);">⬅ Pàgina anterior</a></li>
+            <li><a href="unitats.html" class="nav-link">Medi</a></li>
+            <li><a href="#" class="nav-link" style="background-color: #ffd700; color: #000000; font-weight: bold;">Reproducció</a></li>
+            <li><a href="unitats.html" class="nav-link">⬅ Pàgina anterior</a></li>
         </ul>
     </nav>
+
 
     <!-- CONTENIDOR PRINCIPAL DE LA PÀGINA -->
     <main class="content-container">
