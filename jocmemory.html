@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Memory dels Òrgans</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #f0f4f8; }
+        
+        #joc { display: flex; justify-content: center; gap: 40px; margin-top: 20px; flex-wrap: wrap; }
+        
+        #tauler { display: grid; grid-template-columns: repeat(4, 110px); gap: 10px; }
+        
+        #parelles { display: grid; grid-template-columns: repeat(2, 110px); gap: 10px; border-left: 2px solid #ccc; padding-left: 20px; align-content: start; }
+        
+        .targeta { 
+            width: 110px; height: 110px; background: #4a90e2; color: white; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            cursor: pointer; border-radius: 12px; font-weight: bold; font-size: 0.8em; 
+            transition: transform 0.3s; 
+        }
+        
+        .targeta img { width: 70px; height: 70px; object-fit: contain; margin-bottom: 5px; border-radius: 5px; }
+        .ocult { background: #333; color: transparent; }
+        .ocult img, .ocult div { display: none; }
+        
+        /* Estils segons el jugador que encerta */
+        .blau { background: #3498db !important; cursor: default; }
+        .vermell { background: #e74c3c !important; cursor: default; }
+    </style>
+</head>
+<body>
+
+<h1>Memory dels Òrgans</h1>
+<div id="info">Torn de: <span id="torn">Jugador 1</span> | 🏆 J1: <span id="p1">0</span> - J2: <span id="p2">0</span></div>
+
+<div id="joc">
+    <div id="tauler"></div>
+    <div>
+        <h3>Parelles trobades:</h3>
+        <div id="parelles"></div>
+    </div>
+</div>
+
+<script>
+    const dadesOrgans = [
+        { nom: "Boca", img: "boca.png" }, { nom: "Cor", img: "cor.png" },
+        { nom: "Pulmó", img: "pulmo.png" }, { nom: "Estómac", img: "estomac.png" },
+        { nom: "Intestí", img: "intesti.png" }, { nom: "Ulls", img: "ulls.png" },
+        { nom: "Orella", img: "orella.png" }, { nom: "Pell", img: "pell.png" },
+        { nom: "Cervell", img: "cervell.png" }, { nom: "Pènis", img: "penis.png" },
+        { nom: "Testicles", img: "testicles.png" }, { nom: "Ovaris", img: "ovaris.png" }
+    ];
+
+    let cartes = [...dadesOrgans, ...dadesOrgans];
+    cartes.sort(() => Math.random() - 0.5);
+
+    let torn = 1, p1 = 0, p2 = 0;
+    let seleccionades = [];
+    let blocatge = false;
+
+    const tauler = document.getElementById('tauler');
+    const areaParelles = document.getElementById('parelles');
+
+    cartes.forEach((obj) => {
+        const div = document.createElement('div');
+        div.className = 'targeta ocult';
+        div.innerHTML = `<img src="${obj.img}" alt="${obj.nom}"> <div>${obj.nom}</div>`;
+        div.dataset.nom = obj.nom;
+        div.onclick = () => revelar(div);
+        tauler.appendChild(div);
+    });
+
+    function revelar(el) {
+        if (blocatge || !el.classList.contains('ocult')) return;
+        el.classList.remove('ocult');
+        seleccionades.push(el);
+
+        if (seleccionades.length === 2) {
+            blocatge = true;
+            setTimeout(verificar, 1000);
+        }
+    }
+
+    function verificar() {
+        const [c1, c2] = seleccionades;
+        if (c1.dataset.nom === c2.dataset.nom) {
+            // Assignació de color segons el jugador
+            const colorClase = (torn === 1) ? 'blau' : 'vermell';
+            
+            if (torn === 1) p1++; else p2++;
+            document.getElementById('p' + torn).innerText = (torn === 1 ? p1 : p2);
+            
+            c1.classList.add(colorClase);
+            c2.classList.add(colorClase);
+            areaParelles.appendChild(c1);
+            areaParelles.appendChild(c2);
+        } else {
+            c1.classList.add('ocult');
+            c2.classList.add('ocult');
+            // Canvi de torn si el jugador falla[cite: 1]
+            torn = torn === 1 ? 2 : 1;
+        }
+        document.getElementById('torn').innerText = "Jugador " + torn;
+        seleccionades = [];
+        blocatge = false;
+    }
+</script>
+</body>
+</html>
