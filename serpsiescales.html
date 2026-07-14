@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Tauler d'Aventures del Cos Humà</title>
+    <style>
+        body { font-family: 'Comic Sans MS', cursive; display: flex; flex-direction: column; align-items: center; background-color: #fdf6e3; }
+        #tauler { 
+            display: grid; 
+            grid-template-columns: repeat(11, 60px); 
+            grid-template-rows: repeat(5, 60px); 
+            gap: 10px; padding: 20px; background: #ffffff;
+            border-radius: 20px; border: 6px solid #6c5ce7;
+        }
+        .casella { 
+            width: 60px; height: 60px; border-radius: 15px;
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 16px; font-weight: bold; color: white;
+            box-sizing: border-box; position: relative;
+        }
+        .casella img { width: 80%; height: 80%; object-fit: contain; }
+        #sortida { background-color: #ff9f43; color: black; font-size: 11px; }
+    </style>
+</head>
+<body>
+    <h1 style="color: #6c5ce7;">Aventura pel Cos Humà</h1>
+    <div id="tauler"></div>
+
+    <script>
+        const tauler = document.getElementById('tauler');
+        // Llista actualitzada amb totes les imatges incloses
+        const imatges = [
+            'ulls.png', 'boca.png', 'cervell.png', 'cor.png', 'estomac.png', 
+            'intesti.png', 'orella.png', 'ovaris.png', 'pell.png', 'penis.png',
+            'testicles.png', 'pulmo.png', 'pulmo_2.png', 'ulls_3.png', 
+            'pell_2.png', 'intesti_2.png'
+        ];
+        const colors = ['#ff7675', '#74b9ff', '#55efc4', '#ffeaa7', '#a29bfe', '#fab1a0', '#81ecec'];
+
+        // Casella Sortida
+        let sortida = document.createElement('div');
+        sortida.className = 'casella'; sortida.id = 'sortida';
+        sortida.innerText = 'SORTIDA';
+        tauler.appendChild(sortida);
+
+        // Generar 50 caselles
+        for (let i = 1; i <= 50; i++) {
+            let div = document.createElement('div');
+            div.className = 'casella';
+            div.style.backgroundColor = colors[i % colors.length];
+
+            // Afegir imatge aleatòria amb una probabilitat del 20%
+            if (Math.random() < 0.2) {
+                let img = document.createElement('img');
+                img.src = imatges[Math.floor(Math.random() * imatges.length)];
+                div.appendChild(img);
+            } else {
+                div.innerText = i;
+            }
+            tauler.appendChild(div);
+        }
+    </script>
+</body>
+</html>

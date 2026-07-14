@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joc de Preguntes - Coneixement del Medi</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estils del joc */
+        .joc-container { max-width: 600px; margin: 50px auto; background: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .frase-inici {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .imatges-grid { display: flex; justify-content: space-around; margin-top: 20px; flex-wrap: wrap; }
+        .opcio-img { width: 150px; height: 150px; cursor: pointer; border: 4px solid transparent; transition: 0.3s; object-fit: cover; }
+        .opcio-img:hover { border-color: #1d563e; }
+        #resultat { font-weight: bold; margin-top: 20px; font-size: 1.2em; min-height: 1.5em; }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link">Presentació</a></li>
+            <li><a href="index.html#arees" class="nav-link">Àrees</a></li>
+            <li><a href="unitats.html" class="nav-link">Medi</a></li>
+            <li><a href="#" class="nav-link" style="background-color: #ffd700; color: #000000; font-weight: bold;">Bons hàbits</a></li>
+            <li><a href="unitats.html" id="btn-page-back" class="nav-link" style="background-color: rgba(255,255,255,0.15); cursor: pointer;">⬅ Pàgina anterior</a></li>
+        </ul>
+    </nav>
+
+    <main class="joc-container">
+        <p class="frase-inici">Seràs capaç d'encertar la imatge correcta?</p>
+        <h3 id="titol-pregunta">Carregant...</h3>
+        <div id="grid-opcions" class="imatges-grid"></div>
+        <p id="resultat"></p>
+    </main>
+
+    <script>
+        const preguntes = [
+            {
+                pregunta: "Quina d'aquestes imatges no és un bon hàbit saludable?",
+                opcions: [
+                    { src: "imatge1.png", correcta: false },
+                    { src: "imatge2.png", correcta: true },
+                    { src: "imatge3.png", correcta: false }
+                ]
+            },
+            {
+                pregunta: "Qui està mal assegut?",
+                opcions: [
+                    { src: "imatge6.png", correcta: false },
+                    { src: "imatge4.png", correcta: false },
+                    { src: "imatge5.png", correcta: true }
+                ]
+            },
+            {
+                pregunta: "Quins d'aquests tres àpats és saludable?",
+                opcions: [
+                    { src: "imatge7.png", correcta: false },
+                    { src: "imatge8.png", correcta: false },
+                    { src: "imatge9.png", correcta: true }
+                ]
+            },
+            {
+                pregunta: "Busca qui porta la motxilla ben col·locada?",
+                opcions: [
+                    { src: "imatge10.png", correcta: false },
+                    { src: "imatge11.png", correcta: true },
+                    { src: "imatge12.png", correcta: false }
+                ]
+            },
+            {
+                pregunta: "Un d'aquests no és un bon hàbit saludable",
+                opcions: [
+                    { src: "imatge12.png", correcta: false },
+                    { src: "imatge13.png", correcta: false },
+                    { src: "imatge14.png", correcta: true }
+                ]
+            }
+        ];
+
+        let indexActual = 0;
+
+        function carregarPregunta() {
+            const p = preguntes[indexActual];
+            document.getElementById("titol-pregunta").innerText = p.pregunta;
+            const grid = document.getElementById("grid-opcions");
+            grid.innerHTML = "";
+            document.getElementById("resultat").innerText = "";
+
+            p.opcions.forEach(op => {
+                const img = document.createElement("img");
+                img.src = op.src;
+                img.className = "opcio-img";
+                img.onclick = () => verificar(op.correcta);
+                grid.appendChild(img);
+            });
+        }
+
+        function verificar(esCorrecta) {
+            const res = document.getElementById("resultat");
+            if (esCorrecta) {
+                res.innerHTML = "✅ Correcte!";
+                res.style.color = "green";
+                
+                // Esperem 1 segon abans de passar a la següent pregunta
+                setTimeout(() => {
+                    indexActual++;
+                    if (indexActual < preguntes.length) {
+                        carregarPregunta();
+                    } else {
+                        document.getElementById("titol-pregunta").innerText = "🎉 Has completat el joc!";
+                        document.getElementById("grid-opcions").innerHTML = "";
+                        res.innerText = "";
+                    }
+                }, 1000);
+            } else {
+                res.innerHTML = "❌ Incorrecte. Torna-ho a provar!";
+                res.style.color = "red";
+            }
+        }
+
+        // Script per al botó de tornar enrere
+        document.getElementById('btn-page-back').addEventListener('click', function(e) {
+            window.location.href = "unitats.html";
+        });
+
+        carregarPregunta();
+    </script>
+</body>
+</html>
