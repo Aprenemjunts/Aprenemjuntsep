@@ -57,12 +57,11 @@
         }
 
         /* --- ESTILS DEL MENÚ DE NAVEGACIÓ (NAV) --- */
-/* --- ESTILS DEL MENÚ DE NAVEGACIÓ (NAV) --- */
-.main-nav {
-    background-color: #1d563e; /* Color verd fosc actualitzat */
-    padding: 10px 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}        
+        .main-nav {
+            background-color: #1d563e; /* Color verd fosc actualitzat */
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }        
 
         .main-nav ul {
             list-style: none;
@@ -313,7 +312,7 @@
 </head>
 <body>
 
-    <!-- CAPÇALERA IDÈNTICA A INDEX.HTML -->
+    <!-- CAPÇALERA -->
     <header class="main-header">
         <div class="header-container">
             <div class="header-avatar">
@@ -325,17 +324,18 @@
         </div>
     </header>
 
-    <!-- MENÚ DE NAVEGACIÓ ENLLAÇAT A INDEX.HTML -->
-   <nav class="main-nav">
+    <!-- MENÚ DE NAVEGACIÓ ACTUALITZAT -->
+    <nav class="main-nav">
         <ul>
             <li><a href="index.html" class="nav-link">Presentació</a></li>
-            <li><a href="index.html#arees" class="nav-link">Àrees</a></li>
+            <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="Curs.html" class="nav-link">Curs</a></li>
+            <li><a href="arees.html" class="nav-link">Àrees</a></li>
+            <li><a href="unitats.html" class="nav-link">Unitats</a></li>
             <li><a href="unitats.html" class="nav-link">Medi</a></li>
-            <li><a href="#" class="nav-link" style="background-color: #ffd700; color: #000000; font-weight: bold;">Reproducció</a></li>
-            <li><a href="unitats.html" class="nav-link">⬅ Pàgina anterior</a></li>
+            <li><a href="reproduccio.html" class="nav-link active" style="background-color: #ffd700; color: #000000; font-weight: bold;">Reproducció</a></li>
         </ul>
     </nav>
-
 
     <!-- CONTENIDOR PRINCIPAL DE LA PÀGINA -->
     <main class="content-container">
@@ -427,13 +427,12 @@
             </div>
 
             <div id="feedback"></div>
-            <!-- S'HA ELIMINAT EL CARTELL DE RECOMPENSA D'AQUÍ -->
             <button id="reset-btn" onclick="reiniciarJoc()">Tornar a jugar</button>
         </section>
 
     </main>
 
-    <!-- PEU DE PÀGINA IDÈNTICA A INDEX.HTML -->
+    <!-- PEU DE PÀGINA -->
     <footer class="main-footer">
         <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
     </footer>
@@ -543,7 +542,6 @@
                 feedback.style.color = '#2e7d32';
                 feedback.innerText = "🌟 Molt bé! Has classificat tots els òrgans correctament! 🌟";
                 resetBtn.style.display = 'block';
-                // S'HA TREUT LA LOGICA DE MOSTRAR I MOURE LA PANTALLA CAP AL CARTELL
             }
         }
 

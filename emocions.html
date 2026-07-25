@@ -22,6 +22,76 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            align-items: center;
+        }
+
+        /* --- ESTILS DE L'ENCAPÇALAMENT (HEADER) --- */
+        .main-header {
+            background-color: #ffffff;
+            width: 100%;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .header-avatar img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+        }
+
+        .header-banner {
+            flex-grow: 1;
+        }
+
+        .header-banner img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* --- ESTILS DEL MENÚ DE NAVEGACIÓ (NAV) --- */
+        .main-nav {
+            background-color: #1d563e;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }        
+
+        .main-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: stretch;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .main-nav li {
+            display: flex;
+            align-items: stretch;
+        }
+
+        .main-nav .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 14px 24px;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-nav .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         .joc-seccio {
@@ -31,6 +101,8 @@
             padding: 20px;
             background-color: var(--bg-color);
             flex: 1;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         h1.titol-joc {
@@ -217,11 +289,13 @@
 
     <nav class="main-nav">
         <ul>
-            <li><a href="index.html" class="nav-link">Presentació</a></li>
-            <li><a href="index.html#arees" class="nav-link">Àrees</a></li>
+            <li><a href="presentacio.html" class="nav-link">Presentació</a></li>
+            <li><a href="cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="curs.html" class="nav-link">Curs</a></li>
+            <li><a href="arees.html" class="nav-link">Àrees</a></li>
+            <li><a href="unitats.html" class="nav-link">Unitats</a></li>
             <li><a href="unitats.html" class="nav-link">Medi</a></li>
-            <li><a href="emocions.html" class="nav-link" style="background-color: #ffd700; color: #000000; font-weight: bold;">Sopa de lletres</a></li>
-            <li><a id="btn-page-back" class="nav-link" style="background-color: rgba(255,255,255,0.15); cursor: pointer;">⬅ Pàgina anterior</a></li>
+            <li><a href="emocions.html" class="nav-link" style="background-color: #e3eb34; color: #1d563e; border-radius: 0; padding: 0 24px;">Emocions</a></li>
         </ul>
     </nav>
 
@@ -251,7 +325,7 @@
         </div>
     </div>
 
-    <footer class="main-footer">
+    <footer class="main-footer" style="text-align: center; margin-top: 40px; padding: 20px; color: #666; font-size: 0.9em;">
         <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
     </footer>
 
@@ -375,12 +449,6 @@
         function reiniciarJoc() {
             iniciarJoc();
         }
-
-        // Acció de control per al botó de pàgina anterior: redirigeix a unitats.html
-        document.getElementById('btn-page-back').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.location.href = "unitats.html";
-        });
 
         window.onload = iniciarJoc;
     </script>

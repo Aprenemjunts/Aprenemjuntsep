@@ -29,13 +29,78 @@
             font-family: 'Outfit', sans-serif;
             background-color: var(--bg);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* NOVA REGLA PER A L'EFECTE HOVER DEL BOTÓ */
-        #btn-page-back:hover {
-            background-color: #ffd700 !important;
-            color: #000000 !important;
-            transition: all 0.3s ease;
+        /* --- ESTILS DE L'ENCAPÇALAMENT (HEADER) --- */
+        .main-header {
+            background-color: #ffffff;
+            width: 100%;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .header-avatar img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+        }
+
+        .header-banner {
+            flex-grow: 1;
+        }
+
+        .header-banner img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* --- ESTILS DEL MENÚ DE NAVEGACIÓ (NAV) --- */
+        .main-nav {
+            background-color: #1d563e;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }        
+
+        .main-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: stretch;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .main-nav li {
+            display: flex;
+            align-items: stretch;
+        }
+
+        .main-nav .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 14px 24px;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-nav .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         .game-container {
@@ -43,6 +108,8 @@
             flex-direction: column;
             align-items: center;
             padding: 40px 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .header { text-align: center; margin-bottom: 35px; }
@@ -194,9 +261,12 @@
     <nav class="main-nav">
         <ul>
             <li><a href="index.html" class="nav-link">Presentació</a></li>
-            <li><a href="index.html#arees" class="nav-link">Àrees</a></li>
-            <li><a href="unitats.html" class="nav-link" style="background-color: #ffd700; color: #000000; font-weight: bold;">Medi</a></li>
-            <li><a id="btn-page-back" class="nav-link" style="background-color: rgba(0,0,0,0.15); color: #000; cursor: pointer;">⬅ Pàgina anterior</a></li>
+            <li><a href="cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="curs.html" class="nav-link">Curs</a></li>
+            <li><a href="arees.html" class="nav-link">Àrees</a></li>
+            <li><a href="unitats.html" class="nav-link">Unitats</a></li>
+            <li><a href="unitats.html" class="nav-link">Medi</a></li>
+            <li><a href="encreuats.html" class="nav-link" style="background-color: #e3eb34; color: #1d563e; border-radius: 0; padding: 0 24px;">Mots</a></li>
         </ul>
     </nav>
     
@@ -240,12 +310,11 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById('btn-page-back').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.location.href = "index.html#arees";
-        });
+    <footer class="main-footer" style="text-align: center; margin-top: 40px; padding: 20px; color: #666; font-size: 0.9em; width: 100%;">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
 
+    <script>
         const solution = {
             "0-1": "A", "0-2": "V", "0-3": "A", "0-4": "N", "0-5": "T", "0-6": "B", "0-7": "R", "0-8": "A", "0-9": "Ç",
             "2-3": "T", "2-4": "Ò", "2-5": "R", "2-6": "A", "2-7": "X",

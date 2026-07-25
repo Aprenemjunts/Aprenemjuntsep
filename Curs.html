@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curs - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estils específics per a les caixes de curs */
+        .curs-nav {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 60px auto;
+            justify-content: center;
+            gap: 40px;
+            max-width: 800px;
+        }
+        .curs-nav li {
+            flex: 1;
+            display: flex;
+            text-align: center;
+        }
+        .curs-nav a {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            padding: 40px 20px;
+            color: #333;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: 2px solid transparent;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        /* 3r curs: Verd menta agradable (ara enllaç a arees.html) */
+        .curs-nav li:nth-child(1) a {
+            background-color: #A8E6CF;
+            border-color: #88d4bc;
+        }
+        .curs-nav li:nth-child(1) a:hover {
+            background-color: #92d9bc;
+            border-color: #6fbfa2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        /* 4t curs: Taronja suau / Salmó agradable */
+        .curs-nav li:nth-child(2) a {
+            background-color: #FFD3B6;
+            border-color: #ffc299;
+        }
+        .curs-nav li:nth-child(2) a:hover {
+            background-color: #ffc49e;
+            border-color: #ffa870;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .curs-nav a.active {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link">Presentació</a></li>
+            <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="Curs.html" class="nav-link active">Curs</a></li>
+                   </ul>
+    </nav>
+
+    <main class="content-container">
+        <section class="welcome-section">
+            
+            <!-- Finestra de 3r curs redirigeix a arees.html, la de 4t es manté de moment -->
+            <ul class="curs-nav">
+                <li><a href="arees.html" class="curs-link">3r curs</a></li>
+                <li><a href="#quart" class="curs-link active">4t curs</a></li>
+            </ul>
+
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+</body>
+</html>

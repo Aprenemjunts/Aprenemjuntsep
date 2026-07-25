@@ -5,6 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matemàtiques - Vídeos Educatius</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estils integrats per mantenir la coherència */
+        body { font-family: sans-serif; text-align: center; background: #f0f4f8; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; align-items: center; }
+        
+        /* --- ESTILS DE L'ENCAPÇALAMENT (HEADER) --- */
+        .main-header {
+            background-color: #ffffff;
+            width: 100%;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .header-avatar img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+        }
+
+        .header-banner {
+            flex-grow: 1;
+        }
+
+        .header-banner img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* --- ESTILS DEL MENÚ DE NAVEGACIÓ (NAV) --- */
+        .main-nav {
+            background-color: #1d563e;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }        
+
+        .main-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: stretch;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .main-nav li {
+            display: flex;
+            align-items: stretch;
+        }
+
+        .main-nav .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 14px 24px;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-nav .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .content-container {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 20px;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
 
@@ -22,16 +104,16 @@
     <nav class="main-nav">
         <ul>
             <li><a href="index.html" class="nav-link">Presentació</a></li>
-            <li><a href="index.html#arees" class="nav-link">Àrees</a></li>
-            <li><a href="#" class="nav-link" style="background-color: #ffd700; color: #000000; font-weight: bold;">Mates</a></li>
-            <!-- ENLLAÇ ACTUALITZAT PER REDIRIGIR A LA PÀGINA DE VÍDEOS: -->
-                     <li><a href="matematiques.html" class="nav-link" style="background-color: rgba(255,255,255,0.15);">⬅ Pàgina anterior</a></li>
+            <li><a href="cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="curs.html" class="nav-link">Curs</a></li>
+            <li><a href="arees.html" class="nav-link">Àrees</a></li>
+            <li><a href="mates.html" class="nav-link" style="background-color: #ffd700; color: #000000; font-weight: bold; border-radius: 0; padding: 0 24px;">Mates</a></li>
         </ul>
     </nav>
 
     <main class="content-container">
         <div style="margin-bottom: 25px;">
-            <a href="index.html#arees" style="color: #1d563e; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+            <a href="arees.html" style="color: #1d563e; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
                 ⬅ Pàgina anterior
             </a>
         </div>
@@ -43,9 +125,9 @@
                 Fes clic a la llista d'avall per accedir a la selecció de vídeos.
             </p>
 
-            <ul class="units-list">
+            <ul class="units-list" style="list-style: none; padding: 0;">
                 <li>
-                    <a href="videos.html" style="text-decoration: none; color: inherit; display: flex; width: 100%; align-items: center;">
+                    <a href="videos.html" style="text-decoration: none; color: inherit; display: flex; width: 100%; align-items: center; background: #ffffff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
                         <span class="unit-badge" style="cursor: pointer; padding: 10px; background: #e0e0e0; border-radius: 5px;">Vídeos educatius</span>
                         <div class="unit-info" style="margin-left: 15px;">
                             <strong>Accedeix a la llista de vídeos de Matemàtiques</strong>
@@ -56,7 +138,7 @@
         </section>
     </main>
 
-    <footer class="main-footer">
+    <footer class="main-footer" style="text-align: center; margin-top: 40px; padding: 20px; color: #666; font-size: 0.9em; width: 100%;">
         <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
     </footer>
 

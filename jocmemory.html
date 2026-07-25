@@ -7,8 +7,84 @@
     <link rel="stylesheet" href="style.css">
     <style>
         /* Estils integrats per mantenir la coherència */
-        body { font-family: sans-serif; text-align: center; background: #f0f4f8; margin: 0; padding: 0; }
+        body { font-family: sans-serif; text-align: center; background: #f0f4f8; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; align-items: center; }
         
+        /* --- ESTILS DE L'ENCAPÇALAMENT (HEADER) --- */
+        .main-header {
+            background-color: #ffffff;
+            width: 100%;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .header-avatar img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+        }
+
+        .header-banner {
+            flex-grow: 1;
+        }
+
+        .header-banner img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* --- ESTILS DEL MENÚ DE NAVEGACIÓ (NAV) --- */
+        .main-nav {
+            background-color: #1d563e;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }        
+
+        .main-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: stretch;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .main-nav li {
+            display: flex;
+            align-items: stretch;
+        }
+
+        .main-nav .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 14px 24px;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-nav .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .content-container {
+            flex: 1;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
         /* Estils del Joc */
         #joc { display: flex; justify-content: center; gap: 40px; margin-top: 20px; flex-wrap: wrap; }
         #tauler { display: grid; grid-template-columns: repeat(4, 110px); gap: 10px; }
@@ -22,11 +98,44 @@
         }
         
         .targeta img { width: 70px; height: 70px; object-fit: contain; margin-bottom: 5px; border-radius: 5px; }
+        
         .ocult { background: #333; color: transparent; }
         .ocult img, .ocult div { display: none; }
         
+        .amagada-definitiva {
+            visibility: hidden;
+            opacity: 0;
+            cursor: default;
+        }
+        
         .blau { background: #3498db !important; cursor: default; }
         .vermell { background: #e74c3c !important; cursor: default; }
+
+        /* Estils per al missatge de victòria i repàs */
+        #missatge-victoria {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #1d563e;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e3eb34;
+            border-radius: 8px;
+            display: none;
+        }
+
+        #repàs-container {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #tauler-repas {
+            display: grid;
+            grid-template-columns: repeat(4, 110px);
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
@@ -45,16 +154,20 @@
     <nav class="main-nav">
         <ul>
             <li><a href="index.html" class="nav-link">Presentació</a></li>
-            <li><a href="index.html#arees" class="nav-link">Àrees</a></li>
+            <li><a href="cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="curs.html" class="nav-link">Curs</a></li>
+            <li><a href="arees.html" class="nav-link">Àrees</a></li>
+            <li><a href="unitats.html" class="nav-link">Unitats</a></li>
             <li><a href="unitats.html" class="nav-link">Medi</a></li>
-            <li><a href="jocmemory.html" class="nav-link" style="background-color: #ffd700; color: #000000; font-weight: bold;">Memory</a></li>
-            <li><a href="unitats.html" class="nav-link" style="background-color: rgba(255,255,255,0.15);">⬅ Pàgina anterior</a></li>
+            <li><a href="jocmemory.html" class="nav-link" style="background-color: #e3eb34; color: #1d563e; border-radius: 0; padding: 0 24px;">Memory</a></li>
         </ul>
     </nav>
 
     <main class="content-container">
         <h1>Memory dels Òrgans</h1>
         <div id="info">Torn de: <span id="torn">Jugador 1</span> | 🏆 J1: <span id="p1">0</span> - J2: <span id="p2">0</span></div>
+
+        <div id="missatge-victoria"></div>
 
         <div id="joc">
             <div id="tauler"></div>
@@ -63,7 +176,16 @@
                 <div id="parelles"></div>
             </div>
         </div>
+
+        <div id="repàs-container">
+            <h2>Repàs dels Òrgans</h2>
+            <div id="tauler-repas"></div>
+        </div>
     </main>
+
+    <footer class="main-footer" style="text-align: center; margin-top: 40px; padding: 20px; color: #666; font-size: 0.9em; width: 100%;">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
 
     <script>
         // Lògica del joc
@@ -82,6 +204,7 @@
         let torn = 1, p1 = 0, p2 = 0;
         let seleccionades = [];
         let blocatge = false;
+        let parellesTrobadesTotals = 0;
 
         const tauler = document.getElementById('tauler');
         const areaParelles = document.getElementById('parelles');
@@ -96,7 +219,7 @@
         });
 
         function revelar(el) {
-            if (blocatge || !el.classList.contains('ocult')) return;
+            if (blocatge || !el.classList.contains('ocult') || el.classList.contains('amagada-definitiva')) return;
             el.classList.remove('ocult');
             seleccionades.push(el);
 
@@ -112,18 +235,67 @@
                 const colorClase = (torn === 1) ? 'blau' : 'vermell';
                 if (torn === 1) p1++; else p2++;
                 document.getElementById('p' + torn).innerText = (torn === 1 ? p1 : p2);
-                c1.classList.add(colorClase);
-                c2.classList.add(colorClase);
-                areaParelles.appendChild(c1);
-                areaParelles.appendChild(c2);
+                
+                c1.classList.add('amagada-definitiva');
+                c2.classList.add('amagada-definitiva');
+                
+                const clone1 = c1.cloneNode(true);
+                const clone2 = c2.cloneNode(true);
+                clone1.classList.remove('ocult', 'amagada-definitiva');
+                clone2.classList.remove('ocult', 'amagada-definitiva');
+                clone1.classList.add(colorClase);
+                clone2.classList.add(colorClase);
+                
+                areaParelles.appendChild(clone1);
+                areaParelles.appendChild(clone2);
+
+                parellesTrobadesTotals++;
+
+                // Comprovar si s'han trobat totes les parelles (12 en total)
+                if (parellesTrobadesTotals === dadesOrgans.length) {
+                    finalitzarJoc();
+                }
             } else {
                 c1.classList.add('ocult');
                 c2.classList.add('ocult');
                 torn = torn === 1 ? 2 : 1;
             }
-            document.getElementById('torn').innerText = "Jugador " + torn;
+            if (parellesTrobadesTotals < dadesOrgans.length) {
+                document.getElementById('torn').innerText = "Jugador " + torn;
+            }
             seleccionades = [];
             blocatge = false;
+        }
+
+        function finalitzarJoc() {
+            const missatgeDiv = document.getElementById('missatge-victoria');
+            missatgeDiv.style.display = 'block';
+
+            if (p1 > p2) {
+                missatgeDiv.innerText = `🎉 Enhorabona Jugador 1! Has guanyat amb ${p1} parelles!`;
+            } else if (p2 > p1) {
+                missatgeDiv.innerText = `🎉 Enhorabona Jugador 2! Has guanyat amb ${p2} parelles!`;
+            } else {
+                missatgeDiv.innerText = `🤝 S'ha acabat la partida! Hi ha hagut un empat a ${p1} parelles!`;
+            }
+
+            // Ocultar tauler de joc actiu
+            document.getElementById('joc').style.display = 'none';
+            document.getElementById('info').style.display = 'none';
+
+            // Mostrar i generar el repàs automàtic amb totes les imatges i noms
+            const repasContainer = document.getElementById('repàs-container');
+            const taulerRepas = document.getElementById('tauler-repas');
+            repasContainer.style.display = 'block';
+
+            dadesOrgans.forEach((org) => {
+                const card = document.createElement('div');
+                card.className = 'targeta';
+                card.style.cursor = 'default';
+                card.style.background = '#27ae60';
+                card.innerHTML = `<img src="${org.img}" alt="${org.nom}"> <div>${org.nom}</div>`;
+                taulerRepas.appendChild(card);
+            });
         }
     </script>
 </body>

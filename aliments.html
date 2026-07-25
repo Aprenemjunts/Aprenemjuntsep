@@ -19,10 +19,74 @@
             background-color: var(--bg-color);
             color: var(--primary-color);
             margin: 0;
-            padding: 0; /* Canviat a 0 perquè la capçalera ocupi tot l'ample, com a l'índex */
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+
+        /* --- ESTILS DE L'ENCAPÇALAMENT (HEADER) --- */
+        .main-header {
+            background-color: #ffffff;
+            width: 100%;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .header-avatar img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+        }
+
+        .header-banner {
+            flex-grow: 1;
+        }
+
+        .header-banner img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* --- ESTILS DEL MENÚ DE NAVEGACIÓ (NAV) --- */
+        .main-nav {
+            background-color: #1d563e; /* Color verd fosc unificat */
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }        
+
+        .main-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 15px;
+            box-sizing: border-box;
+        }
+
+        .main-nav .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            display: inline-block;
+        }
+
+        .main-nav .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         /* Contenidor per al contingut del joc */
@@ -247,11 +311,13 @@
 
     <nav class="main-nav">
         <ul>
-            <li><a href="index.html#inici" class="nav-link">Presentació</a></li>
-            <li><a href="index.html#arees" class="nav-link">Àrees</a></li>
-           <li><a href="unitats.html" class="nav-link">Medi</a></li>
-            <li><a href="#" class="nav-link" style="background-color: #ffd700; color: #000000; font-weight: bold;">Piràmide</a></li>
-            <li id="back-tab-container" style="display: block;"><a href="unitats.html" id="btn-back" class="nav-link" style="background-color: rgba(255,255,255,0.15);">⬅ Pàgina anterior</a></li>
+            <li><a href="index.html" class="nav-link">Presentació</a></li>
+            <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="Curs.html" class="nav-link">Curs</a></li>
+            <li><a href="arees.html" class="nav-link">Àrees</a></li>
+            <li><a href="unitats.html" class="nav-link">Unitats</a></li>
+            <li><a href="unitats.html" class="nav-link">Medi</a></li>
+            <li><a href="piramide.html" class="nav-link active" style="background-color: #ffd700; color: #000000; font-weight: bold;">Piràmide</a></li>
         </ul>
     </nav>
 
