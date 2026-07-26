@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clasificación sílaba tónica - Lengua Castellana - Aprenem Junts</title>
+    <title>Palabras Agudas - Lengua Castellana - Aprenem Junts</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estils específics per a la pàgina de Clasificación */
         .content-section {
             max-width: 900px;
             margin: 40px auto;
@@ -32,7 +31,6 @@
             text-align: center;
         }
 
-        /* Sistema de Pestanyes (Tabs) */
         .tabs-container {
             margin-top: 30px;
         }
@@ -73,41 +71,6 @@
             border-color: #004d40;
             box-shadow: 0 4px 8px rgba(0,77,64,0.2);
         }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-            background-color: #f9fbf9;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 30px;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .card-tipus {
-            text-align: center;
-        }
-
-        .card-tipus h3 {
-            color: #004d40;
-            font-size: 1.6rem;
-            margin-bottom: 15px;
-        }
-
-        .card-tipus p {
-            font-size: 1.1rem;
-            color: #444444;
-            margin-bottom: 20px;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -130,21 +93,20 @@
             <li><a href="Curs.html" class="nav-link">Cicle Mitjà</a></li>
             <li><a href="arees4t.html" class="nav-link">Àrees</a></li>
             <li><a href="ortografiagramatica.html" class="nav-link">Branques</a></li>
-            <li><a href="classificacio.html" class="nav-link" style="background-color: #d4ed31; color: #000000;">Classificació</a></li>
+            <li><a href="clasificación.html" class="nav-link">Classificació</a></li>
+            <li><a href="agudes.html" class="nav-link" style="background-color: #d4ed31; color: #000000;">Agudes</a></li>
         </ul>
     </nav>
 
     <main>
         <section class="content-section">
-            <h2>Clasificación de las palabras según la sílaba tónica</h2>
-            <p>Selecciona una pestanya per veure el contingut interactiu o pràctiques.</p>
+            <h2>palabras agudas</h2>
             
             <div class="tabs-container">
-                <!-- Capçalera de les pestanyes modificada -->
                 <div class="tabs-header">
-                    <a href="agudas.html" target="_blank" class="tab-btn">agudas</a>
-                    <a href="llanas.html" target="_blank" class="tab-btn">llanas</a>
-                    <button class="tab-btn" onclick="openTab(event, 'practica')">esdrújulas</button>
+                    <a href="agudas.pdf" target="_blank" class="tab-btn">¿Cuáles son?</a>
+                    <a href="#" class="tab-btn">Juego interactivo</a>
+                    <a href="#" class="tab-btn">Práctica</a>
                 </div>
             </div>
         </section>
@@ -154,21 +116,5 @@
         <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
     </footer>
 
-    <script>
-        function openTab(evt, tabName) {
-            var tabContent = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < tabContent.length; i++) {
-                tabContent[i].classList.remove("active");
-            }
-
-            var tabBtn = document.getElementsByClassName("tab-btn");
-            for (let i = 0; i < tabBtn.length; i++) {
-                tabBtn[i].classList.remove("active");
-            }
-
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
-    </script>
 </body>
 </html>
