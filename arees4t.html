@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curs - Aprenem Junts</title>
+    <title>Àrees - 4t curs - Aprenem Junts</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estils específics per a les caixes de curs */
-        .curs-nav {
+        /* Estils específics per a la nova finestra d'àrees */
+        .arees-nav {
             display: flex;
             list-style: none;
             padding: 0;
@@ -16,55 +16,36 @@
             gap: 40px;
             max-width: 800px;
         }
-        .curs-nav li {
+        .arees-nav li {
             flex: 1;
             display: flex;
             text-align: center;
         }
-        .curs-nav a {
+        .arees-nav a {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             flex: 1;
-            padding: 40px 20px;
-            color: #333;
+            padding: 35px 30px;
+            color: #004d40;
             text-decoration: none;
             border-radius: 8px;
             font-size: 1.5rem;
             font-weight: bold;
-            border: 2px solid transparent;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-top: 8px solid #d4ed31;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             box-sizing: border-box;
             transition: all 0.3s ease;
         }
-        
-        /* 3r curs: Verd menta agradable (ara enllaç a arees.html) */
-        .curs-nav li:nth-child(1) a {
-            background-color: #A8E6CF;
-            border-color: #88d4bc;
-        }
-        .curs-nav li:nth-child(1) a:hover {
-            background-color: #92d9bc;
-            border-color: #6fbfa2;
+        .arees-nav a:hover {
+            background-color: #fafafa;
+            border-color: #bdbdbd;
+            border-top-color: #bcda22;
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-
-        /* 4t curs: Taronja suau / Salmó agradable */
-        .curs-nav li:nth-child(2) a {
-            background-color: #FFD3B6;
-            border-color: #ffc299;
-        }
-        .curs-nav li:nth-child(2) a:hover {
-            background-color: #ffc49e;
-            border-color: #ffa870;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-
-        .curs-nav a.active {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -85,20 +66,22 @@
         <ul>
             <li><a href="index.html" class="nav-link">Presentació</a></li>
             <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
-            <li><a href="Curs.html" class="nav-link active">Cicle Mitjà</a></li>
-                   </ul>
+            <li><a href="Curs.html" class="nav-link">Cicle Mitjà</a></li>
+            <li><a href="arees4t.html" class="nav-link" style="background-color: #d4ed31; color: #000000;">Àrees</a></li>
+        </ul>
     </nav>
 
     <main class="content-container">
         <section class="welcome-section">
-            
-            <!-- Finestra de 3r i 4t curs redirigeixen a les seves àrees -->
-            <ul class="curs-nav">
-                <li><a href="arees.html" class="curs-link">3r curs</a></li>
-                <li><a href="arees4t.html" class="curs-link">4t curs</a></li>
+           
+            <!-- Pestanya de Lengua Castellana que porta a la nova pàgina -->
+            <ul class="arees-nav">
+                <li><a href="ortografiagramatica.html" class="area-link">Lengua Castellana</a></li>
             </ul>
 
-
+            <div style="text-align: center; margin-top: 30px;">
+                
+            </div>
         </section>
     </main>
 

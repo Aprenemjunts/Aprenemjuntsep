@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lengua Castellana - 4t curs - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estils específics per a les finestres de contingut */
+        .arees-nav {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 60px auto;
+            justify-content: center;
+            gap: 40px;
+            max-width: 900px;
+        }
+        .arees-nav li {
+            flex: 1;
+            display: flex;
+            text-align: center;
+            position: relative; /* Necessari per posicionar el desplegable */
+        }
+        .arees-nav a {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            padding: 35px 30px;
+            color: #004d40;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-top: 8px solid #d4ed31;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        .arees-nav a:hover {
+            background-color: #fafafa;
+            border-color: #bdbdbd;
+            border-top-color: #bcda22;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Estils del menú desplegable (Dropdown) */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0 0;
+            border-radius: 8px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            z-index: 10;
+            text-align: left;
+        }
+
+        .dropdown-menu li a {
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: none;
+            border-top: none;
+            border-radius: 0;
+            background-color: transparent;
+            box-shadow: none;
+            color: #004d40;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #f0f0f0;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Classe per mostrar el desplegable en clicar */
+        .dropdown.active .dropdown-menu {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link">Presentació</a></li>
+            <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="Curs.html" class="nav-link">Cicle Mitjà</a></li>
+            <li><a href="arees4t.html" class="nav-link">Àrees</a></li>
+            <li><a href="branques.html" class="nav-link" style="background-color: #d4ed31; color: #000000;">Branques</a></li>
+        </ul>
+    </nav>
+
+    <main class="content-container">
+        <section class="welcome-section">
+           
+            <!-- Finestres d'Ortografía i Gramática -->
+            <ul class="arees-nav">
+                <li class="dropdown">
+                    <a href="#" class="area-link" id="ortografia-btn">Ortografía</a>
+                    <ul class="dropdown-menu">
+                        <!-- Enllaç modificat per redirigir a clasificación.html -->
+                        <li><a href="clasificación.html">Classificación sílaba tónica</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="area-link">Gramática (procés de construcció)</a></li>
+            </ul>
+
+            <div style="text-align: center; margin-top: 30px;">
+                
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+    <script>
+        // Script per gestionar el desplegable en clicar la pestanya d'Ortografía
+        const dropdownLi = document.querySelector('.dropdown');
+        const ortografiaBtn = document.getElementById('ortografia-btn');
+
+        ortografiaBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            dropdownLi.classList.toggle('active');
+        });
+
+        // Opcional: tancar el desplegable si es clica fora
+        window.addEventListener('click', function(e) {
+            if (!dropdownLi.contains(e.target)) {
+                dropdownLi.classList.remove('active');
+            }
+        });
+    </script>
+
+</body>
+</html>

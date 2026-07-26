@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clasificación sílaba tónica - Lengua Castellana - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estils específics per a la pàgina de Clasificación */
+        .content-section {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-top: 8px solid #d4ed31;
+        }
+
+        .content-section h2 {
+            color: #004d40;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .content-section p {
+            color: #333333;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Sistema de Pestanyes (Tabs) */
+        .tabs-container {
+            margin-top: 30px;
+        }
+
+        .tabs-header {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: #f1f8e9;
+            color: #004d40;
+            border: 2px solid #c8e6c9;
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Modificat: Només s'aplica el ressaltat quan el ratolí passa per damunt */
+        .tab-btn:hover {
+            background-color: #dcedc8;
+            border-color: #004d40;
+            color: #004d40;
+            box-shadow: 0 4px 8px rgba(0,77,64,0.15);
+        }
+
+        .tab-btn.active {
+            background-color: #004d40;
+            color: #ffffff;
+            border-color: #004d40;
+            box-shadow: 0 4px 8px rgba(0,77,64,0.2);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+            background-color: #f9fbf9;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-tipus {
+            text-align: center;
+        }
+
+        .card-tipus h3 {
+            color: #004d40;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+
+        .card-tipus p {
+            font-size: 1.1rem;
+            color: #444444;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .regla-box {
+            background-color: #fff9c4;
+            border-left: 5px solid #fbc02d;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            text-align: left;
+            font-size: 1rem;
+            color: #333333;
+        }
+
+        .exemples-llista {
+            margin-top: 20px;
+        }
+
+        .exemples-llista h4 {
+            color: #004d40;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .exemple {
+            display: inline-block;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 6px 14px;
+            margin: 4px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border: 1px solid #c8e6c9;
+        }
+
+        .btn-tornar {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: #004d40;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-tornar:hover {
+            background-color: #00332c;
+        }
+
+        .tornar-container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link">Presentació</a></li>
+            <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="Curs.html" class="nav-link">Cicle Mitjà</a></li>
+            <li><a href="arees4t.html" class="nav-link">Àrees</a></li>
+            <li><a href="ortografiagramatica.html" class="nav-link">Branques</a></li>
+            <li><a href="classificacio.html" class="nav-link" style="background-color: #d4ed31; color: #000000;">Classificació</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="content-section">
+            <h2>Clasificación de las palabras según la sílaba tónica</h2>
+            <p>Selecciona una pestaña para conocer las características y ejemplos de cada tipo clasificación.</p>
+            
+            <div class="tabs-container">
+                <!-- Botons de les pestanyes -->
+                <div class="tabs-header">
+                   <button class="tab-btn" onclick="openTab(event, 'agudas')">Agudas</button>
+                    <button class="tab-btn" onclick="openTab(event, 'llanas')">Llanas</button>
+                    <button class="tab-btn" onclick="openTab(event, 'esdrujulas')">Esdrújulas</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+    <script>
+        function openTab(evt, tabName) {
+            // Amagar tots els continguts de les pestanyes
+            var tabContent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContent.length; i++) {
+                tabContent[i].classList.remove("active");
+            }
+
+            // Treure la classe 'active' de tots els botons
+            var tabBtn = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabBtn.length; i++) {
+                tabBtn[i].classList.remove("active");
+            }
+
+            // Mostrar el contingut actual i afegir la classe 'active' al botó clicat
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
