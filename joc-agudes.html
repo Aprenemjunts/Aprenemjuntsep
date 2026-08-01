@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joc Interactiu - Paraules Agudes - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .content-section {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-top: 8px solid #d4ed31;
+        }
+
+        .content-section h2 {
+            color: #004d40;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .content-section p {
+            color: #333333;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Estils específics del joc interactiu */
+        .game-container {
+            background-color: #f9fbe7;
+            border: 2px dashed #c8e6c9;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .word-scrambled {
+            font-size: 2.5rem;
+            font-weight: bold;
+            letter-spacing: 5px;
+            color: #d32f2f;
+            margin: 20px 0;
+        }
+
+        .game-input {
+            padding: 10px 15px;
+            font-size: 1.2rem;
+            border: 2px solid #004d40;
+            border-radius: 5px;
+            outline: none;
+            width: 60%;
+            max-width: 300px;
+            margin-right: 10px;
+            text-align: center;
+        }
+
+        .game-btn {
+            background-color: #004d40;
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .game-btn:hover {
+            background-color: #00695c;
+        }
+
+        .result-box {
+            margin-top: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .tonic-highlight {
+            background-color: #ffeb3b;
+            color: #d32f2f;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border-bottom: 3px solid #f57f17;
+        }
+
+        .message-box {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: #2e7d32;
+            background-color: #e8f5e9;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            background-color: #ffebee;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .score-board {
+            font-size: 1.1rem;
+            color: #555555;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link">Presentació</a></li>
+            <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="Curs.html" class="nav-link">Cicle Mitjà</a></li>
+            <li><a href="arees4t.html" class="nav-link">Àrees</a></li>
+            <li><a href="ortografiagramatica.html" class="nav-link">Branques</a></li>
+            <li><a href="clasificación.html" class="nav-link">Classificació</a></li>
+            <!-- Modificat l'enllaç per apuntar correctament a agudes.html -->
+            <li><a href="agudas.html" class="nav-link">Agudes</a></li>
+            <li><a href="joc.html" class="nav-link" style="background-color: #d4ed31; color: #000000;">Joc</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="content-section">
+            <h2>Ordena las letras</h2>
+            <p>Ordena las letras para descubrir las siguientes palabras ocultas. Recuerda que en las palabras <strong>agudas</strong>, la sílaba tónica es la <strong>última</strong> sílaba.</p>
+            
+            <div class="game-container">
+                <div class="score-board">Palabra <span id="current-word-idx">1</span> de <span id="total-words">5</span></div>
+                <div class="word-scrambled" id="scrambled-word">---</div>
+                
+                <div id="input-area">
+                    <input type="text" id="user-input" class="game-input" placeholder="Escribe la palabra ordenada..." autocomplete="off">
+                    <button class="game-btn" onclick="checkWord()">Comprobar</button>
+                </div>
+
+                <div id="result-container" class="result-box"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+    <script>
+        // Llista de paraules agudes en castellà amb la seva última síl·laba definida
+        const agudesData = [
+            { word: "cajón", scrambled: "ójnca", syllables: ["ca", "jón"], tonicIdx: 1 },
+            { word: "papel", scrambled: "lpeap", syllables: ["pa", "pel"], tonicIdx: 1 },
+            { word: "café", scrambled: "éfca", syllables: ["ca", "fé"], tonicIdx: 1 },
+            { word: "pared", scrambled: "derpa", syllables: ["pa", "red"], tonicIdx: 1 },
+            { word: "reloj", scrambled: "jolre", syllables: ["re", "loj"], tonicIdx: 1 },
+            { word: "corazón", scrambled: "arzcnó", syllables: ["co", "ra", "zón"], tonicIdx: 2 },
+            { word: "felicidad", scrambled: "idicdelfa", syllables: ["fe", "li", "ci", "dad"], tonicIdx: 3 },
+            { word: "doctor", scrambled: "rdocto", syllables: ["doc", "tor"], tonicIdx: 1 },
+            { word: "calor", scrambled: "rolac", syllables: ["ca", "lor"], tonicIdx: 1 },
+            { word: "bambú", scrambled: "mabúb", syllables: ["bam", "bú"], tonicIdx: 1 }
+        ];
+
+        let currentIndex = 0;
+
+        function loadGame() {
+            if (currentIndex < agudesData.length) {
+                document.getElementById("current-word-idx").innerText = currentIndex + 1;
+                document.getElementById("total-words").innerText = agudesData.length;
+                document.getElementById("scrambled-word").innerText = agudesData[currentIndex].scrambled;
+                document.getElementById("user-input").value = "";
+                document.getElementById("result-container").innerHTML = "";
+                document.getElementById("input-area").style.display = "block";
+            } else {
+                document.querySelector(".game-container").innerHTML = `
+                    <h3>¡Muy bien! 🎉</h3>
+                    <p>Has completado todas las palabras agudas del juego.</p>
+                    <button class="game-btn" onclick="restartGame()">Volver a jugar</button>
+                `;
+            }
+        }
+
+        function checkWord() {
+            const userInputField = document.getElementById("user-input");
+            const userInput = userInputField.value.trim().toLowerCase();
+            const currentObj = agudesData[currentIndex];
+            const resultContainer = document.getElementById("result-container");
+
+            if (userInput === currentObj.word) {
+                // Construeix la paraula amb l'última síl·laba ressaltada
+                let formattedWordHTML = "";
+                currentObj.syllables.forEach((syl, idx) => {
+                    if (idx === currentObj.tonicIdx) {
+                        formattedWordHTML += `<span class="tonic-highlight">${syl}</span>`;
+                    } else {
+                        formattedWordHTML += syl;
+                    }
+                });
+
+                resultContainer.innerHTML = `
+                    ¡Muy bien! La palabra es: ${formattedWordHTML}<br>
+                    <div class="message-box">
+                        💡 Recuerda: En esta palabra aguda, la sílaba tónica es <strong>"${currentObj.syllables[currentObj.tonicIdx]}"</strong> (la última).
+                    </div><br><br>
+                    <button class="game-btn" onclick="nextWord()">Siguiente palabra</button>
+                `;
+                document.getElementById("input-area").style.display = "none";
+            } else {
+                // Esborra el camp de text i mostra el missatge d'error sol·licitat
+                userInputField.value = "";
+                userInputField.focus();
+                resultContainer.innerHTML = `<div class="error-message">Vuelve a intentarlo</div>`;
+            }
+        }
+
+        function nextWord() {
+            currentIndex++;
+            loadGame();
+        }
+
+        function restartGame() {
+            currentIndex = 0;
+            location.reload();
+        }
+
+        // Executar al carregar la pàgina
+        window.onload = loadGame;
+
+        // Permetre prémer "Enter" per enviar
+        document.getElementById("user-input").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                checkWord();
+            }
+        });
+    </script>
+</body>
+</html>
