@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego Interactivo - Palabras Esdrújulas - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .content-section {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-top: 8px solid #d4ed31;
+        }
+        .content-section h2 {
+            color: #004d40;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        /* Estils per al joc interactiu */
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+        }
+        .instructions {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        .game-board {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            gap: 20px;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 45%;
+        }
+        .draggable-word, .drop-target {
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f4f4f4;
+            border: 2px dashed #ccc;
+            text-align: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .draggable-word {
+            background-color: #e0f2f1;
+            border: 2px solid #004d40;
+            cursor: grab;
+            font-weight: bold;
+            color: #004d40;
+        }
+        .drop-target {
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #fafafa;
+        }
+        .drop-target img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 5px;
+        }
+        .drop-target.correct {
+            border-style: solid;
+            border-color: #4caf50;
+            background-color: #e8f5e9;
+        }
+        .syllables-display {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+        }
+        .syllable {
+            padding: 4px 8px;
+            background-color: #ddd;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .syllable.esdrujula {
+            background-color: #ffeb3b;
+            color: #d32f2f;
+            border: 1px solid #fbc02d;
+        }
+        #message {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            color: #004d40;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link">Presentació</a></li>
+            <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="Curs.html" class="nav-link">Cicle Mitjà</a></li>
+            <li><a href="arees4t.html" class="nav-link">Àrees</a></li>
+            <li><a href="ortografiagramatica.html" class="nav-link">Branques</a></li>
+            <li><a href="clasificación.html" class="nav-link">Classificació</a></li>
+            <li><a href="esdrujulas.html" class="nav-link">Esdrúixoles</a></li>
+            <li><a href="joc.html" class="nav-link" style="background-color: #d4ed31; color: #000000;">Joc</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="content-section">
+            <h2>Juego Interactivo: Palabras Esdrújulas</h2>
+            <div class="game-container">
+                <p class="instructions">Relaciona cada palabra esdrújula con su imagen correspondiente[cite: 1]. ¡Arrastra la palabra a su imagen!</p>
+                
+                <div id="message"></div>
+
+                <div class="game-board">
+                    <div class="column" id="words-column">
+                        <h3>Palabras</h3>
+                        <div class="draggable-word" draggable="true" id="word-brújula" data-word="brújula">brújula</div>
+                        <div class="draggable-word" draggable="true" id="word-música" data-word="música">música</div>
+                        <div class="draggable-word" draggable="true" id="word-plátano" data-word="plátano">plátano</div>
+                    </div>
+
+                    <div class="column" id="targets-column">
+                        <h3>Imágenes</h3>
+                        <div class="drop-target" data-word="brújula">
+                            <img src="brujula.png" alt="Brújula">
+                            <span>Brújula</span>
+                        </div>
+                        <div class="drop-target" data-word="música">
+                            <img src="musica.png" alt="Música">
+                            <span>Música</span>
+                        </div>
+                        <div class="drop-target" data-word="plátano">
+                            <img src="platano.png" alt="Plátano">
+                            <span>Plátano</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+    <script>
+        const draggables = document.querySelectorAll('.draggable-word');
+        const targets = document.querySelectorAll('.drop-target');
+        const message = document.getElementById('message');
+
+        const syllablesData = {
+            'brújula': ['brú', 'ju', 'la'],
+            'música': ['mú', 'si', 'ca'],
+            'plátano': ['plá', 'ta', 'no']
+        };
+
+        draggables.forEach(draggable => {
+            draggable.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text/plain', e.target.dataset.word);
+            });
+        });
+
+        targets.forEach(target => {
+            target.addEventListener('dragover', e => {
+                e.preventDefault();
+            });
+
+            target.addEventListener('drop', e => {
+                e.preventDefault();
+                const draggedWord = e.dataTransfer.getData('text/plain');
+                const targetWord = target.dataset.word;
+
+                if (draggedWord === targetWord) {
+                    target.classList.add('correct');
+                    message.textContent = `¡Correcto! Has relacionado "${targetWord}"[cite: 1].`;
+                    message.style.color = '#2e7d32';
+
+                    // Ocultar la palabra arrastrada original
+                    const wordElement = document.getElementById(`word-${targetWord}`);
+                    if (wordElement) {
+                        wordElement.style.display = 'none';
+                    }
+
+                    // Mostrar separación por sílabas y marcar la esdrújula[cite: 1]
+                    const spanText = target.querySelector('span');
+                    spanText.innerHTML = ''; // Limpiar texto plano
+                    
+                    const container = document.createElement('div');
+                    container.className = 'syllables-display';
+                    
+                    const syllables = syllablesData[targetWord];
+                    syllables.forEach((syl, index) => {
+                        const sylSpan = document.createElement('span');
+                        sylSpan.className = 'syllable';
+                        // En las palabras esdrújulas, la sílaba tónica es la antepenúltima (índice 0 en este array de 3 sílabas)
+                        if (index === 0) {
+                            sylSpan.classList.add('esdrujula');
+                        }
+                        sylSpan.textContent = syl;
+                        container.appendChild(sylSpan);
+                    });
+                    
+                    target.appendChild(container);
+                } else {
+                    message.textContent = '¡Ups! Esa no es la imagen correcta. Prueba otra vez.';
+                    message.style.color = '#c62828';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
