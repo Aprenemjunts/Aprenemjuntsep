@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palabras Llanas - Lengua Castellana - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .content-section {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-top: 8px solid #d4ed31;
+        }
+
+        .content-section h2 {
+            color: #004d40;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .content-section p {
+            color: #333333;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .vocabulary-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f9fbe7;
+            border-radius: 8px;
+        }
+
+        .vocab-item {
+            background-color: #ffffff;
+            border: 1px solid #c8e6c9;
+            padding: 10px 15px;
+            text-align: center;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #004d40;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .vocab-item:hover {
+            background-color: #f1f8e9;
+        }
+
+        .vocab-item.selected-llana {
+            background-color: #007bff !important;
+            color: #ffffff !important;
+            border-color: #0056b3 !important;
+        }
+
+        .game-status-container {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        #game-message {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #004d40;
+            margin-bottom: 15px;
+        }
+
+        .restart-btn {
+            background-color: #004d40;
+            color: #ffffff;
+            border: 2px solid #004d40;
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0,77,64,0.2);
+            margin-top: 15px;
+        }
+
+        .restart-btn:hover {
+            background-color: #00332c;
+            border-color: #00332c;
+            box-shadow: 0 6px 12px rgba(0,77,64,0.3);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <span class="vocab-item" style="position: absolute; top: 10px; right: 20px; font-size: 0.8rem; background: #fff; padding: 2px 6px; cursor: default;">Papel</span>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link">Presentació</a></li>
+            <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="Curs.html" class="nav-link">Cicle Mitjà</a></li>
+            <li><a href="arees4t.html" class="nav-link">Àrees</a></li>
+            <li><a href="ortografiagramatica.html" class="nav-link">Branques</a></li>
+            <li><a href="clasificación.html" class="nav-link">Classificació</a></li>
+            <li><a href="llanas.html" class="nav-link">Planes</a></li>
+            <li><a href="joc.html" class="nav-link" style="background-color: #d4ed31; color: #000000;">Joc</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="content-section">
+            <h2>palabras llanas</h2>
+            <p>Encuentra 5 palabras <strong>llanas</strong></p>
+           
+            <div class="vocabulary-container" id="vocab-grid">
+                <!-- Les paraules es generaran dinàmicament -->
+            </div>
+
+            <div class="game-status-container">
+                <div id="game-message">Paraules planes trobades: <span id="count">0</span> / <span id="total-target">5</span></div>
+                <button id="restart-btn" class="restart-btn hidden">Volver a empezar con palabras nuevas</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+    <script>
+        const llanasPool = [
+            "Abeja", "Árbol", "Aro", "Azúcar", "Balanza", "Blusa", "Bolsillo", "Cama", 
+            "Camisa", "Casa", "Césped", "Ciclo", "Cinta", "Clima", "Coche", "Cofre", 
+            "Corona", "Corteza", "Cuadro", "Cuaderno", "Cuento", "Dedo", "Difícil", 
+            "Dosis", "Eje", "Elefante", "Escudo", "Escuela", "Espejo", "Estrella", 
+            "Fácil", "Fútbol", "Gato", "Gema", "Goma", "Grave", "Helado", "Hojas", 
+            "Huerto", "Joven", "Lápiz", "Leche", "Lobo", "Luna", "Mano", "Mármol", 
+            "Martes", "Mesa", "Moneda", "Móvil", "Nieve", "Nube", "Obrero", "Oso", 
+            "Padre", "Paloma", "Pera", "Piedra", "Piña", "Plato", "Batería","Pluma", "Puerta", "Bolsa","Esponja","Galería",
+            "Pulpo", "Rayo", "Regla"
+        ];
+
+        const noLlanasPool = [
+            "Ábaco", "Adiós", "Águila", "Algodón", "Amistad", "Antifaz", "Apagar", 
+            "Aprender", "Autobús", "Avión", "Azul", "Bailar", "Balón",  
+            "Botón",  "Brújula", "Cálculo", "Calor", "Cámara", "Camión", 
+            "Canción", "Cantar", "Capitán", "Cápsula", "Carnaval", "Célebre", 
+            "Círculo", "Ciudad", "Código", "Colibrí", "Color", "Comer", "Compás", 
+            "Corazón", "Cualquier", "Cuestión", "Delfín", "Diámetro", "Dinámico", 
+            "Doctor", "Dominó", "Drástico", "Educación", "Eléctrico", "Enyesar", 
+            "Espátula",  "Explosión", "Fábula", "Fantástico", "Farol", 
+            "Felicidad", "Feliz", "Fenómeno", "Físico", "Flor", "Formación", 
+            "Fósforo", "Fotografía", "Frigorífico", "Frenesí",  "Geografía", 
+            "Girasol", "Glaciar", "Gramática", "Hablar", "Halcón", "Hélice", "Hospital", 
+            "Imán", "Inyección", "Jabalí", "Jardín", "Júpiter", "Lámpara", "León", 
+            "Líquido", "Lombriz", "Lógico", "Mamá", "Matemática", "Melón", "Menú", 
+            "Métrico", "Mirar", "Módulo", "Monopatín", "Murciélago", "Muscular", 
+            "Nación", "Navegar", "Nivel", "Número", "Océano", "Oír", "Opinión", 
+            "Orgánico", "Papá", "Pared", "Pirámide"
+        ];
+
+        function shuffle(array) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function initGame() {
+            const restartBtn = document.getElementById('restart-btn');
+            const gameMessage = document.getElementById('game-message');
+            const grid = document.getElementById('vocab-grid');
+
+            restartBtn.classList.add('hidden');
+            grid.innerHTML = '';
+
+            // Seleccionamos exactamente 5 llanas y 5 no llanas para tener un total de 10 palabras por partida
+            const shuffledLlanas = shuffle(llanasPool);
+            const shuffledNoLlanas = shuffle(noLlanasPool);
+
+            const selectedLlanas = shuffledLlanas.slice(0, 5).map(word => ({ text: word, type: 'llana' }));
+            const selectedNoLlanas = shuffledNoLlanas.slice(0, 5).map(word => ({ text: word, type: 'no-llana' }));
+
+            let gameWords = shuffle([...selectedLlanas, ...selectedNoLlanas]);
+            let foundLlanas = 0;
+            const targetLlanas = 5;
+
+            gameMessage.innerHTML = `Paraules planes trobades: <span id="count">0</span> / ${targetLlanas}`;
+            gameMessage.style.color = "#004d40";
+
+            gameWords.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'vocab-item';
+                div.textContent = `${index + 1}. ${item.text}`;
+                div.setAttribute('data-type', item.type);
+
+                div.addEventListener('click', () => {
+                    if (!restartBtn.classList.contains('hidden')) return;
+                    if (div.classList.contains('selected-llana') || div.classList.contains('wrong')) return;
+
+                    if (div.getAttribute('data-type') === 'llana') {
+                        div.classList.add('selected-llana');
+                        foundLlanas++;
+                        document.getElementById('count').textContent = foundLlanas;
+
+                        if (foundLlanas === targetLlanas) {
+                            gameMessage.innerHTML = "🎉 Enhorabona! Has trobat les paraules planes!";
+                            gameMessage.style.color = "#28a745";
+                            restartBtn.classList.remove('hidden');
+                        }
+                    } else {
+                        div.style.backgroundColor = "#ffdddd";
+                        div.classList.add('wrong');
+                        setTimeout(() => {
+                            div.style.backgroundColor = "#ffffff";
+                            div.classList.remove('wrong');
+                        }, 400);
+                    }
+                });
+
+                grid.appendChild(div);
+            });
+        }
+
+        document.getElementById('restart-btn').addEventListener('click', initGame);
+
+        window.onload = initGame;
+    </script>
+</body>
+</html>
