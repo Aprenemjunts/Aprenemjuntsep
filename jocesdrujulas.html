@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="style.css">
     <style>
         .content-section {
-            max-width: 900px;
+            max-width: 1250px;
             margin: 40px auto;
             background-color: #ffffff;
-            padding: 40px;
+            padding: 40px 20px;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             border-top: 8px solid #d4ed31;
@@ -35,15 +35,29 @@
         }
         .game-board {
             display: flex;
-            justify-content: space-around;
+            flex-direction: column;
             width: 100%;
-            gap: 20px;
+            gap: 25px;
         }
-        .column {
+        .section-group {
             display: flex;
             flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+        /* Contenedor para las palabras en cuadrícula de 5 columnas (2 filas de 5) */
+        #words-column {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
             gap: 15px;
-            width: 45%;
+            justify-content: center;
+        }
+        /* Contenedor específico para que las imágenes estén en dos filas (5 por fila) */
+        #targets-column {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            justify-content: center;
         }
         .draggable-word, .drop-target {
             padding: 15px;
@@ -61,20 +75,26 @@
             cursor: grab;
             font-weight: bold;
             color: #004d40;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .drop-target {
-            min-height: 80px;
+            width: 100%;
+            min-height: 180px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             background-color: #fafafa;
+            padding: 20px;
         }
         .drop-target img {
-            width: 60px;
-            height: 60px;
+            width: 150px;
+            height: 150px;
             object-fit: contain;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
         .drop-target.correct {
             border-style: solid;
@@ -85,6 +105,7 @@
             display: flex;
             gap: 5px;
             margin-top: 8px;
+            justify-content: center;
         }
         .syllable {
             padding: 4px 8px;
@@ -102,6 +123,13 @@
             font-weight: bold;
             text-align: center;
             color: #004d40;
+        }
+
+        /* Diseño adaptable para pantallas más pequeñas */
+        @media (max-width: 1100px) {
+            #words-column, #targets-column {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
@@ -133,33 +161,60 @@
 
     <main>
         <section class="content-section">
-            <h2>Juego Interactivo: Palabras Esdrújulas</h2>
+            <h2>Palabras esdrújulas</h2>
             <div class="game-container">
-                <p class="instructions">Relaciona cada palabra esdrújula con su imagen correspondiente[cite: 1]. ¡Arrastra la palabra a su imagen!</p>
+                <p class="instructions">Relaciona cada palabra esdrújula con su imagen correspondiente. ¡Arrastra la palabra a su imagen!</p>
                 
                 <div id="message"></div>
 
                 <div class="game-board">
-                    <div class="column" id="words-column">
-                        <h3>Palabras</h3>
-                        <div class="draggable-word" draggable="true" id="word-brújula" data-word="brújula">brújula</div>
-                        <div class="draggable-word" draggable="true" id="word-música" data-word="música">música</div>
-                        <div class="draggable-word" draggable="true" id="word-plátano" data-word="plátano">plátano</div>
+                    <div class="section-group">
+                        <div class="items-container" id="words-column">
+                            <div class="draggable-word" draggable="true" id="word-brújula" data-word="brújula">brújula</div>
+                            <div class="draggable-word" draggable="true" id="word-música" data-word="música">música</div>
+                            <div class="draggable-word" draggable="true" id="word-plátano" data-word="plátano">plátano</div>
+                            <div class="draggable-word" draggable="true" id="word-célula" data-word="célula">célula</div>
+                            <div class="draggable-word" draggable="true" id="word-atmósfera" data-word="atmósfera">atmósfera</div>
+                            <div class="draggable-word" draggable="true" id="word-océano" data-word="océano">océano</div>
+                            <div class="draggable-word" draggable="true" id="word-teléfono" data-word="teléfono">teléfono</div>
+                            <div class="draggable-word" draggable="true" id="word-médico" data-word="médico">médico</div>
+                            <div class="draggable-word" draggable="true" id="word-pájaro" data-word="pájaro">pájaro</div>
+                            <div class="draggable-word" draggable="true" id="word-lámpara" data-word="lámpara">lámpara</div>
+                        </div>
                     </div>
 
-                    <div class="column" id="targets-column">
-                        <h3>Imágenes</h3>
-                        <div class="drop-target" data-word="brújula">
-                            <img src="brujula.png" alt="Brújula">
-                            <span>Brújula</span>
-                        </div>
-                        <div class="drop-target" data-word="música">
-                            <img src="musica.png" alt="Música">
-                            <span>Música</span>
-                        </div>
-                        <div class="drop-target" data-word="plátano">
-                            <img src="platano.png" alt="Plátano">
-                            <span>Plátano</span>
+                    <div class="section-group">
+                        <div class="items-container" id="targets-column">
+                            <div class="drop-target" data-word="brújula">
+                                <img src="brujula.png" alt="brújula">
+                            </div>
+                            <div class="drop-target" data-word="música">
+                                <img src="musica.png" alt="música">
+                            </div>
+                            <div class="drop-target" data-word="plátano">
+                                <img src="platano.png" alt="plátano">
+                            </div>
+                            <div class="drop-target" data-word="célula">
+                                <img src="celula.png" alt="célula">
+                            </div>
+                            <div class="drop-target" data-word="atmósfera">
+                                <img src="atmosfera.png" alt="atmósfera">
+                            </div>
+                            <div class="drop-target" data-word="océano">
+                                <img src="oceano.png" alt="océano">
+                            </div>
+                            <div class="drop-target" data-word="teléfono">
+                                <img src="telefono.png" alt="teléfono">
+                            </div>
+                            <div class="drop-target" data-word="médico">
+                                <img src="medico.png" alt="médico">
+                            </div>
+                            <div class="drop-target" data-word="pájaro">
+                                <img src="pajaro.png" alt="pájaro">
+                            </div>
+                            <div class="drop-target" data-word="lámpara">
+                                <img src="lampara.png" alt="lámpara">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -179,7 +234,14 @@
         const syllablesData = {
             'brújula': ['brú', 'ju', 'la'],
             'música': ['mú', 'si', 'ca'],
-            'plátano': ['plá', 'ta', 'no']
+            'plátano': ['plá', 'ta', 'no'],
+            'célula': ['cé', 'lu', 'la'],
+            'atmósfera': ['at', 'mós', 'fe', 'ra'],
+            'océano': ['o', 'cé', 'a', 'no'],
+            'teléfono': ['te', 'lé', 'fo', 'no'],
+            'médico': ['mé', 'di', 'co'],
+            'pájaro': ['pá', 'ja', 'ro'],
+            'lámpara': ['lám', 'pa', 'ra']
         };
 
         draggables.forEach(draggable => {
@@ -200,18 +262,13 @@
 
                 if (draggedWord === targetWord) {
                     target.classList.add('correct');
-                    message.textContent = `¡Correcto! Has relacionado "${targetWord}"[cite: 1].`;
-                    message.style.color = '#2e7d32';
+                    message.textContent = ''; // S'ha eliminat el text del missatge d'encert
 
                     // Ocultar la palabra arrastrada original
                     const wordElement = document.getElementById(`word-${targetWord}`);
                     if (wordElement) {
                         wordElement.style.display = 'none';
                     }
-
-                    // Mostrar separación por sílabas y marcar la esdrújula[cite: 1]
-                    const spanText = target.querySelector('span');
-                    spanText.innerHTML = ''; // Limpiar texto plano
                     
                     const container = document.createElement('div');
                     container.className = 'syllables-display';
@@ -220,8 +277,15 @@
                     syllables.forEach((syl, index) => {
                         const sylSpan = document.createElement('span');
                         sylSpan.className = 'syllable';
-                        // En las palabras esdrújulas, la sílaba tónica es la antepenúltima (índice 0 en este array de 3 sílabas)
-                        if (index === 0) {
+                        if (targetWord === 'atmósfera' && index === 1) {
+                            sylSpan.classList.add('esdrujula');
+                        } else if (targetWord === 'océano' && index === 1) {
+                            sylSpan.classList.add('esdrujula');
+                        } else if (targetWord === 'teléfono' && index === 1) {
+                            sylSpan.classList.add('esdrujula');
+                        } else if (targetWord === 'lámpara' && index === 0) {
+                            sylSpan.classList.add('esdrujula');
+                        } else if (index === 0 && targetWord !== 'atmósfera' && targetWord !== 'océano' && targetWord !== 'teléfono') {
                             sylSpan.classList.add('esdrujula');
                         }
                         sylSpan.textContent = syl;
