@@ -332,7 +332,24 @@
             "2-1": "6", "1-10": "7", "4-0": "8", "6-2": "9"
         };
 
+        // Definim les paraules explícitament (tant horitzontals com verticals) amb les seves coordenades en ordre
+        const words = [
+            // Horitzontals
+            ["0-1", "0-2", "0-3", "0-4", "0-5", "0-6", "0-7", "0-8", "0-9"], // AVANTBRAÇ
+            ["2-3", "2-4", "2-5", "2-6", "2-7"],                              // TÒRAX
+            ["4-2", "4-3", "4-4", "4-5", "4-6", "4-7", "4-8"],                  // ABDOMEN
+            ["6-3", "6-4", "6-5", "6-6", "6-7"],                              // CUIXA
+            ["8-4", "8-5", "8-6"],                                            // PEU
+            
+            // Verticals (d'amunt a avall)
+            ["2-1", "3-1", "4-1", "5-1"],                                     // CARA
+            ["1-10", "2-10", "3-10", "4-10"],                                 // BRAÇ
+            ["4-0", "5-0"],                                                   // MÀ
+            ["6-2", "7-2", "8-2", "9-2"]                                      // CAMA
+        ];
+
         const grid = document.getElementById('grid');
+        const inputMap = {}; // Per guardar la referència de cada input segons "r-c"
 
         for(let r=0; r<11; r++) {
             for(let c=0; c<11; c++) {
@@ -350,14 +367,58 @@
                     input.maxLength = 1;
                     input.dataset.id = id;
                     cell.appendChild(input);
+                    inputMap[id] = input;
                 }
-                grid.appendChild(cell);
+                grid.appendChild(inputMap[id] ? inputMap[id].parentElement : cell); // Mantenim l'estructura
             }
         }
 
+        // Creem un mapa de navegació intel·ligent per a cada cel·la basant-nos en les paraules
+        const nextMap = {};
+        const prevMap = {};
+
+        words.forEach(word => {
+            for (let i = 0; i < word.length; i++) {
+                const currentId = word[i];
+                if (i < word.length - 1) {
+                    // Si no és l'última lletra, la següent és la de la mateixa paraula
+                    if (!nextMap[currentId]) nextMap[currentId] = word[i + 1];
+                }
+                if (i > 0) {
+                    // Si no és la primera lletra, l'anterior és la de la mateixa paraula
+                    if (!prevMap[currentId]) prevMap[currentId] = word[i - 1];
+                }
+            }
+        });
+
+        // Assignar esdeveniments a cada input
+        Object.keys(inputMap).forEach(id => {
+            const input = inputMap[id];
+
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1) {
+                    const nextId = nextMap[id];
+                    if (nextId && inputMap[nextId]) {
+                        inputMap[nextId].focus();
+                        inputMap[nextId].select();
+                    }
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && input.value === '') {
+                    const prevId = prevMap[id];
+                    if (prevId && inputMap[prevId]) {
+                        inputMap[prevId].focus();
+                        inputMap[prevId].select();
+                    }
+                }
+            });
+        });
+
         function check() {
             let allCorrect = true;
-            document.querySelectorAll('input').forEach(input => {
+            Object.values(inputMap).forEach(input => {
                 const id = input.dataset.id;
                 const val = input.value.toUpperCase().trim();
                 const sol = solution[id].toUpperCase();
@@ -378,10 +439,12 @@
         }
 
         function reset() {
-            document.querySelectorAll('input').forEach(i => {
+            Object.values(inputMap).forEach(i => {
                 i.value = '';
                 i.parentElement.classList.remove('correct', 'incorrect');
             });
+            const firstInput = inputMap[words[0][0]];
+            if (firstInput) firstInput.focus();
         }
     </script>
 </body>
