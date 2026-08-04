@@ -91,8 +91,15 @@
             font-size: 14px;
         }
 
-        .boto-ruleta {
+        .ruleta-botons-container {
+            display: flex;
+            gap: 15px;
             margin-top: 30px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .boto-ruleta {
             padding: 14px 35px;
             background: linear-gradient(135deg, #ff7043 0%, #f4511e 100%);
             color: #ffffff;
@@ -117,6 +124,27 @@
             cursor: not-allowed;
             box-shadow: none;
             transform: none;
+        }
+
+        .boto-reset {
+            padding: 14px 25px;
+            background: linear-gradient(135deg, #78909c 0%, #546e7a 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(84, 110, 122, 0.4);
+            transition: all 0.2s ease;
+        }
+        .boto-reset:hover {
+            background: linear-gradient(135deg, #607d8b 0%, #455a64 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(84, 110, 122, 0.5);
+        }
+        .boto-reset:active {
+            transform: translateY(1px);
         }
 
         #resultat-ruleta {
@@ -174,8 +202,7 @@
     <main class="content-container">
         <section class="contingut-detall">
             <h2>Práctica de acentuación</h2>
-            <p>Aquí vas a encontrar diferentes actividades que podràs llevar a cabo.</p>
-            
+           
             <!-- Ruleta de 5 panells colorida -->
             <div class="ruleta-wrapper">
                 <div class="ruleta-container">
@@ -189,27 +216,30 @@
                         </defs>
                         <!-- Sector 1: Rosa/Magenta viu -->
                         <path id="sector-0" d="M150,150 L150,10 A140,140 0 0,1 283.3,106.8 Z" fill="#E91E63" stroke="#ffffff" stroke-width="3"/>
-                        <text x="220" y="75" fill="#ffffff" font-size="15" font-weight="bold" font-family="sans-serif" text-anchor="middle" transform="rotate(36, 220, 75)" filter="url(#shadow)">Activitat 1</text>
+                        <text x="220" y="75" fill="#ffffff" font-size="15" font-weight="bold" font-family="sans-serif" text-anchor="middle" transform="rotate(36, 220, 75)" filter="url(#shadow)">Actividad 1</text>
 
                         <!-- Sector 2: Lila elegant -->
                         <path id="sector-1" d="M150,150 L283.3,106.8 A140,140 0 0,1 233.3,263.2 Z" fill="#9C27B0" stroke="#ffffff" stroke-width="3"/>
-                        <text x="245" y="195" fill="#ffffff" font-size="15" font-weight="bold" font-family="sans-serif" text-anchor="middle" transform="rotate(108, 245, 195)" filter="url(#shadow)">Activitat 2</text>
+                        <text x="245" y="195" fill="#ffffff" font-size="15" font-weight="bold" font-family="sans-serif" text-anchor="middle" transform="rotate(108, 245, 195)" filter="url(#shadow)">Actividad 2</text>
 
                         <!-- Sector 3: Blau radiant -->
                         <path id="sector-2" d="M150,150 L233.3,263.2 A140,140 0 0,1 66.7,263.2 Z" fill="#2196F3" stroke="#ffffff" stroke-width="3"/>
-                        <text x="150" y="245" fill="#ffffff" font-size="15" font-weight="bold" font-family="sans-serif" text-anchor="middle" transform="rotate(180, 150, 245)" filter="url(#shadow)">Activitat 3</text>
+                        <text x="150" y="245" fill="#ffffff" font-size="15" font-weight="bold" font-family="sans-serif" text-anchor="middle" transform="rotate(180, 150, 245)" filter="url(#shadow)">Actividad 3</text>
 
                         <!-- Sector 4: Verd blavós fosc / menta intens -->
                         <path id="sector-3" d="M150,150 L66.7,263.2 A140,140 0 0,1 16.7,106.8 Z" fill="#009688" stroke="#ffffff" stroke-width="3"/>
-                        <text x="55" y="195" fill="#ffffff" font-size="15" font-weight="bold" font-family="sans-serif" text-anchor="middle" transform="rotate(252, 55, 195)" filter="url(#shadow)">Activitat 4</text>
+                        <text x="55" y="195" fill="#ffffff" font-size="15" font-weight="bold" font-family="sans-serif" text-anchor="middle" transform="rotate(252, 55, 195)" filter="url(#shadow)">Actividad 4</text>
 
                         <!-- Sector 5: Taronja càlid -->
                         <path id="sector-4" d="M150,150 L16.7,106.8 A140,140 0 0,1 150,10 Z" fill="#FF9800" stroke="#ffffff" stroke-width="3"/>
-                        <text x="80" y="75" fill="#ffffff" font-size="15" font-weight="bold" font-family="sans-serif" text-anchor="middle" transform="rotate(324, 80, 75)" filter="url(#shadow)">Activitat 5</text>
+                        <text x="80" y="75" fill="#ffffff" font-size="15" font-weight="bold" font-family="sans-serif" text-anchor="middle" transform="rotate(324, 80, 75)" filter="url(#shadow)">Actividad 5</text>
                     </svg>
                 </div>
 
-                <button class="boto-ruleta" id="girarBoto">Gira la ruleta</button>
+                <div class="ruleta-botons-container">
+                    <button class="boto-ruleta" id="girarBoto">Gira la ruleta</button>
+                    <button class="boto-reset" id="resetBoto">Resetear</button>
+                </div>
                 <div id="resultat-ruleta"></div>
             </div>
         </section>
@@ -221,28 +251,67 @@
 
     <script>
         const girarBoto = document.getElementById('girarBoto');
+        const resetBoto = document.getElementById('resetBoto');
         const ruleta = document.getElementById('ruletaSvg');
         const resultatRuleta = document.getElementById('resultat-ruleta');
         
-        let grauActual = 0;
         const totalPanells = 5;
         const grausPerPanell = 360 / totalPanells;
+        const activitats = ["Actividad 1", "Actividad 2", "Actividad 3", "Actividad 4", "Actividad 5"];
+        const colorsOriginals = ["#E91E63", "#9C27B0", "#2196F3", "#009688", "#FF9800"];
 
-        let panellsPendents = [0, 1, 2, 3, 4];
-        const activitats = ["Activitat 1", "Activitat 2", "Activitat 3", "Activitat 4", "Activitat 5"];
+        // Carregar l'estat guardat prèviament del navegador (si existeix)
+        let grauActual = parseInt(localStorage.getItem('ruleta_grauActual')) || 0;
+        let panellsPendents = JSON.parse(localStorage.getItem('ruleta_pendents')) || [0, 1, 2, 3, 4];
+        let sectorsComplets = JSON.parse(localStorage.getItem('ruleta_sectorsComplets')) || [];
+        let estatFinalitzat = JSON.parse(localStorage.getItem('ruleta_finalitzat')) || false;
+        let ultimMissatge = localStorage.getItem('ruleta_missatge') || "";
+
+        // Aplicar immediatament la rotació i colors guardats en carregar la pàgina
+        ruleta.style.transform = `rotate(${grauActual}deg)`;
+        sectorsComplets.forEach(index => {
+            const sectorElement = document.getElementById(`sector-${index}`);
+            if (sectorElement) {
+                sectorElement.setAttribute('fill', '#cfd8dc');
+            }
+        });
+
+        if (estatFinalitzat) {
+            girarBoto.disabled = true;
+            girarBoto.textContent = "Completat";
+            girarBoto.style.background = "#9e9e9e";
+            girarBoto.style.cursor = "default";
+        }
+
+        if (ultimMissatge) {
+            resultatRuleta.textContent = ultimMissatge;
+            resultatRuleta.classList.add('visible');
+        }
+
+        // Funció per desar l'estat actual al localStorage
+        function guardarEstat() {
+            localStorage.setItem('ruleta_grauActual', grauActual);
+            localStorage.setItem('ruleta_pendents', JSON.stringify(panellsPendents));
+            localStorage.setItem('ruleta_sectorsComplets', JSON.stringify(sectorsComplets));
+            localStorage.setItem('ruleta_finalitzat', JSON.stringify(estatFinalitzat));
+            localStorage.setItem('ruleta_missatge', resultatRuleta.textContent);
+        }
 
         girarBoto.addEventListener('click', () => {
-            if (panellsPendents.length === 0) return;
+            if (panellsPendents.length === 0 || estatFinalitzat) return;
 
             girarBoto.disabled = true;
+            resetBoto.disabled = true;
             resultatRuleta.classList.remove('visible');
-            resultatRuleta.textContent = "Girant la ruleta...";
+            resultatRuleta.textContent = "¡Suerte!";
             setTimeout(() => resultatRuleta.classList.add('visible'), 50);
 
             const indexAleatori = Math.floor(Math.random() * panellsPendents.length);
             const panellGuanyador = panellsPendents[indexAleatori];
 
+            // Treure de pendents i afegir a sectors complets
             panellsPendents.splice(indexAleatori, 1);
+            sectorsComplets.push(panellGuanyador);
 
             const voltesExtra = Math.floor(Math.random() * 5) + 5;
             const angleSector = (panellGuanyador * grausPerPanell) + (grausPerPanell / 2);
@@ -259,16 +328,79 @@
                     sectorElement.setAttribute('fill', '#cfd8dc');
                 }
 
+                resetBoto.disabled = false;
+
                 if (panellsPendents.length > 0) {
                     girarBoto.disabled = false;
-                    resultatRuleta.textContent = `🎉 T'ha tocat: ${activitatTrobada}!`;
+                    resultatRuleta.textContent = ` ${activitatTrobada}!`;
                 } else {
-                    resultatRuleta.textContent = `🏆 Has completat totes les activitats! Ruleta finalitzada.`;
-                    girarBoto.textContent = "Completat";
+                    estatFinalitzat = true;
+                   
+                    girarBoto.textContent = "Completado";
                     girarBoto.style.background = "#9e9e9e";
                     girarBoto.style.cursor = "default";
+                    girarBoto.disabled = true;
                 }
+
+                // Guardar dades de manera persistent
+                guardarEstat();
+
+                // Obre automàticament l'activitat corresponent en pestanya nova
+                if (activitatTrobada === "Actividad 1") {
+                    setTimeout(() => {
+                        window.open('actividad1.html', '_blank');
+                    }, 1000);
+                } else if (activitatTrobada === "Actividad 2") {
+                    setTimeout(() => {
+                        window.open('actividad2.html', '_blank');
+                    }, 1000);
+                } else if (activitatTrobada === "Actividad 3") {
+                    setTimeout(() => {
+                        window.open('actividad3.html', '_blank');
+                    }, 1000);
+                } else if (activitatTrobada === "Actividad 4") {
+                    setTimeout(() => {
+                        window.open('actividad4.html', '_blank');
+                    }, 1000);
+                } else if (activitatTrobada === "Actividad 5") {
+                    setTimeout(() => {
+                        window.open('actividad5.html', '_blank');
+                    }, 1000);
+                }
+
             }, 4100);
+        });
+
+        // Botó Resetear per netejar la memòria persistent
+        resetBoto.addEventListener('click', () => {
+            panellsPendents = [0, 1, 2, 3, 4];
+            sectorsComplets = [];
+            estatFinalitzat = false;
+            
+            // Netejar localStorage
+            localStorage.removeItem('ruleta_grauActual');
+            localStorage.removeItem('ruleta_pendents');
+            localStorage.removeItem('ruleta_sectorsComplets');
+            localStorage.removeItem('ruleta_finalitzat');
+            localStorage.removeItem('ruleta_missatge');
+            
+            // Restaura els colors originals de tots els sectors
+            for (let i = 0; i < totalPanells; i++) {
+                const sectorElement = document.getElementById(`sector-${i}`);
+                if (sectorElement) {
+                    sectorElement.setAttribute('fill', colorsOriginals[i]);
+                }
+            }
+
+            // Restaura l'estat inicial del botó de girar
+            girarBoto.disabled = false;
+            girarBoto.textContent = "Gira la ruleta";
+            girarBoto.style.background = "linear-gradient(135deg, #ff7043 0%, #f4511e 100%)";
+            girarBoto.style.cursor = "pointer";
+
+            // Neteja el missatge de resultat
+            resultatRuleta.classList.remove('visible');
+            resultatRuleta.textContent = "";
         });
     </script>
 </body>

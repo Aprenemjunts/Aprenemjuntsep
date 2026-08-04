@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 1 - El Joc del Penjat - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- Paleta de Colors Principal --- */
+        :root {
+            --color-principal: #673ab7; /* Violeta Principal */
+            --color-primari-hover: #5e35b1;
+            --color-secundari: #ffc107; /* Amarillo Mostaza */
+            --color-secundari-hover: #ffb300;
+            --color-fons: #e0f7fa; /* Azul Cían Suave */
+            --color-borde: #80deea;
+            --color-text-fort: #3e2723; /* Marrón Oscuro */
+            --color-text-suau: #616161;
+            --color-encert: #4caf50; /* Verde */
+            --color-error: #f44336; /* Rojo */
+            --color-desactivat: #b0bec5;
+            
+            /* Nuevos colores para los botones del teclado */
+            --btn-default-bg: #2196f3; /* Azul */
+            --btn-default-hover: #1e88e5;
+            --btn-success-bg: #8bc34a; /* Verde Lima */
+            --btn-error-bg: #ff7043; /* Naranja */
+        }
+
+        body {
+            background-color: var(--color-fons);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .contingut-detall {
+            background-color: #ffffff;
+            border: 1px solid var(--color-borde);
+            border-top: 8px solid var(--color-secundari);
+            border-radius: 12px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 900px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            position: relative;
+            text-align: center;
+        }
+        .contingut-detall h2 {
+            color: var(--color-principal);
+            margin-top: 0;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .contingut-detall p {
+            font-size: 1.2rem;
+            color: var(--color-text-suau);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        /* Pantalla de configuració inicial */
+        .config-container {
+            background: #fff9c4; /* Amarillo Pálido */
+            border: 1px solid #fff176;
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 30px;
+            text-align: left;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+        }
+        .config-group {
+            margin-bottom: 25px;
+        }
+        .config-group label {
+            display: block;
+            font-weight: bold;
+            color: var(--color-text-fort);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        .config-group input, .config-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #fff176;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            box-sizing: border-box;
+            background: #fff;
+        }
+        .boto-iniciar-joc {
+            background-color: var(--color-principal);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s, transform 0.1s;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .boto-iniciar-joc:hover {
+            background-color: var(--color-primari-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Estils específics per al Joc del Penjat */
+        .caixa-activitat {
+            background: #e8f5e9; /* Verde Menta Suave */
+            border: 1px solid #c8e6c9;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        .marcador-container {
+            display: flex;
+            justify-content: space-around;
+            background: #ffffff;
+            border: 2px solid var(--color-encert);
+            border-radius: 50px;
+            padding: 15px 30px;
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--color-encert);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .marcador-container span {
+            font-size: 1.5rem;
+        }
+        #label-j1, #label-j2 {
+            color: var(--color-text-fort);
+            text-transform: capitalize;
+        }
+        .torns-indicador {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--color-principal);
+            margin-bottom: 20px;
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            border: 2px solid var(--color-principal);
+            text-transform: capitalize;
+        }
+        .paraula-secreta {
+            font-size: 3rem;
+            letter-spacing: 20px;
+            font-weight: 900;
+            color: var(--color-text-fort);
+            margin: 30px 0;
+            font-family: 'Courier New', Courier, monospace;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            border-bottom: 5px solid var(--color-secundari);
+        }
+        .teclat-lletres {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .teclat-lletres button {
+            background-color: var(--btn-default-bg);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .teclat-lletres button:hover:not(:disabled) {
+            background-color: var(--btn-default-hover);
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .teclat-lletres button:disabled {
+            background-color: var(--color-desactivat);
+            color: #eceff1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .teclat-lletres button.encertada {
+            background-color: var(--btn-success-bg);
+            color: #fff;
+        }
+        .teclat-lletres button.errada {
+            background-color: var(--btn-error-bg);
+            color: #fff;
+        }
+
+        .missatge-final {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-top: 30px;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .explicacio-norma {
+            font-size: 1.2rem;
+            color: var(--color-text-fort);
+            background: #fff3e0;
+            border: 1px solid #ffe0b2;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+            text-align: left;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .explicacio-norma strong {
+            color: #e65100;
+        }
+
+        .boto-reiniciar, #boto-canviar-config {
+            background-color: var(--color-secundari);
+            color: var(--color-text-fort);
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            text-transform: uppercase;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .boto-reiniciar:hover {
+            background-color: var(--color-secundari-hover);
+            transform: translateY(-1px);
+        }
+        #boto-canviar-config {
+            background-color: #cfd8dc;
+            margin-left: 15px;
+        }
+        #boto-canviar-config:hover {
+            background-color: #b0bec5;
+        }
+
+        .boto-tornar {
+            display: inline-block;
+            background-color: #ec407a;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            margin-top: 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+            text-transform: uppercase;
+        }
+        .boto-tornar:hover {
+            background-color: #d81b60;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        @media (min-width: 1200px) {
+            .content-container {
+                padding: 0 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link">Presentació</a></li>
+            <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="Curs.html" class="nav-link">Cicle Mitjà</a></li>
+            <li><a href="arees4t.html" class="nav-link">Àrees</a></li>
+            <li><a href="ortografiagramatica.html" class="nav-link">Branques</a></li>
+            <li><a href="normasacentuacion.html" class="nav-link">Normes</a></li>
+            <li><a href="practica.html" class="nav-link">Pràctica</a></li>
+            <li><a href="activitat1.html" class="nav-link" style="background-color: var(--color-secundari); color: #000000;">Penjat</a></li>
+        </ul>
+    </nav>
+
+    <main class="content-container">
+        <section class="contingut-detall">
+            <h2>Actividad 1: El juego del ahorcado</h2>
+            
+            <!-- Configuració Inicial de Jugadors -->
+            <div class="config-container" id="config-container">
+                <div class="config-group">
+                    <label for="num-jugadores">Nombre de jugadors:</label>
+                    <select id="num-jugadors" onchange="actualitzarFormulariJugadors()">
+                        <option value="1">1 Jugador / Jugadora</option>
+                        <option value="2">2 Jugadores / Jugadoras</option>
+                    </select>
+                </div>
+
+                <div class="config-group">
+                    <label for="nom-j1">Nom del Jugador/a 1:</label>
+                    <input type="text" id="nom-j1" placeholder="Introdueix el teu nom" value="Jugador 1">
+                </div>
+
+                <div id="bloc-j2" style="display: none;">
+                    <div class="config-group">
+                        <label for="nom-j2">Nom del Jugador/a 2:</label>
+                        <input type="text" id="nom-j2" placeholder="Introdueix el nom" value="Jugador 2">
+                    </div>
+                </div>
+
+                <button class="boto-iniciar-joc" onclick="comencarPartida()">Empezar a jugar</button>
+            </div>
+
+            <!-- Caixa del Joc (Amagada fins a configurar) -->
+            <div class="caixa-activitat" id="caixa-activitat" style="display: none;">
+                <div class="marcador-container" id="marcador-container">
+                    <div><span id="label-j1">Jugador 1</span>: <span id="punts-j1">0</span></div>
+                    <div id="marcador-j2-container" style="display: none;"><span id="label-j2">Jugador 2</span>: <span id="punts-j2">0</span></div>
+                </div>
+                <div class="torns-indicador" id="torns-indicador">Torn</div>
+                <div class="paraula-secreta" id="paraula-secreta">_ _ _ _ _</div>
+                <div class="teclat-lletres" id="teclat-lletres"></div>
+                <div class="missatge-final" id="missatge-final"></div>
+                <div class="explicacio-norma" id="explicacio-norma"></div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <button class="boto-reiniciar" id="boto-reiniciar" style="display: none;" onclick="seguentParaula()">Siguiente palabra</button>
+                    <button class="boto-reiniciar" id="boto-canviar-config" onclick="mostrarConfiguracio()">Canviar jugadores/as</button>
+                </div>
+            </div>
+
+            <a href="practica.html" class="boto-tornar">Vuelve a la ruleta</a>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+    <script>
+        const llistaParaules = [
+            { paraula: "CAFÉ", explicacio: "Es una palabra aguda terminada en vocal ('e'), por lo que lleva tilde." },
+            { paraula: "COMPÁS", explicacio: "Es una palabra aguda terminada en 's', por lo que lleva tilde." },
+            { paraula: "CORAZÓN", explicacio: "Es una palabra aguda terminada en 'n', por lo que lleva tilde." },
+            { paraula: "CANCIÓN", explicacio: "Es una palabra aguda terminada en 'n', por lo que lleva tilde." },
+            { paraula: "ÁRBOL", explicacio: "Es una palabra llana terminada en consonante y no es ni 'n' ni 's' ('l'), por lo que lleva tilde." },
+            { paraula: "LÁPIZ", explicacio: "Es una palabra llana terminada en consonante y no es ni 'n' ni 's' ('z'), por lo que lleva tilde." },
+            { paraula: "DIFÍCIL", explicacio: "Es una palabra llana terminada en consonante y no es ni 'n' ni 's' ('l'), por lo que lleva tilde." },
+            { paraula: "CÉSPED", explicacio: "Es una palabra llana terminada en consonante y no es ni 'n' ni 's' ('d'), por lo que lleva tilde." },
+            { paraula: "FÁCIL", explicacio: "Es una palabra llana terminada en consonante y no es ni 'n' ni 's' ('l'), por lo que lleva tilde." },
+            { paraula: "MÚSICA", explicacio: "Es una palabra esdrújula, por lo que lleva tilde siempre." },
+            { paraula: "PÁJARO", explicacio: "Es una palabra esdrújula, por lo que lleva tilde siempre." },
+            { paraula: "TELÉFONO", explicacio: "Es una palabra esdrújula, por lo que lleva tilde siempre." },
+            { paraula: "BRÚJULA", explicacio: "Es una palabra esdrújula, por lo que lleva tilde siempre." },
+            { paraula: "CÁPSULA", explicacio: "Es una palabra esdrújula, por lo que lleva tilde siempre." }
+        ];
+        
+        let objecteActual = {};
+        let paraulaActual = "";
+        let lletresAdivinades = [];
+        let tornActual = 1;
+        let puntsJ1 = 0;
+        let puntsJ2 = 0;
+
+        let numJugadors = 1;
+        let jugadors = [
+            { nom: "Jugador 1" },
+            { nom: "Jugador 2" }
+        ];
+
+        const lletresAlfabet = "AÁBCDEÉFGHIÍJKLMÑNOÓPQRSTUÚVXYZ";
+
+        function actualitzarFormulariJugadors() {
+            numJugadors = parseInt(document.getElementById("num-jugadors").value);
+            const blocJ2 = document.getElementById("bloc-j2");
+            if (numJugadors === 2) {
+                blocJ2.style.display = "block";
+            } else {
+                blocJ2.style.display = "none";
+            }
+        }
+
+        function comencarPartida() {
+            numJugadors = parseInt(document.getElementById("num-jugadors").value);
+            jugadors[0].nom = document.getElementById("nom-j1").value.trim() || "Jugador 1";
+
+            if (numJugadors === 2) {
+                jugadors[1].nom = document.getElementById("nom-j2").value.trim() || "Jugador 2";
+                document.getElementById("marcador-j2-container").style.display = "block";
+            } else {
+                document.getElementById("marcador-j2-container").style.display = "none";
+            }
+
+            document.getElementById("label-j1").textContent = jugadors[0].nom;
+            document.getElementById("label-j2").textContent = jugadors[1].nom;
+
+            document.getElementById("config-container").style.display = "none";
+            document.getElementById("caixa-activitat").style.display = "block";
+
+            puntsJ1 = 0;
+            puntsJ2 = 0;
+            document.getElementById("punts-j1").textContent = puntsJ1;
+            document.getElementById("punts-j2").textContent = puntsJ2;
+            tornActual = 1;
+
+            iniciarJoc();
+        }
+
+        function mostrarConfiguracio() {
+            document.getElementById("caixa-activitat").style.display = "none";
+            document.getElementById("config-container").style.display = "block";
+        }
+
+        function iniciarJoc() {
+            objecteActual = llistaParaules[Math.floor(Math.random() * llistaParaules.length)];
+            paraulaActual = objecteActual.paraula;
+            lletresAdivinades = [];
+            
+            document.getElementById("missatge-final").textContent = "";
+            document.getElementById("explicacio-norma").style.display = "none";
+            document.getElementById("boto-reiniciar").style.display = "none";
+            
+            actualitzarTornVisual();
+            crearTeclat();
+            actualitzarPantalla();
+        }
+
+        function seguentParaula() {
+            iniciarJoc();
+        }
+
+        function crearTeclat() {
+            const contenidorTeclat = document.getElementById("teclat-lletres");
+            contenidorTeclat.innerHTML = "";
+            
+            for (let lletra of lletresAlfabet) {
+                const boto = document.createElement("button");
+                boto.textContent = lletra;
+                boto.id = `lletra-${lletra}`;
+                boto.onclick = () => gestionarClicLletra(lletra);
+                contenidorTeclat.appendChild(boto);
+            }
+        }
+
+        function gestionarClicLletra(lletra) {
+            lletresAdivinades.push(lletra);
+            const boto = document.getElementById(`lletra-${lletra}`);
+            if (boto) boto.disabled = true;
+
+            let haEncertat = paraulaActual.includes(lletra);
+
+            if (haEncertat) {
+                if (boto) boto.classList.add("encertada");
+            } else {
+                if (boto) boto.classList.add("errada");
+            }
+
+            actualitzarPantalla();
+            
+            if (!verificarEstatJoc()) {
+                if (!haEncertat && numJugadors === 2) {
+                    tornActual = tornActual === 1 ? 2 : 1;
+                }
+                actualitzarTornVisual();
+            }
+        }
+
+        function actualitzarTornVisual() {
+            const indicador = document.getElementById("torns-indicador");
+            if (numJugadors === 1) {
+                indicador.textContent = `Turno: ${jugadors[0].nom}`;
+            } else {
+                indicador.textContent = `Turno: ${jugadors[tornActual - 1].nom}`;
+            }
+        }
+
+        function actualitzarPantalla() {
+            let textMostrar = "";
+            for (let lletra of paraulaActual) {
+                if (lletresAdivinades.includes(lletra)) {
+                    textMostrar += lletra + " ";
+                } else {
+                    textMostrar += "_ ";
+                }
+            }
+            document.getElementById("paraula-secreta").textContent = textMostrar.trim();
+        }
+
+        function verificarEstatJoc() {
+            let haGuanyat = true;
+            for (let lletra of paraulaActual) {
+                if (!lletresAdivinades.includes(lletra)) {
+                    haGuanyat = false;
+                    break;
+                }
+            }
+
+            const missatgeFinal = document.getElementById("missatge-final");
+            const caixaExplicacio = document.getElementById("explicacio-norma");
+            
+            if (haGuanyat) {
+                const jugadorActiu = jugadors[tornActual - 1];
+
+                if (tornActual === 1) {
+                    puntsJ1++;
+                } else {
+                    puntsJ2++;
+                }
+
+                document.getElementById("punts-j1").textContent = puntsJ1;
+                document.getElementById("punts-j2").textContent = puntsJ2;
+
+                missatgeFinal.textContent = `🎉 Felicidades ${jugadorActiu.nom}!`;
+                missatgeFinal.style.color = "#2e7d32";
+                
+                caixaExplicacio.innerHTML = `<strong>¿Por qué lleva tilde?</strong> ${objecteActual.explicacio}`;
+                caixaExplicacio.style.display = "block";
+
+                bloquejarTeclat();
+                return true;
+            }
+            return false;
+        }
+
+        function bloquejarTeclat() {
+            const botons = document.querySelectorAll(".teclat-lletres button");
+            botons.forEach(boto => boto.disabled = true);
+            document.getElementById("boto-reiniciar").style.display = "inline-block";
+        }
+    </script>
+</body>
+</html>
