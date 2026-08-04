@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paraules Agudes - Normes d'acentuació - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estils específics per a la nova finestra de contingut */
+        .contingut-detall {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-top: 8px solid #d4ed31;
+            border-radius: 8px;
+            padding: 15px 30px 20px 30px; /* Ampliat el padding inferior per contenir la imatge */
+            margin: 20px auto;
+            max-width: 900px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            position: relative;
+            text-align: center;
+        }
+        .contingut-detall h2 {
+            color: #004d40;
+            margin-top: 0;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+        .contingut-detall p {
+            font-size: 1.1rem;
+            color: #333333;
+            line-height: 1.6;
+            margin-bottom: 5px;
+        }
+
+        /* Contenidor del personatge */
+        .personatge-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0;
+            margin-bottom: 0; /* Eliminat el marge negatiu que feia sortir la imatge */
+        }
+
+        .personatge-img {
+            width: 100%;
+            max-width: 480px; /* Reduïda lleugerament l'amplada perquè encaixi perfectament */
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Estils per als botons / pestanyes en horitzontal */
+        .pestanyes-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .fila-pestanyes {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .pestanya {
+            padding: 12px 30px;
+            background-color: #f2f7ec;
+            color: #004d40;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border: 2px solid #b8df8a;
+            border-radius: 30px;
+            transition: all 0.2s ease;
+        }
+        
+        .pestanya:hover {
+            background-color: #e2f0d3;
+            border-color: #9ecb63;
+        }
+        
+        .pestanya.activa {
+            background-color: #f2f7ec;
+            color: #004d40;
+            border-color: #b8df8a;
+        }
+
+        .boto-tornar {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #004d40;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+        }
+        .boto-tornar:hover {
+            background-color: #00332c;
+        }
+
+        @media (min-width: 1200px) {
+            .content-container {
+                padding: 0 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encapçalament -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <!-- Menú de navegació -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link">Presentació</a></li>
+            <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="Curs.html" class="nav-link">Cicle Mitjà</a></li>
+            <li><a href="arees4t.html" class="nav-link">Àrees</a></li>
+            <li><a href="ortografiagramatica.html" class="nav-link">Branques</a></li>
+            <li><a href="normasacentuacion.html" class="nav-link">Normes</a></li>
+            <li><a href="accentuacioagudes.html" class="nav-link" style="background-color: #d4ed31; color: #000000;">Agudes</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contingut específic per a les paraules agudes -->
+    <main class="content-container">
+        <section class="contingut-detall">
+          
+            <h2>Palabras agudas</h2>
+
+            <!-- Personatge Xavier amb la imatge animada (.gif) -->
+            <div class="personatge-container">
+                <img src="Xavier.gif" alt="Il·lustració animada del personatge Xavier explicant les normes d'acentuació" class="personatge-img">
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+</body>
+</html>

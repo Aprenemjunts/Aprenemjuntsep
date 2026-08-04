@@ -49,39 +49,47 @@
             box-shadow: 0 6px 12px rgba(0,0,0,0.1);
         }
 
-        /* Estils del menú desplegable (Dropdown) */
+        /* Estils del menú desplegable (Dropdown) com a pestanyes separades */
         .dropdown-menu {
             display: none;
             position: absolute;
             top: 100%;
             left: 0;
             right: 0;
-            background-color: #ffffff;
+            background-color: transparent; /* Sense fons general, perquè cada pestanya vagi sola */
             list-style: none;
             padding: 0;
-            margin: 5px 0 0 0;
-            border-radius: 8px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-            border: 1px solid #e0e0e0;
+            margin: 10px 0 0 0;
             z-index: 10;
             text-align: left;
+        }
+
+        .dropdown-menu li {
+            margin-bottom: 8px; /* Espai entre les pestanyes */
+        }
+
+        .dropdown-menu li:last-child {
+            margin-bottom: 0;
         }
 
         .dropdown-menu li a {
             padding: 15px 20px;
             font-size: 1.1rem;
-            border: none;
-            border-top: none;
-            border-radius: 0;
-            background-color: transparent;
-            box-shadow: none;
+            border: 1px solid #e0e0e0;
+            border-left: 6px solid #d4ed31; /* Detall de color a l'esquerra simulant pestanya */
+            border-radius: 6px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             color: #004d40;
+            transition: all 0.2s ease;
         }
 
         .dropdown-menu li a:hover {
-            background-color: #f0f0f0;
-            transform: none;
-            box-shadow: none;
+            background-color: #fafafa;
+            border-color: #bdbdbd;
+            border-left-color: #bcda22;
+            transform: translateX(4px); /* Petit desplaçament lateral a l'entrar-hi */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
         }
 
         /* Classe per mostrar el desplegable en clicar */
@@ -109,7 +117,7 @@
             <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
             <li><a href="Curs.html" class="nav-link">Cicle Mitjà</a></li>
             <li><a href="arees4t.html" class="nav-link">Àrees</a></li>
-            <li><a href="branques.html" class="nav-link" style="background-color: #d4ed31; color: #000000;">Branques</a></li>
+            <li><a href="ortografiagramatica.html" class="nav-link" style="background-color: #d4ed31; color: #000000;">Branques</a></li>
         </ul>
     </nav>
 
@@ -121,8 +129,8 @@
                 <li class="dropdown">
                     <a href="#" class="area-link" id="ortografia-btn">Ortografía</a>
                     <ul class="dropdown-menu">
-                        <!-- Enllaç modificat per redirigir a clasificación.html -->
                         <li><a href="clasificación.html">Classificación sílaba tónica</a></li>
+                        <li><a href="normasacentuacion.html">Normas de acentuación</a></li>
                     </ul>
                 </li>
                 <li><a href="#" class="area-link">Gramática (procés de construcció)</a></li>

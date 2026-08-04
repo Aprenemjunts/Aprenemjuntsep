@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normas de acentuación - Lengua Castellana - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estils específics per a la nova finestra de contingut */
+        .contingut-detall {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-top: 8px solid #d4ed31;
+            border-radius: 8px;
+            padding: 40px;
+            margin: 60px auto;
+            max-width: 900px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            position: relative;
+            text-align: center; /* Centra el text tal com a la imatge */
+        }
+        .contingut-detall h2 {
+            color: #004d40;
+            margin-top: 0;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .contingut-detall p {
+            font-size: 1.1rem;
+            color: #333333;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        /* Estils per als botons / pestanyes en horitzontal tipus càpsula */
+        .pestanyes-container {
+            display: flex;
+            flex-direction: column; /* Disposició en columna per separar a dalt i a baix */
+            align-items: center;    /* Centra els elements horitzontalment */
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .fila-pestanyes {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .pestanya {
+            padding: 12px 30px;
+            background-color: #f2f7ec; /* To verdós clar de fons */
+            color: #004d40;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border: 2px solid #b8df8a; /* Vora verda suau */
+            border-radius: 30px; /* Forma arrodonida de càpsula */
+            transition: all 0.2s ease;
+        }
+        .pestanya:hover {
+            background-color: #e2f0d3;
+            border-color: #9ecb63;
+        }
+        .pestanya.activa {
+            background-color: #d4ed31;
+            color: #004d40;
+            border-color: #b8df8a;
+        }
+
+        .boto-tornar {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #004d40;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+        }
+        .boto-tornar:hover {
+            background-color: #00332c;
+        }
+
+        /* Estils per als personatges il·lustrats */
+        .character {
+            position: absolute;
+            pointer-events: none;
+            z-index: 10;
+        }
+        #char-girl {
+            width: 250px;
+            left: -130px;
+            bottom: -50px;
+        }
+        #char-boy-tablet {
+            width: 200px;
+            right: -100px;
+            top: -20px;
+        }
+        #char-boy-pointing {
+            width: 150px;
+            right: 50px;
+            bottom: -80px;
+        }
+
+        @media (min-width: 1200px) {
+            .content-container {
+                padding: 0 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link">Presentació</a></li>
+            <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="Curs.html" class="nav-link">Cicle Mitjà</a></li>
+            <li><a href="arees4t.html" class="nav-link">Àrees</a></li>
+            <li><a href="ortografiagramatica.html" class="nav-link">Branques</a></li>
+            <li><a href="normasacentuacion.html" class="nav-link" style="background-color: #d4ed31; color: #000000;">Normes</a></li>
+        </ul>
+    </nav>
+
+    <main class="content-container">
+        <section class="contingut-detall">
+          
+            <h2>Normas de acentuación</h2>
+            <p>Selecciona una pestaña para ver el contenido.</p>
+
+            <!-- Pestanyes estructurades en files (les 3 a dalt i "práctica" al centre a sota) -->
+            <div class="pestanyes-container">
+  <div class="fila-pestanyes">
+    <a href="accentuacioagudes.html" class="pestanya">agudas</a>
+    <a href="accentuaciollanas.html" class="pestanya">llanas</a>
+    <a href="aacentuacioesdrujulas.html" class="pestanya">esdrújulas</a>
+</div>
+  <div class="fila-pestanyes">
+    <a href="practica.html" class="pestanya">práctica</a>
+</div>
+</div>
+            
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+</body>
+</html>

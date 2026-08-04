@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica - Normas de acentuación - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .contingut-detall {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-top: 8px solid #d4ed31;
+            border-radius: 12px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 900px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            position: relative;
+            text-align: center;
+        }
+        .contingut-detall h2 {
+            color: #004d40;
+            margin-top: 0;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        .contingut-detall p {
+            font-size: 1.15rem;
+            color: #444444;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        /* Estils modernitzats i colorits per a la ruleta */
+        .ruleta-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .ruleta-container {
+            position: relative;
+            width: 340px;
+            height: 340px;
+            margin: 0 auto;
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.15));
+        }
+
+        /* Fletxa indicadora superior elegant */
+        .ruleta-pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent;
+            border-top: 32px solid #ff5722;
+            z-index: 20;
+            filter: drop-shadow(0 3px 3px rgba(0,0,0,0.2));
+        }
+
+        .ruleta-svg {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            transition: transform 4s cubic-bezier(0.15, 0.85, 0.12, 1);
+        }
+
+        /* Botó central decoratiu de la ruleta */
+        .ruleta-center-pin {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #ffffff 0%, #e0e0e0 100%);
+            border: 4px solid #ffffff;
+            border-radius: 50%;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #004d40;
+            font-size: 14px;
+        }
+
+        .boto-ruleta {
+            margin-top: 30px;
+            padding: 14px 35px;
+            background: linear-gradient(135deg, #ff7043 0%, #f4511e 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(244, 81, 30, 0.4);
+            transition: all 0.2s ease;
+        }
+        .boto-ruleta:hover {
+            background: linear-gradient(135deg, #ff5722 0%, #e64a19 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(244, 81, 30, 0.5);
+        }
+        .boto-ruleta:active {
+            transform: translateY(1px);
+        }
+        .boto-ruleta:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        #resultat-ruleta {
+            margin-top: 20px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #004d40;
+            min-height: 40px;
+            padding: 10px 20px;
+            background: #e0f2f1;
+            border-radius: 8px;
+            display: inline-block;
+            border: 1px solid #b2dfdb;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+        }
+        #resultat-ruleta.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @media (min-width: 1200px) {
+            .content-container {
+                padding: 0 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+   <nav class="main-nav">
+    <ul>
+        <li><a href="index.html" class="nav-link">Presentació</a></li>
+        <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
+        <li><a href="Curs.html" class="nav-link">Cicle Mitjà</a></li>
+        <li><a href="arees4t.html" class="nav-link">Àrees</a></li>
+        <li><a href="ortografiagramatica.html" class="nav-link">Branques</a></li>
+        <li><a href="normasacentuacion.html" class="nav-link">Normes</a></li>
+        <li><a href="practica.html" class="nav-link" style="background-color: #d4ed31; color: #000000;">Pràctica</a></li>
+    </ul>
+</nav>
+
+    <main class="content-container">
+        <section class="contingut-detall">
+            <h2>Práctica de acentuación</h2>
+            <p>Aquí vas a encontrar diferentes actividades que podràs llevar a cabo.</p>
+            
+            <!-- Ruleta de 5 panells colorida -->
+            <div class="ruleta-wrapper">
+                <div class="ruleta-container">
+                    <div class="ruleta-pointer"></div>
+                    <div class="ruleta-center-pin">★</div>
+                    <svg class="ruleta-svg" id="ruletaSvg" viewBox="0 0 300 300">
+                        <defs>
+                            <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+                                <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.3"/>
+                            </filter>
+                        </defs>
+                        <!-- Sector 1: Rosa/Magenta viu -->
+                        <path id="sector-0" d="M150,150 L150,10 A140,140 0 0,1 283.3,106.8 Z" fill="#E91E63" stroke="#ffffff" stroke-width="3"/>
+                        <text x="220" y="75" fill="#ffffff" font-size="15" font-weight="bold" font-family="sans-serif" text-anchor="middle" transform="rotate(36, 220, 75)" filter="url(#shadow)">Activitat 1</text>
+
+                        <!-- Sector 2: Lila elegant -->
+                        <path id="sector-1" d="M150,150 L283.3,106.8 A140,140 0 0,1 233.3,263.2 Z" fill="#9C27B0" stroke="#ffffff" stroke-width="3"/>
+                        <text x="245" y="195" fill="#ffffff" font-size="15" font-weight="bold" font-family="sans-serif" text-anchor="middle" transform="rotate(108, 245, 195)" filter="url(#shadow)">Activitat 2</text>
+
+                        <!-- Sector 3: Blau radiant -->
+                        <path id="sector-2" d="M150,150 L233.3,263.2 A140,140 0 0,1 66.7,263.2 Z" fill="#2196F3" stroke="#ffffff" stroke-width="3"/>
+                        <text x="150" y="245" fill="#ffffff" font-size="15" font-weight="bold" font-family="sans-serif" text-anchor="middle" transform="rotate(180, 150, 245)" filter="url(#shadow)">Activitat 3</text>
+
+                        <!-- Sector 4: Verd blavós fosc / menta intens -->
+                        <path id="sector-3" d="M150,150 L66.7,263.2 A140,140 0 0,1 16.7,106.8 Z" fill="#009688" stroke="#ffffff" stroke-width="3"/>
+                        <text x="55" y="195" fill="#ffffff" font-size="15" font-weight="bold" font-family="sans-serif" text-anchor="middle" transform="rotate(252, 55, 195)" filter="url(#shadow)">Activitat 4</text>
+
+                        <!-- Sector 5: Taronja càlid -->
+                        <path id="sector-4" d="M150,150 L16.7,106.8 A140,140 0 0,1 150,10 Z" fill="#FF9800" stroke="#ffffff" stroke-width="3"/>
+                        <text x="80" y="75" fill="#ffffff" font-size="15" font-weight="bold" font-family="sans-serif" text-anchor="middle" transform="rotate(324, 80, 75)" filter="url(#shadow)">Activitat 5</text>
+                    </svg>
+                </div>
+
+                <button class="boto-ruleta" id="girarBoto">Gira la ruleta</button>
+                <div id="resultat-ruleta"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+    <script>
+        const girarBoto = document.getElementById('girarBoto');
+        const ruleta = document.getElementById('ruletaSvg');
+        const resultatRuleta = document.getElementById('resultat-ruleta');
+        
+        let grauActual = 0;
+        const totalPanells = 5;
+        const grausPerPanell = 360 / totalPanells;
+
+        let panellsPendents = [0, 1, 2, 3, 4];
+        const activitats = ["Activitat 1", "Activitat 2", "Activitat 3", "Activitat 4", "Activitat 5"];
+
+        girarBoto.addEventListener('click', () => {
+            if (panellsPendents.length === 0) return;
+
+            girarBoto.disabled = true;
+            resultatRuleta.classList.remove('visible');
+            resultatRuleta.textContent = "Girant la ruleta...";
+            setTimeout(() => resultatRuleta.classList.add('visible'), 50);
+
+            const indexAleatori = Math.floor(Math.random() * panellsPendents.length);
+            const panellGuanyador = panellsPendents[indexAleatori];
+
+            panellsPendents.splice(indexAleatori, 1);
+
+            const voltesExtra = Math.floor(Math.random() * 5) + 5;
+            const angleSector = (panellGuanyador * grausPerPanell) + (grausPerPanell / 2);
+            const angleObjectiu = (voltesExtra * 360) + (360 - angleSector);
+            grauActual += angleObjectiu - (grauActual % 360);
+
+            ruleta.style.transform = `rotate(${grauActual}deg)`;
+
+            setTimeout(() => {
+                const activitatTrobada = activitats[panellGuanyador];
+                
+                const sectorElement = document.getElementById(`sector-${panellGuanyador}`);
+                if (sectorElement) {
+                    sectorElement.setAttribute('fill', '#cfd8dc');
+                }
+
+                if (panellsPendents.length > 0) {
+                    girarBoto.disabled = false;
+                    resultatRuleta.textContent = `🎉 T'ha tocat: ${activitatTrobada}!`;
+                } else {
+                    resultatRuleta.textContent = `🏆 Has completat totes les activitats! Ruleta finalitzada.`;
+                    girarBoto.textContent = "Completat";
+                    girarBoto.style.background = "#9e9e9e";
+                    girarBoto.style.cursor = "default";
+                }
+            }, 4100);
+        });
+    </script>
+</body>
+</html>
