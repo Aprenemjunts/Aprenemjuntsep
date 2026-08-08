@@ -3,46 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actividad 2 - Aprenem Junts</title>
+    <title>Actividad 4 - Aprenem Junts</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .contingut-detall {
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-top: 8px solid #d4ed31;
-            border-radius: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+            border: 2px solid #b3e5fc;
+            border-top: 8px solid #ff4081;
+            border-radius: 16px;
             padding: 40px;
             margin: 40px auto;
             max-width: 900px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 25px rgba(33, 150, 243, 0.15);
             text-align: center;
         }
         .contingut-detall h2 {
-            color: #004d40;
+            color: #d81b60;
             margin-top: 0;
             font-size: 2.2rem;
             margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
         .contingut-detall p {
             font-size: 1.15rem;
-            color: #444444;
+            color: #37474f;
             line-height: 1.6;
             margin-bottom: 25px;
+            font-weight: 500;
         }
-        .boto-tornar {
+        /* Estils específics del joc */
+        .joc-container {
+            margin-top: 20px;
+        }
+        .paraules-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .boto-paraula {
+            background: linear-gradient(135deg, #ffffff 0%, #fff9c4 100%);
+            border: 2px solid #ffd54f;
+            border-radius: 12px;
+            padding: 15px 25px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #e65100;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 150px;
+            box-shadow: 0 4px 10px rgba(255, 193, 7, 0.2);
+        }
+        .boto-paraula:hover {
+            background: linear-gradient(135deg, #fffde7 0%, #fff59d 100%);
+            border-color: #ffb300;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3);
+        }
+        .boto-paraula.correcta {
+            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%) !important;
+            border-color: #43a047 !important;
+            color: #1b5e20 !important;
+            box-shadow: 0 4px 15px rgba(67, 160, 71, 0.4) !important;
+        }
+        .boto-paraula.incorrecta {
+            background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%) !important;
+            border-color: #e53935 !important;
+            color: #b71c1c !important;
+            box-shadow: 0 4px 15px rgba(229, 57, 53, 0.4) !important;
+        }
+        .missatge-resultat {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 20px 0;
+            min-height: 30px;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.05);
+        }
+        .explicacio-detall {
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            border-left: 6px solid #00acc1;
+            padding: 15px 20px;
+            margin: 20px auto;
+            max-width: 700px;
+            border-radius: 0 12px 12px 0;
+            text-align: left;
+            font-size: 1.05rem;
+            color: #006064;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0, 172, 193, 0.15);
+        }
+        .boto-seguent, .boto-tornar {
             display: inline-block;
             padding: 12px 30px;
-            background: linear-gradient(135deg, #78909c 0%, #546e7a 100%);
+            background: linear-gradient(135deg, #ab47bc 0%, #7b1fa2 100%);
             color: #ffffff;
             text-decoration: none;
             border-radius: 30px;
             font-weight: bold;
-            box-shadow: 0 4px 10px rgba(84, 110, 122, 0.3);
+            box-shadow: 0 4px 15px rgba(123, 31, 162, 0.35);
             transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
         }
-        .boto-tornar:hover {
-            background: linear-gradient(135deg, #607d8b 0%, #455a64 100%);
+        .boto-seguent:hover, .boto-tornar:hover {
+            background: linear-gradient(135deg, #ba68c8 0%, #6a1b9a 100%);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(123, 31, 162, 0.45);
+        }
+        .estat-joc {
+            font-size: 1.1rem;
+            color: #0277bd;
+            margin-bottom: 10px;
+            font-weight: bold;
+            background-color: #e1f5fe;
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            box-shadow: inset 0 2px 4px rgba(2, 119, 189, 0.1);
         }
     </style>
 </head>
@@ -68,14 +148,28 @@
             <li><a href="ortografiagramatica.html" class="nav-link">Branques</a></li>
             <li><a href="normasacentuacion.html" class="nav-link">Normes</a></li>
             <li><a href="practica.html" class="nav-link">Pràctica</a></li>
+            <li><a href="#" class="nav-link" onclick="event.preventDefault();" style="background-color: yellow; color: black;">Rondes</a></li>
         </ul>
     </nav>
 
     <main class="content-container">
         <section class="contingut-detall">
-            <h2>Actividad 2</h2>
-            <p>Aquí anirà el contingut corresponent a la segona activitat de pràctica d'acentuació.</p>
-            <a href="practica.html" class="boto-tornar">Vuelve a la ruleta</a>
+            <h2>Actividad 4</h2>
+            <p>En cada ronda van a aparecer 3 opciones. Solo una opción es la palabra bien escrita. ¿Serás capaz de acertar?</p>
+            
+            <div class="joc-container" id="joc">
+                <div class="estat-joc" id="estat-ronda">Ronda 1 de 5</div>
+                <div class="paraules-grid" id="graella-paraules">
+                    <!-- Els botons s'injectaran dinàmicament via JavaScript -->
+                </div>
+                <div class="missatge-resultat" id="missatge"></div>
+                <div class="explicacio-detall" id="explicacio"></div>
+                <button class="boto-seguent" id="boto-seguent" style="display: none;" onclick="seguentRonda()">Siguiente ronda</button>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <a href="practica.html" class="boto-tornar">Vuelve a la ruleta</a>
+            </div>
         </section>
     </main>
 
@@ -83,5 +177,160 @@
         <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
     </footer>
 
+    <script>
+        // Llista de rondes amb paraules i la seva explicació detallada en castellà
+        const rondes = [
+            {
+                opcions: ["examen", "exámen", "examén"],
+                correcta: "examen",
+                tipus: "Palabra llana",
+                explicacio: "Es una palabra llana porque la sílaba tónica es la penúltima 'XA'. No lleva tilde porque termina con la consonante 'N'."
+            },
+            {
+                opcions: ["rapido", "rápido", "rapidó"],
+                correcta: "rápido",
+                tipus: "Palabra esdrújula",
+                explicacio: "Es una palabra esdrújula porque la sílaba tónica es la antepenúltima 'RÁ'. Todas las palabras esdrújulas se acentúan siempre."
+            },
+            {
+                opcions: ["úniversidad", "universidad", "universidád"],
+                correcta: "universidad",
+                tipus: "Palabra aguda",
+                explicacio: "Es una palabra aguda porque la sílaba tónica es la última ('DAD'). No lleva tilde porque termina en una consonante diferente que no es ni 'N' ni 'S'."
+            },
+            {
+                opcions: ["ordenador", "ordenádor", "órdenador"],
+                correcta: "ordenador",
+                tipus: "Palabra aguda",
+                explicacio: "Es una palabra aguda porque la sílaba tónica es la última 'DOR'. No lleva tilde porque termina en una consonante diferente que no es ni 'N' ni 'S'."
+            },
+            {
+                opcions: ["médico", "medico", "medicó"],
+                correcta: "médico",
+                tipus: "Palabra esdrújula",
+                explicacio: "Es una palabra esdrújula porque su sílaba tónica es la antepenúltima 'MÉ'. Todas las palabras esdrújulas llevan tilde."
+            },
+            {
+                opcions: ["tunel", "túnel", "tunél"],
+                correcta: "túnel",
+                tipus: "Palabra llana",
+                explicacio: "Es una palabra llana porque la sílaba tónica es la penúltima 'TÚ'. Lleva tilde porque termina en una consonante distinta de 'N' o 'S'."
+            },
+            {
+                opcions: ["fácil", "facíl", "facil"],
+                correcta: "fácil",
+                tipus: "Palabra llana",
+                explicacio: "Es una palabra llana porque su sílaba tónica es la penúltima 'FÁ'. Lleva tilde porque termina en una consonante diferente de 'N' o 'S'."
+            },
+            {
+                opcions: ["canción", "cancion", "cancíon"],
+                correcta: "canción",
+                tipus: "Palabra aguda",
+                explicacio: "Es una palabra aguda porque la sílaba tónica es la última 'CIÓN'. Lleva tilde porque termina en la letra 'N'."
+            },
+            {
+                opcions: ["volúmen", "volumen", "volumén"],
+                correcta: "volumen",
+                tipus: "Palabra llana",
+                explicacio: "Es una palabra llana porque la sílaba tónica es la penúltima 'LU'. No lleva tilde porque termina en la consonante 'N'."
+            },
+            {
+                opcions: ["murcielago", "murciélago", "murcielágos"],
+                correcta: "murciélago",
+                tipus: "Palabra esdrújula",
+                explicacio: "Es una palabra esdrújula porque la sílaba tónica es la antepenúltima 'CIÉ'. Todas las palabras esdrújulas llevan tilde."
+            }
+        ];
+
+        let rondaActual = 0;
+        let jugada = false;
+
+        // Funció per barrejar un array qualsevol de manera aleatòria
+        function barrejarArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function carregarRonda() {
+            jugada = false;
+            document.getElementById('missatge').innerText = '';
+            document.getElementById('explicacio').style.display = 'none';
+            document.getElementById('explicacio').innerHTML = '';
+            document.getElementById('boto-seguent').style.display = 'none';
+            document.getElementById('estat-ronda').innerText = `Ronda ${rondaActual + 1} de ${rondes.length}`;
+
+            const ronda = rondes[rondaActual];
+            const graella = document.getElementById('graella-paraules');
+            graella.innerHTML = '';
+
+            // Barrejar les opcions de paraules de la ronda actual
+            let opcionsBarrejades = [...ronda.opcions].sort(() => Math.random() - 0.5);
+
+            opcionsBarrejades.forEach(paraula => {
+                const boto = document.createElement('button');
+                boto.className = 'boto-paraula';
+                boto.innerText = paraula;
+                boto.onclick = () => verificarResposta(boto, paraula, ronda);
+                graella.appendChild(boto);
+            });
+        }
+
+        function verificarResposta(boto, seleccionada, ronda) {
+            if (jugada) return;
+            jugada = true;
+
+            const correcta = ronda.correcta;
+            const botons = document.querySelectorAll('.boto-paraula');
+            
+            botons.forEach(b => {
+                if (b.innerText === correcta) {
+                    b.classList.add('correcta');
+                } else if (b === boto && seleccionada !== correcta) {
+                    b.classList.add('incorrecta');
+                }
+                b.style.cursor = 'default';
+            });
+
+            const missatge = document.getElementById('missatge');
+            const divExplicacio = document.getElementById('explicacio');
+
+            if (seleccionada === correcta) {
+                missatge.style.color = '#2e7d32';
+                missatge.innerText = '¡Bien!';
+                
+                divExplicacio.innerHTML = `<strong>Explicación:</strong> ${ronda.explicacio}`;
+                divExplicacio.style.display = 'block';
+            } else {
+                missatge.style.color = '#c62828';
+                missatge.innerText = `Incorrect. La opción correcta es "${correcta}".`;
+            }
+
+            if (rondaActual < rondes.length - 1) {
+                document.getElementById('boto-seguent').style.display = 'inline-block';
+            } else {
+                document.getElementById('boto-seguent').style.display = 'inline-block';
+                document.getElementById('boto-seguent').innerText = 'Volver a empezar';
+                document.getElementById('boto-seguent').onclick = reiniciarJoc;
+            }
+        }
+
+        function seguentRonda() {
+            rondaActual++;
+            carregarRonda();
+        }
+
+        function reiniciarJoc() {
+            rondaActual = 0;
+            barrejarArray(rondes); // Torna a barrejar l'ordre de les rondes en reiniciar
+            document.getElementById('boto-seguent').innerText = 'Siguiente ronda';
+            document.getElementById('boto-seguent').onclick = seguentRonda;
+            carregarRonda();
+        }
+
+        // Inicialitzar el joc barrejant les rondes i carregant la primera en carregar la pàgina
+        window.onload = function() {
+            barrejarArray(rondes);
+            carregarRonda();
+        };
+    </script>
 </body>
 </html>

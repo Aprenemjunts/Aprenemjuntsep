@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actividad 2 - Aprenem Junts</title>
+    <title>Actividad 5 - Aprenem Junts</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .contingut-detall {
@@ -29,7 +29,45 @@
             line-height: 1.6;
             margin-bottom: 25px;
         }
-        .boto-tornar {
+        .paraula-card {
+            background: #f9f9f9;
+            border: 2px solid #b2dfdb;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        .paraula-titol {
+            font-size: 2rem;
+            color: #00796b;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .opcions-bt {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .opcions-bt button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #00897b;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .opcions-bt button:hover {
+            background-color: #00695c;
+        }
+        .missatge-feedback {
+            font-weight: bold;
+            min-height: 24px;
+            margin-bottom: 10px;
+        }
+        .boto-seguent, .boto-tornar {
             display: inline-block;
             padding: 12px 30px;
             background: linear-gradient(135deg, #78909c 0%, #546e7a 100%);
@@ -39,10 +77,20 @@
             font-weight: bold;
             box-shadow: 0 4px 10px rgba(84, 110, 122, 0.3);
             transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
-        .boto-tornar:hover {
+        .boto-seguent:hover, .boto-tornar:hover {
             background: linear-gradient(135deg, #607d8b 0%, #455a64 100%);
             transform: translateY(-2px);
+        }
+        .resultat-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -68,14 +116,36 @@
             <li><a href="ortografiagramatica.html" class="nav-link">Branques</a></li>
             <li><a href="normasacentuacion.html" class="nav-link">Normes</a></li>
             <li><a href="practica.html" class="nav-link">Pràctica</a></li>
+            <li><a href="javascript:void(0);" class="nav-link" style="background-color: yellow; color: #000000; cursor: default;">Selecciona</a></li>
         </ul>
     </nav>
 
     <main class="content-container">
         <section class="contingut-detall">
-            <h2>Actividad 2</h2>
-            <p>Aquí anirà el contingut corresponent a la segona activitat de pràctica d'acentuació.</p>
-            <a href="practica.html" class="boto-tornar">Vuelve a la ruleta</a>
+            <h2>Actividad 5</h2>
+            <p>Responde si la palabra es aguda, llana o esdrújula.</p>
+            
+            <div id="joc-container">
+                <div class="paraula-card">
+                    <div id="contador" style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">Palabra 1 de 10</div>
+                    <div class="paraula-titol" id="paraula-text">Café</div>
+                    <div class="opcions-bt">
+                        <button onclick="comprovar('aguda')">Aguda</button>
+                        <button onclick="comprovar('llana')">Llana</button>
+                        <button onclick="comprovar('esdrújula')">Esdrújula</button>
+                    </div>
+                    <div class="missatge-feedback" id="feedback"></div>
+                    <button class="boto-seguent" id="boto-seguent" style="display:none;" onclick="seguentParaula()">Siguiente palabra</button>
+                </div>
+            </div>
+
+            <div id="resultat-final" style="display:none;">
+                <p id="puntuacio-final"></p>
+                <div class="resultat-buttons">
+                    <button class="boto-tornar" onclick="tornarComencar()">Volver a empezar</button>
+                    <a href="practica.html" class="boto-tornar">Vuelve a la ruleta</a>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -83,5 +153,98 @@
         <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
     </footer>
 
+    <script>
+        const masterLlistaParaules = [
+            { text: "Café", tipus: "aguda" },
+            { text: "Lápiz", tipus: "llana" },
+            { text: "Música", tipus: "esdrújula" },
+            { text: "Pared", tipus: "aguda" },
+            { text: "Casa", tipus: "llana" },
+            { text: "Árbol", tipus: "llana" },
+            { text: "Teléfono", tipus: "esdrújula" },
+            { text: "Reloj", tipus: "aguda" },
+            { text: "Césped", tipus: "llana" },
+            { text: "Libro", tipus: "llana" },
+            { text: "Brújula", tipus: "esdrújula" },
+            { text: "Japonés", tipus: "aguda" },
+            { text: "Animal", tipus: "aguda" },
+            { text: "Acción", tipus: "aguda" },
+            { text: "Técnica", tipus: "esdrújula" },
+            { text: "Máquina", tipus: "esdrújula" },
+            { text: "Néctar", tipus: "llana" },
+            { text: "Zapato", tipus: "llana" },
+            { text: "Azúcar", tipus: "llana" },
+            { text: "Pájaro", tipus: "esdrújula" }
+        ];
+
+        let llistaParaules = [];
+        let indexActual = 0;
+        let encerts = 0;
+        let respongut = false;
+
+        function prepararPartida() {
+            // Barreja tot el llistat original aleatòriament i selecciona només les primeres 10 paraules
+            let llistaBarrejada = [...masterLlistaParaules].sort(() => Math.random() - 0.5);
+            llistaParaules = llistaBarrejada.slice(0, 10);
+            indexActual = 0;
+            encerts = 0;
+            respongut = false;
+        }
+
+        function actualitzarParaula() {
+            respongut = false;
+            document.getElementById("contador").innerText = `Palabra ${indexActual + 1} de 10`;
+            document.getElementById("paraula-text").innerText = llistaParaules[indexActual].text;
+            document.getElementById("feedback").innerText = "";
+            document.getElementById("feedback").style.color = "#444";
+            document.getElementById("boto-seguent").style.display = "none";
+        }
+
+        function comprovar(seleccio) {
+            if (respongut) return;
+            respongut = true;
+
+            const correcta = llistaParaules[indexActual].tipus;
+            const feedbackEl = document.getElementById("feedback");
+
+            if (seleccio === correcta) {
+                feedbackEl.innerText = "¡Muy bien! Correcto.";
+                feedbackEl.style.color = "#2e7d32";
+                encerts++;
+            } else {
+                feedbackEl.innerText = `Incorrecto. Era ${correcta}.`;
+                feedbackEl.style.color = "#c62828";
+            }
+
+            if (indexActual < llistaParaules.length - 1) {
+                document.getElementById("boto-seguent").style.display = "inline-block";
+            } else {
+                document.getElementById("boto-seguent").style.display = "none";
+                setTimeout(mostrarFinal, 1500);
+            }
+        }
+
+        function seguentParaula() {
+            indexActual++;
+            actualitzarParaula();
+        }
+
+        function mostrarFinal() {
+            document.querySelector(".paraula-card").style.display = "none";
+            document.getElementById("resultat-final").style.display = "block";
+            document.getElementById("puntuacio-final").innerText = `Has conseguido ${encerts} de 10 palabras.`;
+        }
+
+        function tornarComencar() {
+            prepararPartida();
+            document.getElementById("resultat-final").style.display = "none";
+            document.querySelector(".paraula-card").style.display = "block";
+            actualitzarParaula();
+        }
+
+        // Inicialitzar la primera partida al carregar la pàgina
+        prepararPartida();
+        actualitzarParaula();
+    </script>
 </body>
 </html>
