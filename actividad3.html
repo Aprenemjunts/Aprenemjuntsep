@@ -3,47 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actividad 2 - Aprenem Junts</title>
+    <title>Actividad 3 - Aprenem Junts</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* Estils generals del cos */
+        body {
+            background-color: #fce4ec; /* Fons rosa molt clar */
+            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', cursive, sans-serif; /* Font més amigable */
+        }
+
         .contingut-detall {
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-top: 8px solid #d4ed31;
-            border-radius: 12px;
-            padding: 40px;
-            margin: 40px auto;
-            max-width: 900px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            background: linear-gradient(to bottom right, #ffffff, #f3e5f5); /* Degradat suau al contenidor */
+            border: 5px solid #f48fb1; /* Bora rosa xiclet */
+            border-top: 10px solid #e91e63; /* Borda superior gruixuda i fúcsia */
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px auto;
+            max-width: 950px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             text-align: center;
         }
         .contingut-detall h2 {
-            color: #004d40;
-            margin-top: 0;
-            font-size: 2.2rem;
-            margin-bottom: 10px;
+            color: #880e4f; /* Color fúcsia fosc */
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px #ff8a80; /* Ombra divertida al títol */
+            font-weight: 900;
         }
         .contingut-detall p {
-            font-size: 1.15rem;
-            color: #444444;
-            line-height: 1.6;
+            font-size: 1.4rem;
+            color: #6a1b9a; /* Color violeta fosc */
+            line-height: 1.5;
             margin-bottom: 25px;
+            font-weight: 600;
         }
+        
+        /* Àrea de joc millorada amb més alçada */
+        .joc-container {
+            margin-top: 30px;
+            position: relative;
+            background-color: #ffebee;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: inset 0 5px 10px rgba(0,0,0,0.05);
+        }
+        
+        #area-joc {
+            position: relative;
+            width: 100%;
+            height: 650px; /* Més espai de caiguda */
+            background-color: #ffffff; /* Fons blanc dins de l'àrea */
+            border: 5px solid #c5cae9; /* Borde blau grisenc */
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background-image: radial-gradient(#e8eaf6 1.5px, transparent 1.5px);
+            background-size: 30px 30px; /* Patró de punts de fons */
+        }
+
+        .paraula-card {
+            position: absolute;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #fff3e0, #ffcc80); /* Degradat taronja a la targeta */
+            border: 3px solid #ef6c00; /* Borde taronja fort */
+            border-radius: 15px;
+            padding: 15px 30px;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #bf360c; /* Color text marró/taronja fosc */
+            user-select: none;
+            box-shadow: 0 8px 15px rgba(239, 108, 0, 0.4); /* Ombra intensa */
+            white-space: nowrap;
+            z-index: 10;
+            transition: left 0.1s linear; /* Moviment suau */
+            cursor: pointer; /* Indica que es pot clicar */
+        }
+
+        /* Pestanya de joc finalitzat al mig del joc */
+        #pestanya-joc-finalitzat {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #fff9c4, #fff176);
+            border: 4px solid #fbc02d;
+            border-radius: 20px;
+            padding: 20px 40px;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #f57f17;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            z-index: 20;
+            display: none;
+            pointer-events: none;
+            white-space: nowrap;
+            text-shadow: 1px 1px #fff;
+        }
+
+        /* Cistelles de classificació */
+        .cistelles-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            pointer-events: none;
+            gap: 15px;
+            padding: 0 15px 15px 15px;
+        }
+        
+        .cistella {
+            flex: 1;
+            background: linear-gradient(135deg, #64b5f6, #42a5f5); /* Cistella blava */
+            border: 6px solid #1976d2; /* Borde blau fosc */
+            border-radius: 0 0 25px 25px;
+            padding: 15px 10px;
+            min-height: 180px;
+            max-height: 220px; /* Limitem l'alçada perquè no creixi infinitament */
+            position: relative;
+            box-shadow: inset 0 15px 20px rgba(0,0,0,0.15), 0 10px 20px rgba(3, 155, 229, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            color: #ffffff;
+            pointer-events: auto; /* Permet interactuar amb la cistella i fer scroll */
+        }
+        .cistella h3 {
+            font-size: 1.8rem;
+            margin: 0 0 5px 0;
+            font-weight: 900;
+            text-shadow: 1px 1px #0d47a1;
+            text-transform: uppercase;
+        }
+        .cistella p {
+            font-size: 1rem;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #e3f2fd;
+        }
+
+        /* Cistelles personalitzades amb colors diferents */
+        #cistella-aguda { background: linear-gradient(135deg, #66bb6a, #4caf50); border-color: #2e7d32; box-shadow: inset 0 15px 20px rgba(0,0,0,0.15), 0 10px 20px rgba(76, 175, 80, 0.4); }
+        #cistella-aguda h3 { text-shadow: 1px 1px #1b5e20; }
+        #cistella-aguda p { color: #c8e6c9; }
+        
+        #cistella-llana { background: linear-gradient(135deg, #ff7043, #ff5722); border-color: #e64a19; box-shadow: inset 0 15px 20px rgba(0,0,0,0.15), 0 10px 20px rgba(255, 87, 34, 0.4); }
+        #cistella-llana h3 { text-shadow: 1px 1px #bf360c; }
+        #cistella-llana p { color: #ffccbc; }
+
+        #cistella-esdrújula { background: linear-gradient(135deg, #ab47bc, #9c27b0); border-color: #7b1fa2; box-shadow: inset 0 15px 20px rgba(0,0,0,0.15), 0 10px 20px rgba(156, 39, 176, 0.4); }
+        #cistella-esdrújula h3 { text-shadow: 1px 1px #4a148c; }
+        #cistella-esdrújula p { color: #e1bee7; }
+
+
+        /* Paraules acumulades amb estil de fitxa */
+        .paraules-acumulades {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+            max-height: 100px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 5px;
+            pointer-events: auto; /* Assegura que es pugui fer scroll amb el ratolí/tàctil */
+        }
+
+        .paraula-acumulada {
+            background-color: #ffffff;
+            border: 2px solid #5d4037; /* Borde marró per a les fitxes */
+            border-radius: 8px;
+            padding: 4px 12px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: #3e2723;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+            white-space: nowrap;
+            margin: 2px;
+        }
+
+        #missatge-joc {
+            font-weight: 900;
+            font-size: 2rem;
+            margin: 25px 0;
+            min-height: 45px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        /* Botó divertit */
         .boto-tornar {
             display: inline-block;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, #78909c 0%, #546e7a 100%);
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #26c6da, #00acc1); /* Turquesa */
             color: #ffffff;
             text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(84, 110, 122, 0.3);
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            box-shadow: 0 6px 15px rgba(0, 172, 193, 0.5);
             transition: all 0.2s ease;
+            margin-top: 40px;
+            border: 3px solid #006064;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .boto-tornar:hover {
-            background: linear-gradient(135deg, #607d8b 0%, #455a64 100%);
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, #00acc1, #00838f);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 172, 193, 0.6);
         }
+
+        /* Estils de l'encapçalament i navegació actualitzats */
+        .main-header { background-color: #fce4ec; }
+        .main-nav ul { 
+            background-color: #1a4d2e; 
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .nav-link { 
+            font-weight: 700;
+            font-size: 1.1rem; 
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+        }
+        .main-footer { font-family: 'Comic Sans MS', cursive, sans-serif; }
     </style>
 </head>
 <body>
@@ -68,14 +263,53 @@
             <li><a href="ortografiagramatica.html" class="nav-link">Branques</a></li>
             <li><a href="normasacentuacion.html" class="nav-link">Normes</a></li>
             <li><a href="practica.html" class="nav-link">Pràctica</a></li>
+            <li><a href="actividad3.html" class="nav-link" style="background-color: #ffeb3b; color: #000000; font-weight: bold; border-radius: 4px;">Activitat 3</a></li>
         </ul>
     </nav>
 
     <main class="content-container">
         <section class="contingut-detall">
-            <h2>Actividad 2</h2>
-            <p>Aquí anirà el contingut corresponent a la segona activitat de pràctica d'acentuació.</p>
-            <a href="practica.html" class="boto-tornar">Vuelve a la ruleta</a>
+            <h2>¡A clasificar palabras!</h2>
+            <p>Usa las teclas de flecha<b>←</b> y <b>→</b> para mover la palabra. ¡Mantén la flecha<b>↓</b> para que baje más rápido!</p>
+            
+            <div class="joc-container">
+                <div id="area-joc">
+                    <div id="paraula-actual" class="paraula-card">¡Vamos!</div>
+                    <div id="pestanya-joc-finalitzat">¡Juego finalizado! 🎉</div>
+                    
+                    <div class="cistelles-container">
+                        <div class="cistella" id="cistella-aguda">
+                            <div>
+                                <h3>AGUDAS</h3>
+                                <p>¡Acentúalas si acaban en vocal, N o S!</p>
+                            </div>
+                            <div class="paraules-acumulades" id="llista-aguda"></div>
+                        </div>
+                        
+                        <div class="cistella" id="cistella-llana">
+                            <div>
+                                <h3>LLANAS</h3>
+                                <p>¡Acentúalas si acaban en consonante (no N o S)!</p>
+                            </div>
+                            <div class="paraules-acumulades" id="llista-llana"></div>
+                        </div>
+                        
+                        <div class="cistella" id="cistella-esdrújula">
+                            <div>
+                                <h3>ESDRÚJULAS</h3>
+                                <p>¡SIEMPRE se acentúan!</p>
+                            </div>
+                            <div class="paraules-acumulades" id="llista-esdrújula"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="missatge-joc"></div>
+            </div>
+
+            <div>
+                <a href="practica.html" class="boto-tornar">¡Vuelve a la ruleta!</a>
+            </div>
         </section>
     </main>
 
@@ -83,5 +317,169 @@
         <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
     </footer>
 
+    <script>
+        const paraulesInicials = [
+            { text: "canción", tipus: "aguda" },
+            { text: "lápiz", tipus: "llana" },
+            { text: "música", tipus: "esdrújula" },
+            { text: "página", tipus: "esdrújula" },
+            { text: "sofá", tipus: "aguda" },
+            { text: "frágil", tipus: "llana" },
+            { text: "rubí", tipus: "aguda" },
+            { text: "cárcel", tipus: "llana" },
+            { text: "anís", tipus: "aguda" },
+            { text: "pirámide", tipus: "esdrújula" },
+            { text: "húmedo", tipus: "esdrújula" },
+            { text: "gráfico", tipus: "esdrújula" },
+            { text: "trébol", tipus: "llana" }
+        ];
+
+        let cuaParaules = [];
+        let paraulaActualObj = null;
+        let posY = 0;
+        let posX = 0; 
+        let velocitatBase = 0.4;  
+        let velocitatCaiguda = velocitatBase;
+        let jocActiu = false;
+
+        const areaJoc = document.getElementById("area-joc");
+        const elementParaula = document.getElementById("paraula-actual");
+        const pestanyaFinalitzat = document.getElementById("pestanya-joc-finalitzat");
+        const missatge = document.getElementById("missatge-joc");
+
+        function actualitzarParaulaUI() {
+            if (cuaParaules.length > 0) {
+                paraulaActualObj = cuaParaules[0];
+                elementParaula.textContent = paraulaActualObj.text;
+                elementParaula.style.display = "block";
+                pestanyaFinalitzat.style.display = "none";
+            } else {
+                elementParaula.style.display = "none";
+                pestanyaFinalitzat.style.display = "block";
+                jocActiu = false;
+            }
+        }
+
+        function iniciarJoc() {
+            if (jocActiu) return;
+            jocActiu = true;
+            
+            cuaParaules = [...paraulesInicials];
+            
+            posY = 0;
+            posX = 0;
+            missatge.textContent = "";
+            pestanyaFinalitzat.style.display = "none";
+            elementParaula.style.display = "block";
+            
+            document.getElementById("llista-aguda").innerHTML = "";
+            document.getElementById("llista-llana").innerHTML = "";
+            document.getElementById("llista-esdrújula").innerHTML = "";
+
+            actualitzarParaulaUI();
+            bucleJoc();
+        }
+
+        function bucleJoc() {
+            if (!jocActiu) return;
+
+            posY += velocitatCaiguda;
+            elementParaula.style.top = posY + "px";
+            elementParaula.style.transform = `translateX(calc(-50% + ${posX}px))`;
+
+            if (posY >= areaJoc.clientHeight - 200) {
+                verificarClassificacio();
+            } else {
+                requestAnimationFrame(bucleJoc);
+            }
+        }
+
+        function verificarClassificacio() {
+            const paraulaRect = elementParaula.getBoundingClientRect();
+            
+            const cistellaAgudaRect = document.getElementById("cistella-aguda").getBoundingClientRect();
+            const cistellaLlanaRect = document.getElementById("cistella-llana").getBoundingClientRect();
+            const cistellaEsdrujulaRect = document.getElementById("cistella-esdrújula").getBoundingClientRect();
+
+            let cistellaDesti = "";
+            
+            if (paraulaRect.left + paraulaRect.width / 2 >= cistellaAgudaRect.left && paraulaRect.left + paraulaRect.width / 2 <= cistellaAgudaRect.right) {
+                cistellaDesti = "aguda";
+            } else if (paraulaRect.left + paraulaRect.width / 2 >= cistellaLlanaRect.left && paraulaRect.left + paraulaRect.width / 2 <= cistellaLlanaRect.right) {
+                cistellaDesti = "llana";
+            } else if (paraulaRect.left + paraulaRect.width / 2 >= cistellaEsdrujulaRect.left && paraulaRect.left + paraulaRect.width / 2 <= cistellaEsdrujulaRect.right) {
+                cistellaDesti = "esdrújula";
+            }
+
+            if (cistellaDesti === paraulaActualObj.tipus) {
+                missatge.textContent = "¡Muy bien! 🎯";
+                missatge.style.color = "#2e7d32";
+                
+                const fitxa = document.createElement("div");
+                fitxa.className = "paraula-acumulada";
+                fitxa.textContent = paraulaActualObj.text;
+                document.getElementById(`llista-${cistellaDesti}`).appendChild(fitxa);
+
+                cuaParaules.shift();
+            } else {
+                missatge.textContent = "¡OH, MÁS ADELANTE VOLVERÁ A SALIR! 🔄";
+                missatge.style.color = "#c62828";
+
+                const paraulaFallada = cuaParaules.shift();
+                cuaParaules.push(paraulaFallada);
+            }
+
+            posY = 0; 
+            posX = 0; 
+
+            if (cuaParaules.length > 0) {
+                actualitzarParaulaUI(); 
+                
+                elementParaula.style.top = posY + "px";
+                elementParaula.style.transform = `translateX(calc(-50% + ${posX}px))`;
+
+                setTimeout(() => {
+                    missatge.textContent = "";
+                    bucleJoc();
+                }, 1000);
+            } else {
+                elementParaula.style.display = "none";
+                pestanyaFinalitzat.style.display = "block";
+                jocActiu = false;
+                missatge.textContent = "¡Has completado y situado todas las palabras correctamente! 🏆";
+                missatge.style.color = "#00838f";
+            }
+        }
+
+        // Controls de teclat amb e.preventDefault()
+        window.addEventListener("keydown", (e) => {
+            if (!jocActiu) return;
+            
+            if (["ArrowLeft", "ArrowRight", "ArrowDown", " "].includes(e.key)) {
+                e.preventDefault();
+            }
+
+            if (e.key === "ArrowLeft") {
+                posX -= 20;
+            } else if (e.key === "ArrowRight") {
+                posX += 20;
+            } else if (e.key === "ArrowDown") {
+                velocitatCaiguda = velocitatBase * 4;
+            }
+        });
+
+        window.addEventListener("keyup", (e) => {
+            if (e.key === "ArrowDown") {
+                velocitatCaiguda = velocitatBase;
+            }
+        });
+
+        // Event de clic a la pestanya "¡Vamos!" per iniciar el joc
+        elementParaula.addEventListener("click", () => {
+            if (!jocActiu) {
+                iniciarJoc();
+            }
+        });
+    </script>
 </body>
 </html>
