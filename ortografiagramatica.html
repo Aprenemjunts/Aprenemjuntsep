@@ -124,7 +124,7 @@
     <main class="content-container">
         <section class="welcome-section">
            
-            <!-- Finestres d'Ortografía i Gramática -->
+            <!-- Finestres d'Ortografía, Gramática i Vocabulario -->
             <ul class="arees-nav">
                 <li class="dropdown">
                     <a href="#" class="area-link" id="ortografia-btn">Ortografía</a>
@@ -133,7 +133,16 @@
                         <li><a href="normasacentuacion.html">Normas de acentuación</a></li>
                     </ul>
                 </li>
-                <li><a href="#" class="area-link">Gramática (procés de construcció)</a></li>
+                <li class="dropdown">
+                    <a href="#" class="area-link" id="vocabulario-btn">Vocabulario</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="camposemantico.html">El campo semántico</a></li>
+                        <li><a href="campolexico.html">El campo léxico (en construcción)</a></li>
+                        <li><a href="losprefijos.html">Los prefijos (en construcción)</a></li>
+
+                    </ul>
+                </li>
+                <li><a href="#" class="area-link">Gramática (proceso de construcción)</a></li>
             </ul>
 
             <div style="text-align: center; margin-top: 30px;">
@@ -147,19 +156,33 @@
     </footer>
 
     <script>
-        // Script per gestionar el desplegable en clicar la pestanya d'Ortografía
-        const dropdownLi = document.querySelector('.dropdown');
-        const ortografiaBtn = document.getElementById('ortografia-btn');
+        // Script per gestionar els desplegables en clicar les pestanyes
+        const dropdowns = document.querySelectorAll('.dropdown');
 
-        ortografiaBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            dropdownLi.classList.toggle('active');
+        dropdowns.forEach(dropdown => {
+            const btn = dropdown.querySelector('.area-link');
+            
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Tanca els altres desplegables oberts abans d'obrir l'actual
+                dropdowns.forEach(item => {
+                    if (item !== dropdown) {
+                        item.classList.remove('active');
+                    }
+                });
+
+                // Obre o tanca l'actual
+                dropdown.classList.toggle('active');
+            });
         });
 
-        // Opcional: tancar el desplegable si es clica fora
+        // Tancar els desplegables si es clica fora
         window.addEventListener('click', function(e) {
-            if (!dropdownLi.contains(e.target)) {
-                dropdownLi.classList.remove('active');
+            if (!e.target.closest('.dropdown')) {
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
             }
         });
     </script>

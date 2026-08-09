@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 1 - El campo semántico - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .content-section {
+            max-width: 1050px;
+            margin: 40px auto;
+            background: linear-gradient(135deg, #fffdfa 0%, #f0f7ff 100%);
+            padding: 40px;
+            border-radius: 16px;
+            border: 2px solid #ffb703;
+            box-shadow: 0 8px 20px rgba(255, 183, 3, 0.15);
+        }
+        .content-section h2 {
+            color: #d90429;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            border-bottom: 4px solid #ffb703;
+            padding-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        .content-section p {
+            color: #2b2d42;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Estructura de joc amb panell lateral de resultats */
+        .game-layout {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        #game-main-area {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        #round-results-panel {
+            width: 260px;
+            background: #ffffff;
+            border: 2px solid #4361ee;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.15);
+        }
+
+        #round-results-panel h4 {
+            color: #4361ee;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            text-align: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 6px;
+        }
+
+        .result-item {
+            background: #f8f9fa;
+            border-left: 4px solid #38b000;
+            padding: 8px 10px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #2b2d42;
+        }
+
+        .result-item span {
+            display: block;
+            font-weight: bold;
+            color: #1d3557;
+        }
+
+        /* Estils específics del joc interactiu amb més color */
+        #game-container {
+            position: relative;
+            width: 100%;
+            height: 480px;
+            background: linear-gradient(135deg, #e0fbfc 0%, #98c1d9 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 3px dashed #3d5a80;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.08);
+        }
+        #intro-screen {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        #intro-screen h3 {
+            font-size: 1.6rem;
+            color: #293241;
+            margin-bottom: 10px;
+        }
+        #target-field {
+            font-size: 3.2rem;
+            color: #ee6c4d;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 0px #ffb703;
+        }
+        .floating-word {
+            position: absolute;
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #ffffff 0%, #f1faee 100%);
+            border: 2px solid #e29578;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.05rem;
+            color: #1d3557;
+            user-select: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+            transition: all 0.2s ease;
+        }
+        .floating-word:hover {
+            background: linear-gradient(135deg, #ffb703 0%, #fb8500 100%);
+            color: #ffffff;
+            border-color: #fb8500;
+            transform: scale(1.1) rotate(2deg);
+        }
+        .floating-word.selected {
+            background: linear-gradient(135deg, #38b000 0%, #70e000 100%) !important;
+            border-color: #007200;
+            color: #ffffff !important;
+            box-shadow: 0 0 15px rgba(56, 176, 0, 0.6);
+            transform: scale(1.05);
+        }
+        .floating-word.wrong {
+            background: linear-gradient(135deg, #d90429 0%, #ef233c 100%) !important;
+            border-color: #8d0801;
+            color: #ffffff !important;
+            animation: shake 0.3s;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+        #game-stats {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #2b2d42;
+            background: #ffffff;
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        #score-board {
+            color: #38b000;
+        }
+        #round-board {
+            color: #4361ee;
+        }
+        #error-board {
+            color: #d90429;
+        }
+        #time-board {
+            color: #fb8500;
+        }
+        #restart-btn {
+            display: none;
+            margin: 25px auto 0 auto;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+            transition: all 0.2s ease;
+        }
+        #restart-btn:hover {
+            background: linear-gradient(135deg, #3a0ca3 100%, #4361ee 0%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mateix Encapçalament -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <!-- Menú de navegació modificat -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link">Presentació</a></li>
+            <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="Curs.html" class="nav-link">Cicle Mitjà</a></li>
+            <li><a href="arees4t.html" class="nav-link">Àrees</a></li>
+            <li><a href="ortografiagramatica.html" class="nav-link">Branques</a></li>
+            <li><a href="camposemantico.html" class="nav-link">Semàntic</a></li>
+            <li><a href="#" class="nav-link" style="background-color: #d4ed31; color: #000000; cursor: default;">Activitat 1</a></li>
+        </ul>
+    </nav>
+
+    <!-- Nou Contingut de l'Activitat 1 amb el Joc Interactiu -->
+    <main class="content-container">
+        <section class="content-section">
+            <h2>Actividad 1: El campo semántico</h2>
+            <p>Fíjate en el campo semántico que aparece en la pantalla y prepárate para seleccionar las palabras correspondientes.</p>
+            
+            <div class="game-layout">
+                <!-- Área principal del juego -->
+                <div id="game-main-area">
+                    <div id="game-stats">
+                        <span id="round-board">Ronda: 1 / 4</span>
+                        <span id="score-board">Aciertos: 0 / 0</span>
+                        <span id="error-board">Errores: 0</span>
+                        <span id="time-board">Tiempo: 00:00</span>
+                    </div>
+
+                    <div id="game-container">
+                        <div id="intro-screen">
+                            <h3>¿Preparado para jugar?</h3>
+                            <button onclick="startGame()" style="margin-top: 15px; padding: 14px 32px; background: linear-gradient(135deg, #38b000 0%, #007200 100%); color: #fff; border: none; border-radius: 30px; font-size: 1.2rem; font-weight: bold; cursor: pointer; box-shadow: 0 6px 15px rgba(56, 176, 0, 0.4); transition: all 0.2s ease;">Empezar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panell lateral de resultats per ronda -->
+                <div id="round-results-panel">
+                    <h4>Resultados por ronda</h4>
+                    <div id="history-list">
+                        <p style="font-size: 0.85rem; color: #6c757d; text-align: center; margin-top: 10px;">Aún no hay rondas completadas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <button id="restart-btn" onclick="restartFullGame()">Volver a jugar des de el principio</button>
+        </section>
+    </main>
+
+    <!-- Mateix Peu de pàgina -->
+    <footer class="main-footer">
+        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+    </footer>
+
+    <!-- Lògica JavaScript del Joc -->
+    <script>
+        const rounds = [
+            {
+                name: "ANIMALES",
+                correct: ["perro", "gato", "león", "elefante", "caballo", "tigre", "vaca", "oveja", "mono", "jirafa"],
+                distractors: ["mesa", "silla", "ordenador", "libro", "manzana", "madera", "coche", "avión", "lápiz", "alfombra", "ventana", "camiseta", "llavero", "botella", "papel"]
+            },
+            {
+                name: "FRUTAS",
+                correct: ["manzana", "plátano", "pera", "fresa", "naranja", "sandía", "melón", "uvas", "piña", "melocotón"],
+                distractors: ["perro", "silla", "zapato", "camisa", "lápiz", "piedra", "puerta", "reloj", "cuaderno", "coche", "tren", "plato", "tenedor", "vaso", "nube"]
+            },
+            {
+                name: "PRENDAS DE VESTIR",
+                correct: ["camisa", "pantalón", "vestido", "abrigo", "bragas", "bufanda", "pijama", "calcetines", "falda", "suéter"],
+                distractors: ["león", "manzana", "mesa", "televisión", "lápiz", "cartera", "avión", "plátano", "lámpara", "guitarra", "sartén", "pelota", "árbol", "piedra", "cuaderno"]
+            },
+            {
+                name: "COLECCION ESCOLAR",
+                correct: ["lápiz", "bolígrafo", "cuaderno", "goma", "regla", "mochila", "tijeras", "estuche", "papel", "pegamento"],
+                distractors: ["gato", "sandía", "abrigo", "coche", "león", "fresa", "zapatos", "sartén", "pelota", "ventana", "camisa", "bicicleta", "plátano", "sofá", "reloj"]
+            }
+        ];
+
+        let currentRoundIndex = 0;
+        let score = 0;
+        let errors = 0;
+        let secondsElapsed = 0;
+        let gameIntervals = [];
+        let timerInterval = null;
+
+        function startGame() {
+            gameIntervals.forEach(clearInterval);
+            gameIntervals = [];
+            if (timerInterval) clearInterval(timerInterval);
+
+            // Si es reinicia desde cero completamente, vaciamos el historial lateral
+            if (currentRoundIndex === 0) {
+                document.getElementById("history-list").innerHTML = '<p style="font-size: 0.85rem; color: #6c757d; text-align: center; margin-top: 10px;">Aún no hay rondas completadas.</p>';
+            }
+
+            const round = rounds[currentRoundIndex];
+            const container = document.getElementById("game-container");
+            
+            document.getElementById("round-board").innerText = `Ronda: ${currentRoundIndex + 1} / ${rounds.length}`;
+            document.getElementById("restart-btn").style.display = "none";
+            
+            score = 0;
+            errors = 0;
+            secondsElapsed = 0;
+            updateStats();
+
+            container.innerHTML = `
+                <div id="intro-screen">
+                    <h3>El campo semántico es:</h3>
+                    <div id="target-field">${round.name}</div>
+                </div>
+            `;
+
+            // Després de 3 segons, amagar la pantalla d'inici, llançar les paraules i iniciar el cronòmetre
+            setTimeout(() => {
+                container.innerHTML = "";
+                launchGameWords();
+                startTimer();
+            }, 3000);
+        }
+
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                secondsElapsed++;
+                updateStats();
+            }, 1000);
+        }
+
+        function launchGameWords() {
+            const container = document.getElementById("game-container");
+            const round = rounds[currentRoundIndex];
+            const allWords = [...round.correct, ...round.distractors];
+            
+            // Barrejar les paraules
+            allWords.sort(() => Math.random() - 0.5);
+
+            allWords.forEach((wordText) => {
+                const wordEl = document.createElement("div");
+                wordEl.classList.add("floating-word");
+                wordEl.innerText = wordText;
+
+                // Posició inicial aleatòria dins del contenidor
+                let posX = Math.random() * (container.clientWidth - 120);
+                let posY = Math.random() * (container.clientHeight - 50);
+                
+                // Velocitat i direcció aleatòria
+                let vx = (Math.random() - 0.5) * 2;
+                let vy = (Math.random() - 0.5) * 2;
+                if (vx === 0) vx = 1;
+                if (vy === 0) vy = 1;
+
+                wordEl.style.left = posX + "px";
+                wordEl.style.top = posY + "px";
+
+                // Comprovar si és correcta
+                const isCorrect = round.correct.includes(wordText);
+
+                wordEl.addEventListener("click", () => {
+                    if (wordEl.classList.contains("selected")) return;
+
+                    if (isCorrect) {
+                        wordEl.classList.add("selected");
+                        score++;
+                        updateStats();
+                        if (score === round.correct.length) {
+                            endRound();
+                        }
+                    } else {
+                        wordEl.classList.add("wrong");
+                        errors++;
+                        updateStats();
+                        setTimeout(() => wordEl.classList.remove("wrong"), 500);
+                    }
+                });
+
+                container.appendChild(wordEl);
+
+                // Bucle de moviment per a cada paraula
+                let moveInterval = setInterval(() => {
+                    posX += vx;
+                    posY += vy;
+
+                    // Rebotar contra les parets
+                    if (posX <= 0 || posX >= container.clientWidth - wordEl.clientWidth) {
+                        vx *= -1;
+                    }
+                    if (posY <= 0 || posY >= container.clientHeight - wordEl.clientHeight) {
+                        vy *= -1;
+                    }
+
+                    wordEl.style.left = posX + "px";
+                    wordEl.style.top = posY + "px";
+                }, 25);
+
+                gameIntervals.push(moveInterval);
+            });
+        }
+
+        function updateStats() {
+            const round = rounds[currentRoundIndex];
+            document.getElementById("score-board").innerText = `Aciertos: ${score} / ${round.correct.length}`;
+            document.getElementById("error-board").innerText = `Errores: ${errors}`;
+            
+            const minutes = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
+            const seconds = String(secondsElapsed % 60).padStart(2, '0');
+            document.getElementById("time-board").innerText = `Tiempo: ${minutes}:${seconds}`;
+        }
+
+        function endRound() {
+            gameIntervals.forEach(clearInterval);
+            if (timerInterval) clearInterval(timerInterval);
+
+            const container = document.getElementById("game-container");
+            const round = rounds[currentRoundIndex];
+
+            const minutes = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
+            const seconds = String(secondsElapsed % 60).padStart(2, '0');
+
+            // Registrar y mostrar los resultados de esta ronda en el panel lateral
+            const historyList = document.getElementById("history-list");
+            if (historyList.querySelector("p")) {
+                historyList.innerHTML = ""; // Limpiar texto de "aún no hay rondas"
+            }
+
+            const resultEntry = document.createElement("div");
+            resultEntry.classList.add("result-item");
+            resultEntry.innerHTML = `
+                <span>Ronda ${currentRoundIndex + 1}: ${round.name}</span>
+                Errores: ${errors} | Tiempo: ${minutes}:${seconds}
+            `;
+            historyList.appendChild(resultEntry);
+
+            currentRoundIndex++;
+
+            if (currentRoundIndex < rounds.length) {
+                container.innerHTML = `
+                    <div style="text-align: center; background: rgba(255, 255, 255, 0.95); padding: 35px 50px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
+                        <h3 style="font-size: 2rem; color: #38b000; margin-bottom: 10px;">¡Ronda superada! 🎉</h3>
+                        <p style="font-size: 1.1rem; color: #2b2d42; margin-bottom: 5px;">Has completado el campo semántico de <strong>${round.name}</strong>.</p>
+                        <p style="font-size: 1rem; color: #d90429; margin-bottom: 5px;">Errores cometidos: <strong>${errors}</strong></p>
+                        <p style="font-size: 1rem; color: #fb8500; margin-bottom: 20px;">Tiempo empleado: <strong>${minutes}:${seconds}</strong></p>
+                        <button onclick="startGame()" style="padding: 12px 24px; background: #4361ee; color: #fff; border: none; border-radius: 20px; font-size: 1rem; font-weight: bold; cursor: pointer;">Siguiente ronda &rarr;</button>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div style="text-align: center; background: rgba(255, 255, 255, 0.95); padding: 35px 50px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
+                        <h3 style="font-size: 2.2rem; color: #38b000; margin-bottom: 10px;">Enhorabona! 🏆</h3>
+                        <p style="font-size: 1.2rem; color: #2b2d42; margin-bottom: 5px;">¡Has completado todas las rondas!</p>
+                        <p style="font-size: 1rem; color: #fb8500; margin-bottom: 20px;">Último tiempo registrado: <strong>${minutes}:${seconds}</strong></p>
+                    </div>
+                `;
+                document.getElementById("restart-btn").style.display = "block";
+            }
+        }
+
+        function restartFullGame() {
+            currentRoundIndex = 0;
+            startGame();
+        }
+    </script>
+</body>
+</html>
