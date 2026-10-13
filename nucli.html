@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscamos el núcleo - 4t curs - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tema-container {
+            max-width: 900px;
+            margin: 48px auto;
+            padding: 32px;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-top: 8px solid #d4ed31;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,.05);
+            box-sizing: border-box;
+        }
+        .tema-container h1 {
+            color: #004d40;
+            text-align: center;
+            margin: 0 0 24px;
+        }
+        .tema-contingut { min-height: 180px; }
+        @media (max-width: 600px) {
+            .tema-container { margin: 24px 12px; padding: 22px; }
+        }
+
+        .video-tab { display: block; margin: 0 auto; padding: 18px 24px; background: #fff; color: #004d40; border: 1px solid #ddd; border-left: 6px solid #d4ed31; border-radius: 8px; font: inherit; font-size: 1.15rem; font-weight: bold; cursor: pointer; box-shadow: 0 3px 8px #0001; }
+        .video-tab:hover { background: #f4f8df; }
+        .video-tab:focus-visible, .video-close:focus-visible { outline: 3px solid #004d40; outline-offset: 4px; }
+        .video-dialog { width: min(900px, 94vw); max-height: 90vh; margin: auto; padding: 24px; border: 0; border-top: 8px solid #d4ed31; border-radius: 12px; box-sizing: border-box; overflow: auto; background: #fff; color: #004d40; }
+        .video-dialog::backdrop { background: rgba(0,0,0,.7); }
+        .video-dialog-header { display: flex; gap: 16px; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+        .video-dialog h2 { font-size: clamp(1.1rem, 3vw, 1.5rem); margin: 0; }
+        .video-close { flex-shrink: 0; padding: 10px 14px; border: 0; border-radius: 6px; background: #004d40; color: white; font: inherit; cursor: pointer; }
+        .video-dialog video { display: block; width: 100%; max-height: 65vh; background: #000; }
+        .tema-finestres { display: flex; gap: 20px; align-items: stretch; }
+        .tema-finestres .video-tab { flex: 1; margin: 0; min-width: 0; display: flex; align-items: center; justify-content: center; text-align: center; box-sizing: border-box; }
+        .nucli-finestra { cursor: pointer; text-decoration: none; }
+        @media (max-width: 600px) { .tema-finestres { flex-direction: column; } }
+
+        .joc-enunciat { text-align: center; font-size: 1.15rem; line-height: 1.6; margin-bottom: 24px; }
+        .joc-progres { text-align: center; color: #004d40; font-weight: bold; margin-bottom: 22px; }
+        .joc-paraules { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; padding: 16px 0; }
+        .joc-casella { background: #f5f8e5; color: #004d40; border: 2px solid #d4ed31; border-radius: 10px; padding: 15px 20px; font: inherit; font-size: 1.35rem; font-weight: 600; cursor: pointer; }
+        .joc-casella:hover:not(:disabled) { background: #e8efbb; }
+        .joc-casella:focus-visible, .joc-reiniciar:focus-visible { outline: 3px solid #004d40; outline-offset: 4px; }
+        .joc-casella:disabled { opacity: 1; cursor: default; }
+        .joc-casella.encert { background: #d5f4dc; border-color: #25813c; }
+        .joc-casella.error { animation: error-vermell 1s linear; }
+        @keyframes error-vermell { 0%, 40%, 80% { background: #ffb3b3; border-color: #c62828; } 20%, 60%, 100% { background: #f5f8e5; border-color: #d4ed31; } }
+        .joc-missatge { min-height: 2em; margin: 18px 0; text-align: center; font-size: 1.35rem; font-weight: bold; color: #004d40; }
+        .joc-final { text-align: center; }
+        .joc-reiniciar { padding: 14px 24px; margin-top: 16px; border: 0; border-radius: 8px; background: #d4ed31; color: #004d40; font: inherit; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+
+            <div class="header-banner">
+                <img src="banner.png"
+                     alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li>
+                <a href="index.html" class="nav-link">
+                    Presentació
+                </a>
+            </li>
+
+            <li>
+                <a href="Cicles.html" class="nav-link">
+                    Cicles
+                </a>
+            </li>
+
+            <li>
+                <a href="Curs.html" class="nav-link">
+                    Cicle Mitjà
+                </a>
+            </li>
+
+            <li>
+                <a href="arees4t.html" class="nav-link">
+                    Àrees
+                </a>
+            </li>
+
+            <li>
+                <a href="ortografiagramatica.html" class="nav-link">
+                    Branques
+                </a>
+            </li>
+
+            <li>
+                <a href="sintagmanominal.html" class="nav-link">
+                    Sintagma
+                </a>
+            </li>
+            <li>
+                <a href="nucli.html" class="nav-link" aria-current="page"
+                   style="background-color: #d4ed31; color: #000000;">Nucli</a>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="content-container">
+        <section class="welcome-section">
+            <div class="tema-container" lang="es">
+                <h1>Buscamos el núcleo</h1>
+                <p class="joc-enunciat">A continuación van a aparecer 10 sintagmas nominales. Clica con el ratón encima del núcleo.</p>
+                <div class="tema-contingut">
+                    <p class="joc-progres" id="joc-progres"></p>
+                    <div class="joc-paraules" id="joc-paraules" role="group" aria-label="Selecciona el núcleo del sintagma nominal"></div>
+                    <p class="joc-missatge" id="joc-missatge" role="status" aria-live="polite" aria-atomic="true"></p>
+                    <div class="joc-final" id="joc-final" hidden>
+                        <p>¡Has encontrado los 10 núcleos!</p>
+                        <button class="joc-reiniciar" id="joc-reiniciar" type="button">Volver a jugar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>
+            &copy; 2026 Aprenem Junts -
+            Classes Virtuals d'Educació Primària.
+            Tots els drets reservats.
+        </p>
+    </footer>
+
+<script>
+
+const bank = [{"words": ["La", "gata", "negra"], "core": 1}, {"words": ["Un", "coche", "de", "color", "azul"], "core": 1}, {"words": ["Mis", "mejores", "amigos"], "core": 2}, {"words": ["Aquella", "casa", "de", "la", "montaña"], "core": 1}, {"words": ["Los", "zapatos", "nuevos", "de", "Marta"], "core": 1}, {"words": ["Tres", "mariposas", "amarillas"], "core": 1}, {"words": ["El", "libro", "de", "aventuras"], "core": 1}, {"words": ["Una", "mochila", "muy", "pesada"], "core": 1}, {"words": ["Estos", "árboles", "del", "parque"], "core": 1}, {"words": ["Las", "deliciosas", "galletas", "de", "chocolate"], "core": 2}, {"words": ["El", "pequeño", "perro", "de", "Ana"], "core": 2}, {"words": ["Una", "bicicleta", "roja"], "core": 1}, {"words": ["Nuestros", "juguetes", "favoritos"], "core": 1}, {"words": ["Dos", "pájaros", "del", "jardín"], "core": 1}, {"words": ["La", "ventana", "de", "mi", "habitación"], "core": 1}, {"words": ["Esas", "flores", "blancas"], "core": 1}, {"words": ["Un", "gran", "castillo", "de", "arena"], "core": 2}, {"words": ["Las", "estrellas", "brillantes"], "core": 1}, {"words": ["Mi", "hermano", "pequeño"], "core": 1}, {"words": ["La", "pelota", "de", "baloncesto"], "core": 1}, {"words": ["Unas", "nubes", "muy", "oscuras"], "core": 1}, {"words": ["El", "sombrero", "del", "mago"], "core": 1}, {"words": ["Cuatro", "lápices", "de", "colores"], "core": 1}, {"words": ["La", "maestra", "de", "música"], "core": 1}, {"words": ["Una", "manzana", "verde"], "core": 1}, {"words": ["Los", "peces", "del", "acuario"], "core": 1}, {"words": ["Aquel", "puente", "de", "piedra"], "core": 1}, {"words": ["Mi", "camiseta", "de", "rayas"], "core": 1}, {"words": ["Las", "hojas", "del", "árbol"], "core": 1}, {"words": ["Un", "conejo", "de", "orejas", "largas"], "core": 1}, {"words": ["Aquellos", "barcos", "de", "papel"], "core": 1}, {"words": ["La", "sopa", "caliente"], "core": 1}, {"words": ["Nuestras", "botas", "de", "lluvia"], "core": 1}, {"words": ["Cinco", "globos", "de", "colores"], "core": 1}, {"words": ["Un", "enorme", "dragón", "verde"], "core": 2}, {"words": ["La", "puerta", "del", "colegio"], "core": 1}, {"words": ["Los", "cuentos", "de", "mi", "abuela"], "core": 1}, {"words": ["Una", "tortuga", "muy", "lenta"], "core": 1}, {"words": ["Mi", "antiguo", "tren", "de", "juguete"], "core": 2}, {"words": ["Las", "montañas", "nevadas"], "core": 1}];
+const tiles = document.getElementById('joc-paraules');
+const progress = document.getElementById('joc-progres');
+const message = document.getElementById('joc-missatge');
+const finish = document.getElementById('joc-final');
+const restart = document.getElementById('joc-reiniciar');
+let round = [], position = 0, locked = false;
+function startGame() {
+    const pool = bank.slice();
+    for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    round = pool.slice(0, 10);
+    position = 0; locked = false; finish.hidden = true;
+    message.textContent = '';
+    showPhrase(false);
+}
+function showPhrase(focus) {
+    tiles.replaceChildren();
+    progress.textContent = 'Sintagma ' + (position + 1) + ' de 10';
+    round[position].words.forEach((word, index) => {
+        const button = document.createElement('button');
+        button.type = 'button'; button.className = 'joc-casella';
+        button.textContent = word;
+        button.addEventListener('click', () => choose(button, index));
+        tiles.appendChild(button);
+    });
+    if (focus) tiles.firstElementChild.focus();
+}
+function choose(button, index) {
+    if (locked) return;
+    locked = true;
+    const buttons = [...tiles.children];
+    buttons.forEach(item => item.disabled = true);
+    if (index === round[position].core) {
+        button.classList.add('encert');
+        message.textContent = '¡Correcto!';
+        setTimeout(() => {
+            position++;
+            locked = false;
+            if (position === 10) {
+                progress.textContent = '10 de 10 completados';
+                tiles.replaceChildren(); finish.hidden = false;
+                restart.focus();
+            } else {
+                message.textContent = '';
+                showPhrase(true);
+            }
+        }, 1100);
+    } else {
+        button.classList.add('error');
+        message.textContent = '¡Vuelve a intentarlo!';
+        setTimeout(() => {
+            button.classList.remove('error');
+            buttons.forEach(item => item.disabled = false);
+            locked = false; button.focus();
+        }, 1000);
+    }
+}
+restart.addEventListener('click', () => { startGame(); tiles.firstElementChild.focus(); });
+startGame();
+
+</script>
+</body>
+</html>
