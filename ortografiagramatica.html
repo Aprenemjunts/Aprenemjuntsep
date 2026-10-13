@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ca">
 <head>
@@ -5,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lengua Castellana - 4t curs - Aprenem Junts</title>
     <link rel="stylesheet" href="style.css">
+
     <style>
-        /* Estils específics per a les finestres de contingut */
+        /* Estils de les finestres de contingut */
         .arees-nav {
             display: flex;
             list-style: none;
@@ -16,12 +18,14 @@
             gap: 40px;
             max-width: 900px;
         }
+
         .arees-nav li {
             flex: 1;
             display: flex;
             text-align: center;
-            position: relative; /* Necessari per posicionar el desplegable */
+            position: relative;
         }
+
         .arees-nav a {
             display: flex;
             flex-direction: column;
@@ -41,6 +45,7 @@
             box-sizing: border-box;
             transition: all 0.3s ease;
         }
+
         .arees-nav a:hover {
             background-color: #fafafa;
             border-color: #bdbdbd;
@@ -49,14 +54,14 @@
             box-shadow: 0 6px 12px rgba(0,0,0,0.1);
         }
 
-        /* Estils del menú desplegable (Dropdown) com a pestanyes separades */
+        /* Menús desplegables */
         .dropdown-menu {
             display: none;
             position: absolute;
             top: 100%;
             left: 0;
             right: 0;
-            background-color: transparent; /* Sense fons general, perquè cada pestanya vagi sola */
+            background-color: transparent;
             list-style: none;
             padding: 0;
             margin: 10px 0 0 0;
@@ -65,7 +70,7 @@
         }
 
         .dropdown-menu li {
-            margin-bottom: 8px; /* Espai entre les pestanyes */
+            margin-bottom: 8px;
         }
 
         .dropdown-menu li:last-child {
@@ -76,7 +81,7 @@
             padding: 15px 20px;
             font-size: 1.1rem;
             border: 1px solid #e0e0e0;
-            border-left: 6px solid #d4ed31; /* Detall de color a l'esquerra simulant pestanya */
+            border-left: 6px solid #d4ed31;
             border-radius: 6px;
             background-color: #ffffff;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -88,103 +93,218 @@
             background-color: #fafafa;
             border-color: #bdbdbd;
             border-left-color: #bcda22;
-            transform: translateX(4px); /* Petit desplaçament lateral a l'entrar-hi */
+            transform: translateX(4px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.08);
         }
 
-        /* Classe per mostrar el desplegable en clicar */
+        /* Mostrar el desplegable quan està actiu */
         .dropdown.active .dropdown-menu {
             display: block;
         }
     </style>
 </head>
+
 <body>
 
+    <!-- CAPÇALERA -->
     <header class="main-header">
         <div class="header-container">
+
             <div class="header-avatar">
                 <img src="avatar.png" alt="Mestre Aprenem Junts">
             </div>
+
             <div class="header-banner">
-                <img src="banner.png" alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+                <img src="banner.png"
+                     alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
             </div>
+
         </div>
     </header>
 
+    <!-- MENÚ PRINCIPAL -->
     <nav class="main-nav">
         <ul>
-            <li><a href="index.html" class="nav-link">Presentació</a></li>
-            <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
-            <li><a href="Curs.html" class="nav-link">Cicle Mitjà</a></li>
-            <li><a href="arees4t.html" class="nav-link">Àrees</a></li>
-            <li><a href="ortografiagramatica.html" class="nav-link" style="background-color: #d4ed31; color: #000000;">Branques</a></li>
+            <li>
+                <a href="index.html" class="nav-link">
+                    Presentació
+                </a>
+            </li>
+
+            <li>
+                <a href="Cicles.html" class="nav-link">
+                    Cicles
+                </a>
+            </li>
+
+            <li>
+                <a href="Curs.html" class="nav-link">
+                    Cicle Mitjà
+                </a>
+            </li>
+
+            <li>
+                <a href="arees4t.html" class="nav-link">
+                    Àrees
+                </a>
+            </li>
+
+            <li>
+                <a href="ortografiagramatica.html"
+                   class="nav-link"
+                   style="background-color: #d4ed31; color: #000000;">
+                    Branques
+                </a>
+            </li>
         </ul>
     </nav>
 
+    <!-- CONTINGUT PRINCIPAL -->
     <main class="content-container">
+
         <section class="welcome-section">
-           
-            <!-- Finestres d'Ortografía, Gramática i Vocabulario -->
+
             <ul class="arees-nav">
+
+                <!-- ORTOGRAFÍA -->
                 <li class="dropdown">
-                    <a href="#" class="area-link" id="ortografia-btn">Ortografía</a>
+
+                    <a href="#"
+                       class="area-link"
+                       id="ortografia-btn">
+                        Ortografía
+                    </a>
+
                     <ul class="dropdown-menu">
-                        <li><a href="clasificación.html">Classificación sílaba tónica</a></li>
-                        <li><a href="normasacentuacion.html">Normas de acentuación</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="area-link" id="vocabulario-btn">Vocabulario</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="camposemantico.html">El campo semántico</a></li>
-                        <li><a href="campolexico.html">El campo léxico (en construcción)</a></li>
-                        <li><a href="losprefijos.html">Los prefijos (en construcción)</a></li>
+
+                        <li>
+                            <a href="clasificación.html">
+                                Classificación sílaba tónica
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="normasacentuacion.html">
+                                Normas de acentuación
+                            </a>
+                        </li>
 
                     </ul>
                 </li>
-                <li><a href="#" class="area-link">Gramática (proceso de construcción)</a></li>
+
+                <!-- VOCABULARIO -->
+                <li class="dropdown">
+
+                    <a href="#"
+                       class="area-link"
+                       id="vocabulario-btn">
+                        Vocabulario
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a href="camposemantico.html">
+                                El campo semántico
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="campolexico.html">
+                                El campo léxico (en construcción)
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="losprefijos.html">
+                                Los prefijos (en construcción)
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <!-- GRAMÁTICA: NOU DESPLEGABLE -->
+                <li class="dropdown">
+
+                    <a href="#"
+                       class="area-link"
+                       id="gramatica-btn">
+                        Gramática 
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a href="sintagmanominal.html" target="_blank" rel="noopener noreferrer">
+                                El sintagma nominal
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
             </ul>
 
             <div style="text-align: center; margin-top: 30px;">
-                
             </div>
+
         </section>
+
     </main>
 
+    <!-- PEU DE PÀGINA -->
     <footer class="main-footer">
-        <p>&copy; 2026 Aprenem Junts - Classes Virtuals d'Educació Primària. Tots els drets reservats.</p>
+        <p>
+            &copy; 2026 Aprenem Junts -
+            Classes Virtuals d'Educació Primària.
+            Tots els drets reservats.
+        </p>
     </footer>
 
+    <!-- JAVASCRIPT DELS DESPLEGABLES -->
     <script>
-        // Script per gestionar els desplegables en clicar les pestanyes
+
+        // Seleccionar tots els desplegables
         const dropdowns = document.querySelectorAll('.dropdown');
 
         dropdowns.forEach(dropdown => {
+
             const btn = dropdown.querySelector('.area-link');
-            
+
             btn.addEventListener('click', function(e) {
+
                 e.preventDefault();
-                
-                // Tanca els altres desplegables oberts abans d'obrir l'actual
+
+                // Tancar els altres desplegables
                 dropdowns.forEach(item => {
+
                     if (item !== dropdown) {
                         item.classList.remove('active');
                     }
+
                 });
 
-                // Obre o tanca l'actual
+                // Obrir o tancar el desplegable actual
                 dropdown.classList.toggle('active');
+
             });
+
         });
 
-        // Tancar els desplegables si es clica fora
+        // Tancar els desplegables en clicar fora
         window.addEventListener('click', function(e) {
+
             if (!e.target.closest('.dropdown')) {
+
                 dropdowns.forEach(dropdown => {
                     dropdown.classList.remove('active');
                 });
+
             }
+
         });
+
     </script>
 
 </body>

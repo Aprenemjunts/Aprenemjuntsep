@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El sintagma nominal - 4t curs - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tema-container {
+            max-width: 900px;
+            margin: 48px auto;
+            padding: 32px;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-top: 8px solid #d4ed31;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,.05);
+            box-sizing: border-box;
+        }
+        .tema-container h1 {
+            color: #004d40;
+            text-align: center;
+            margin: 0 0 24px;
+        }
+        .tema-contingut { min-height: 180px; }
+        @media (max-width: 600px) {
+            .tema-container { margin: 24px 12px; padding: 22px; }
+        }
+
+        .video-tab { display: block; margin: 0 auto; padding: 18px 24px; background: #fff; color: #004d40; border: 1px solid #ddd; border-left: 6px solid #d4ed31; border-radius: 8px; font: inherit; font-size: 1.15rem; font-weight: bold; cursor: pointer; box-shadow: 0 3px 8px #0001; }
+        .video-tab:hover { background: #f4f8df; }
+        .video-tab:focus-visible, .video-close:focus-visible { outline: 3px solid #004d40; outline-offset: 4px; }
+        .video-dialog { width: min(900px, 94vw); max-height: 90vh; margin: auto; padding: 24px; border: 0; border-top: 8px solid #d4ed31; border-radius: 12px; box-sizing: border-box; overflow: auto; background: #fff; color: #004d40; }
+        .video-dialog::backdrop { background: rgba(0,0,0,.7); }
+        .video-dialog-header { display: flex; gap: 16px; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+        .video-dialog h2 { font-size: clamp(1.1rem, 3vw, 1.5rem); margin: 0; }
+        .video-close { flex-shrink: 0; padding: 10px 14px; border: 0; border-radius: 6px; background: #004d40; color: white; font: inherit; cursor: pointer; }
+        .video-dialog video { display: block; width: 100%; max-height: 65vh; background: #000; }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+
+            <div class="header-banner">
+                <img src="banner.png"
+                     alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li>
+                <a href="index.html" class="nav-link">
+                    Presentació
+                </a>
+            </li>
+
+            <li>
+                <a href="Cicles.html" class="nav-link">
+                    Cicles
+                </a>
+            </li>
+
+            <li>
+                <a href="Curs.html" class="nav-link">
+                    Cicle Mitjà
+                </a>
+            </li>
+
+            <li>
+                <a href="arees4t.html" class="nav-link">
+                    Àrees
+                </a>
+            </li>
+
+            <li>
+                <a href="ortografiagramatica.html" class="nav-link">
+                    Branques
+                </a>
+            </li>
+
+            <li>
+                <a href="sintagmanominal.html" class="nav-link" aria-current="page"
+                   style="background-color: #d4ed31; color: #000000;">
+                    Sintagma
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="content-container">
+        <section class="welcome-section">
+            <div class="tema-container">
+                <h1>El sintagma nominal</h1>
+                <button class="video-tab" id="open-video" type="button" aria-haspopup="dialog" aria-controls="video-dialog" lang="es">Explicación básica del sintagma nominal</button>
+                <div class="tema-contingut">
+                    <!-- Afegeix aquí les explicacions, exemples i activitats. -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>
+            &copy; 2026 Aprenem Junts -
+            Classes Virtuals d'Educació Primària.
+            Tots els drets reservats.
+        </p>
+    </footer>
+<dialog class="video-dialog" id="video-dialog" aria-labelledby="video-title" lang="es">
+        <div class="video-dialog-header">
+            <h2 id="video-title">Explicación básica del sintagma nominal</h2>
+            <button class="video-close" id="close-video" type="button" aria-label="Cerrar el vídeo">Cerrar ✕</button>
+        </div>
+        <video id="nominal-video" controls playsinline preload="none" aria-label="Explicación básica del sintagma nominal">
+            <source src="Sintagma%20nominal.mp4" type="video/mp4">
+            Tu navegador no permite reproducir este vídeo. <a href="Sintagma%20nominal.mp4">Descargar el vídeo</a>.
+        </video>
+    </dialog>
+    <script>
+        const videoDialog = document.getElementById('video-dialog');
+        const nominalVideo = document.getElementById('nominal-video');
+        document.getElementById('open-video').addEventListener('click', () => {
+            videoDialog.showModal();
+            document.getElementById('close-video').focus();
+            nominalVideo.play().catch(() => {
+                // Manté els controls disponibles si el navegador bloqueja la reproducció.
+            });
+        });
+        document.getElementById('close-video').addEventListener('click', () => videoDialog.close());
+        videoDialog.addEventListener('click', (event) => {
+            const rect = videoDialog.getBoundingClientRect();
+            if (event.target === videoDialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) videoDialog.close();
+        });
+        videoDialog.addEventListener('close', () => {
+            nominalVideo.pause();
+            document.getElementById('open-video').focus();
+        });
+    </script>
+</body>
+</html>
