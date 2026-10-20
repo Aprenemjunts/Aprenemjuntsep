@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popurrí - Lengua Castellana - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .content-section {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 32px;
+            background: #ffffff;
+            border-radius: 12px;
+            border-top: 8px solid #d4ed31;
+            box-shadow: 0 4px 10px #0001;
+            box-sizing: border-box;
+        }
+
+        .content-section h2 {
+            color: #004d40;
+            text-align: center;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            margin-bottom: 20px;
+        }
+
+        .instrucciones,
+        .marcador,
+        .estado,
+        .acciones {
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .instrucciones {
+            margin-bottom: 18px;
+        }
+
+        .marcador {
+            color: #004d40;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .campo {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+            border: 2px solid #c8e6c9;
+            border-radius: 12px 12px 0 0;
+            background: linear-gradient(#eef8ff, #f7fbe8);
+            outline-offset: 4px;
+        }
+
+        .campo::before,
+        .campo::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: #004d4020;
+            pointer-events: none;
+        }
+
+        .campo::before {
+            left: 33.333%;
+        }
+
+        .campo::after {
+            left: 66.666%;
+        }
+
+        .palabra {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 31%;
+            box-sizing: border-box;
+            padding: 10px 12px;
+            border: 2px solid #004d40;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #004d40;
+            font-size: clamp(.9rem, 2.5vw, 1.45rem);
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 4px 8px #0002;
+            pointer-events: none;
+        }
+
+        .cestas {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .cesta {
+            min-width: 0;
+            min-height: 105px;
+            padding: 14px 8px;
+            border: 3px solid #b88742;
+            border-top: 7px solid #94632c;
+            border-radius: 6px 6px 28px 28px;
+            background: repeating-linear-gradient(
+                0deg,
+                #f6dfb8 0,
+                #f6dfb8 12px,
+                #ecd09f 12px,
+                #ecd09f 15px
+            );
+            text-align: center;
+            box-sizing: border-box;
+            transition: box-shadow .15s, border-color .15s;
+        }
+
+        .cesta h3 {
+            color: #004d40;
+            font-size: clamp(.85rem, 2.5vw, 1.2rem);
+            margin: 0;
+        }
+
+        .cesta.seleccionada {
+            border-color: #004d40;
+            box-shadow: 0 0 0 4px #d4ed31;
+        }
+
+        .estado {
+            min-height: 30px;
+            margin: 16px 0;
+            color: #004d40;
+            font-weight: bold;
+        }
+
+        .boton {
+            padding: 12px 20px;
+            margin: 5px;
+            border: 2px solid #004d40;
+            border-radius: 24px;
+            background: #d4ed31;
+            color: #004d40;
+            font: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+
+        .boton:hover {
+            background: #e3f47a;
+        }
+
+        .boton:focus-visible {
+            outline: 3px solid #004d40;
+            outline-offset: 4px;
+        }
+
+        .boton:disabled {
+            opacity: .5;
+            cursor: default;
+        }
+
+        .controles {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .lista-resultados {
+            padding: 0;
+            margin: 12px 0 0;
+            list-style: none;
+        }
+
+        .resultado {
+            margin-top: 9px;
+            padding: 10px 6px;
+            background: #ffffff;
+            border-radius: 8px;
+            border: 2px solid;
+            color: #222222;
+            overflow-wrap: anywhere;
+            line-height: 1.5;
+            font-size: 1.05rem;
+        }
+
+        .resultado.correcta {
+            border-color: #2e7d32;
+        }
+
+        .resultado.incorrecta {
+            border-color: #c62828;
+        }
+
+        .resultado strong {
+            font-weight: 800;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .resultado small {
+            display: block;
+            margin-top: 4px;
+            font-size: .8rem;
+        }
+
+        .resultado.correcta small {
+            color: #226128;
+        }
+
+        .resultado.incorrecta small {
+            color: #a51e1e;
+        }
+
+        .resumen {
+            margin-top: 20px;
+            text-align: center;
+            color: #004d40;
+            line-height: 1.6;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 600px) {
+            .content-section {
+                margin: 24px 10px;
+                padding: 18px 10px;
+            }
+
+            .cestas {
+                gap: 6px;
+            }
+
+            .cesta {
+                padding: 12px 4px;
+            }
+
+            .palabra {
+                padding: 8px 5px;
+            }
+
+            .campo {
+                height: 310px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+
+            <div class="header-banner">
+                <img src="banner.png"
+                     alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li>
+                <a href="index.html" class="nav-link">Presentació</a>
+            </li>
+            <li>
+                <a href="Cicles.html" class="nav-link">Cicles</a>
+            </li>
+            <li>
+                <a href="Curs.html" class="nav-link">Cicle Mitjà</a>
+            </li>
+            <li>
+                <a href="arees4t.html" class="nav-link">Àrees</a>
+            </li>
+            <li>
+                <a href="ortografiagramatica.html" class="nav-link">
+                    Branques
+                </a>
+            </li>
+            <li>
+                <a href="clasificación.html" class="nav-link">
+                    Classificació
+                </a>
+            </li>
+            <li>
+                <a href="popurri.html"
+                   class="nav-link"
+                   aria-current="page"
+                   style="background-color: #d4ed31; color: #000000;">
+                    Popurri
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="content-section" lang="es">
+            <h2>Clasifica las siguientes palabras según su sílaba tónica.</h2>
+
+            <p class="instrucciones">
+                Caerán 10 palabras, una a una.
+                Usa las flechas <strong>← y →</strong> del teclado
+                para dirigir cada palabra hacia su cesta.
+                Mantén pulsada <strong>↓</strong> para bajar más rápido.
+                Al terminar, podrás revisar tus respuestas.
+            </p>
+
+            <p class="marcador" id="marcador">
+                Ronda 1 · 10 palabras
+            </p>
+
+            <div class="campo"
+                 id="campo"
+                 tabindex="0"
+                 role="region"
+                 aria-label="Zona de juego. Flechas izquierda y derecha para mover. Flecha abajo para acelerar.">
+                <div class="palabra" id="palabra" hidden></div>
+            </div>
+
+            <div class="cestas">
+                <section class="cesta" id="cesta-0">
+                    <h3>agudas</h3>
+                    <ul class="lista-resultados" id="lista-0"></ul>
+                </section>
+
+                <section class="cesta" id="cesta-1">
+                    <h3>llanas</h3>
+                    <ul class="lista-resultados" id="lista-1"></ul>
+                </section>
+
+                <section class="cesta" id="cesta-2">
+                    <h3>esdrújulas</h3>
+                    <ul class="lista-resultados" id="lista-2"></ul>
+                </section>
+            </div>
+
+            <div class="controles" id="controles" hidden>
+                <button class="boton"
+                        id="izquierda"
+                        type="button"
+                        aria-label="Mover a la izquierda">
+                    ←
+                </button>
+
+                <button class="boton"
+                        id="pausa"
+                        type="button">
+                    Pausar
+                </button>
+
+                <button class="boton"
+                        id="derecha"
+                        type="button"
+                        aria-label="Mover a la derecha">
+                    →
+                </button>
+            </div>
+
+            <p class="estado"
+               id="estado"
+               role="status"
+               aria-live="polite">
+                Pulsa «Empezar» para jugar.
+            </p>
+
+            <div class="resumen" id="resumen" hidden></div>
+
+            <div class="acciones">
+                <button class="boton"
+                        id="empezar"
+                        type="button">
+                    Empezar
+                </button>
+
+                <button class="boton"
+                        id="siguiente"
+                        type="button"
+                        hidden>
+                    Siguiente ronda
+                </button>
+
+                <button class="boton"
+                        id="reiniciar"
+                        type="button"
+                        hidden>
+                    Volver a jugar
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>
+            &copy; 2026 Aprenem Junts -
+            Classes Virtuals d'Educació Primària.
+            Tots els drets reservats.
+        </p>
+    </footer>
+
+    <script>
+        /*
+         * Cada entrada contiene:
+         * [sílabas, índice de la sílaba tónica empezando por 0].
+         */
+        const datos = [
+            // Agudas con tilde.
+            [["ca", "fé"], 1],
+            [["so", "fá"], 1],
+            [["li", "món"], 1],
+            [["ja", "món"], 1],
+            [["ba", "lón"], 1],
+            [["can", "ción"], 1],
+            [["ra", "tón"], 1],
+            [["com", "pás"], 1],
+            [["be", "bé"], 1],
+            [["pa", "pá"], 1],
+
+            // Agudas sin tilde.
+            [["re", "loj"], 1],
+            [["pa", "pel"], 1],
+            [["a", "mor"], 1],
+            [["a", "zul"], 1],
+            [["a", "ni", "mal"], 2],
+            [["ca", "lor"], 1],
+            [["doc", "tor"], 1],
+            [["pa", "red"], 1],
+            [["fe", "liz"], 1],
+            [["ca", "ra", "col"], 2],
+
+            // Llanas con tilde.
+            [["ár", "bol"], 0],
+            [["lá", "piz"], 0],
+            [["a", "zú", "car"], 1],
+            [["cés", "ped"], 0],
+            [["fá", "cil"], 0],
+            [["di", "fí", "cil"], 1],
+            [["mó", "vil"], 0],
+            [["cár", "cel"], 0],
+            [["tú", "nel"], 0],
+            [["ál", "bum"], 0],
+
+            // Llanas sin tilde.
+            [["ca", "sa"], 0],
+            [["me", "sa"], 0],
+            [["pe", "rro"], 0],
+            [["ga", "to"], 0],
+            [["li", "bro"], 0],
+            [["ven", "ta", "na"], 1],
+            [["ca", "mi", "sa"], 1],
+            [["mo", "chi", "la"], 1],
+            [["za", "pa", "to"], 1],
+            [["pe", "lo", "ta"], 1],
+
+            // Esdrújulas: siempre llevan tilde.
+            [["mú", "si", "ca"], 0],
+            [["pá", "ja", "ro"], 0],
+            [["plá", "ta", "no"], 0],
+            [["te", "lé", "fo", "no"], 1],
+            [["brú", "ju", "la"], 0],
+            [["mé", "di", "co"], 0],
+            [["sá", "ba", "do"], 0],
+            [["nú", "me", "ro"], 0],
+            [["má", "gi", "co"], 0],
+            [["rá", "pi", "do"], 0],
+            [["bo", "lí", "gra", "fo"], 1],
+            [["he", "li", "cóp", "te", "ro"], 2],
+            [["pi", "rá", "mi", "de"], 1],
+            [["o", "cé", "a", "no"], 1],
+            [["e", "jér", "ci", "to"], 1],
+            [["lá", "gri", "ma"], 0],
+            [["cá", "ma", "ra"], 0],
+            [["pe", "lí", "cu", "la"], 1],
+            [["se", "má", "fo", "ro"], 1],
+            [["fan", "tás", "ti", "co"], 1]
+        ];
+
+        const banco = datos.map(([silabas, tonica]) => ({
+            silabas,
+            tonica,
+            texto: silabas.join(""),
+            categoria: silabas.length - 1 - tonica
+        }));
+
+        // 0 = agudas, 1 = llanas, 2 = esdrújulas.
+        const nombres = ["agudas", "llanas", "esdrújulas"];
+
+        const campo = document.getElementById("campo");
+        const palabra = document.getElementById("palabra");
+        const marcador = document.getElementById("marcador");
+        const estado = document.getElementById("estado");
+        const resumen = document.getElementById("resumen");
+        const empezar = document.getElementById("empezar");
+        const siguiente = document.getElementById("siguiente");
+        const reiniciar = document.getElementById("reiniciar");
+        const controles = document.getElementById("controles");
+        const pausa = document.getElementById("pausa");
+
+        const cestas = [0, 1, 2].map(
+            i => document.getElementById("cesta-" + i)
+        );
+
+        const listas = [0, 1, 2].map(
+            i => document.getElementById("lista-" + i)
+        );
+
+        const DURACION_CAIDA = 6500;
+        const MULTIPLICADOR_RAPIDO = 4;
+        const PALABRAS_POR_RONDA = 10;
+        const TOTAL_RONDAS = banco.length / PALABRAS_POR_RONDA;
+
+        let pendientes = [];
+        let ronda = [];
+        let respuestas = [];
+        let numeroRonda = 0;
+        let indice = 0;
+        let carril = 1;
+        let transcurrido = 0;
+        let anterior = null;
+        let animacion = null;
+        let jugando = false;
+        let pausado = false;
+        let bajarRapido = false;
+        let totalAciertos = 0;
+
+        function mezclar(lista) {
+            const copia = lista.slice();
+
+            for (let i = copia.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copia[i], copia[j]] = [copia[j], copia[i]];
+            }
+
+            return copia;
+        }
+
+        function prepararPartida() {
+            pendientes = mezclar(banco);
+            numeroRonda = 0;
+            totalAciertos = 0;
+            bajarRapido = false;
+            comenzarRonda();
+        }
+
+        function comenzarRonda() {
+            if (pendientes.length < PALABRAS_POR_RONDA) return;
+
+            cancelAnimationFrame(animacion);
+
+            ronda = pendientes.splice(0, PALABRAS_POR_RONDA);
+            respuestas = [];
+            indice = 0;
+            numeroRonda++;
+
+            jugando = true;
+            pausado = false;
+            bajarRapido = false;
+
+            listas.forEach(lista => lista.replaceChildren());
+
+            resumen.hidden = true;
+            empezar.hidden = true;
+            siguiente.hidden = true;
+            reiniciar.hidden = true;
+            controles.hidden = false;
+
+            pausa.textContent = "Pausar";
+
+            mostrarPalabra();
+            campo.focus();
+        }
+
+        function actualizarCarril() {
+            palabra.style.left = ((carril + .5) * 100 / 3) + "%";
+
+            cestas.forEach((cesta, i) => {
+                cesta.classList.toggle(
+                    "seleccionada",
+                    jugando && i === carril
+                );
+            });
+        }
+
+        function mostrarPalabra() {
+            carril = 1;
+            transcurrido = 0;
+            anterior = null;
+
+            palabra.textContent = ronda[indice].texto;
+            palabra.style.top = "8px";
+            palabra.hidden = false;
+
+            marcador.textContent =
+                "Ronda " + numeroRonda +
+                " de " + TOTAL_RONDAS +
+                " · Palabra " + (indice + 1) + " de 10";
+
+            estado.textContent =
+                ronda[indice].texto +
+                ". Cesta seleccionada: llanas.";
+
+            actualizarCarril();
+            animacion = requestAnimationFrame(animar);
+        }
+
+        function animar(tiempo) {
+            if (!jugando) return;
+
+            if (anterior !== null && !pausado) {
+                const velocidad = bajarRapido
+                    ? MULTIPLICADOR_RAPIDO
+                    : 1;
+
+                transcurrido += (tiempo - anterior) * velocidad;
+            }
+
+            anterior = tiempo;
+
+            const proporcion = Math.min(
+                transcurrido / DURACION_CAIDA,
+                1
+            );
+
+            const recorrido = Math.max(
+                0,
+                campo.clientHeight - palabra.offsetHeight - 16
+            );
+
+            palabra.style.top =
+                (8 + proporcion * recorrido) + "px";
+
+            if (proporcion >= 1) {
+                recogerPalabra();
+            } else {
+                animacion = requestAnimationFrame(animar);
+            }
+        }
+
+        function mover(direccion) {
+            if (!jugando || pausado) return;
+
+            carril = Math.max(
+                0,
+                Math.min(2, carril + direccion)
+            );
+
+            actualizarCarril();
+
+            estado.textContent =
+                ronda[indice].texto +
+                ". Cesta seleccionada: " +
+                nombres[carril] + ".";
+        }
+
+        function recogerPalabra() {
+            respuestas.push({
+                palabra: ronda[indice],
+                cesta: carril,
+                correcta: ronda[indice].categoria === carril
+            });
+
+            indice++;
+
+            if (indice === PALABRAS_POR_RONDA) {
+                terminarRonda();
+            } else {
+                mostrarPalabra();
+            }
+        }
+
+        function escribirSilabas(elemento, entrada) {
+            entrada.silabas.forEach((silaba, i) => {
+                if (i === entrada.tonica) {
+                    const fuerte = document.createElement("strong");
+                    fuerte.textContent = silaba;
+                    elemento.appendChild(fuerte);
+                } else {
+                    elemento.appendChild(
+                        document.createTextNode(silaba)
+                    );
+                }
+            });
+        }
+
+        function terminarRonda() {
+            jugando = false;
+            bajarRapido = false;
+            palabra.hidden = true;
+            controles.hidden = true;
+
+            cestas.forEach(cesta => {
+                cesta.classList.remove("seleccionada");
+            });
+
+            const aciertos = respuestas.filter(
+                respuesta => respuesta.correcta
+            ).length;
+
+            totalAciertos += aciertos;
+
+            respuestas.forEach(respuesta => {
+                const item = document.createElement("li");
+
+                item.className = "resultado " +
+                    (respuesta.correcta ? "correcta" : "incorrecta");
+
+                escribirSilabas(item, respuesta.palabra);
+
+                const comentario = document.createElement("small");
+
+                comentario.textContent = respuesta.correcta
+                    ? "✓ ¡Correcto!"
+                    : "✗ Corresponde a " +
+                      nombres[respuesta.palabra.categoria] + ".";
+
+                item.appendChild(comentario);
+                listas[respuesta.cesta].appendChild(item);
+            });
+
+            marcador.textContent =
+                "Ronda " + numeroRonda + " completada";
+
+            estado.textContent =
+                "Has acertado " + aciertos + " de 10 palabras.";
+
+            resumen.hidden = false;
+
+            resumen.textContent =
+                "Revisa las palabras de cada cesta. " +
+                "La sílaba tónica aparece en negrita y subrayada. " +
+                "Las respuestas incorrectas indican la cesta correcta.";
+
+            if (pendientes.length >= PALABRAS_POR_RONDA) {
+                siguiente.hidden = false;
+                siguiente.focus();
+            } else {
+                resumen.textContent +=
+                    " Has completado las " + TOTAL_RONDAS +
+                    " rondas sin repetir palabras. " +
+                    "Resultado total: " + totalAciertos +
+                    " de " + banco.length + ".";
+
+                reiniciar.hidden = false;
+                reiniciar.focus();
+            }
+        }
+
+        function alternarPausa() {
+            if (!jugando) return;
+
+            pausado = !pausado;
+            bajarRapido = false;
+            anterior = null;
+
+            pausa.textContent = pausado ? "Continuar" : "Pausar";
+
+            estado.textContent = pausado
+                ? "Juego en pausa."
+                : ronda[indice].texto +
+                  ". Cesta seleccionada: " +
+                  nombres[carril] + ".";
+
+            if (!pausado) {
+                campo.focus();
+            }
+        }
+
+        document.addEventListener("keydown", event => {
+            if (!jugando || pausado) return;
+
+            if (event.key === "ArrowLeft") {
+                event.preventDefault();
+                mover(-1);
+            } else if (event.key === "ArrowRight") {
+                event.preventDefault();
+                mover(1);
+            } else if (event.key === "ArrowDown") {
+                event.preventDefault();
+                bajarRapido = true;
+            }
+        });
+
+        document.addEventListener("keyup", event => {
+            if (event.key === "ArrowDown") {
+                bajarRapido = false;
+            }
+        });
+
+        window.addEventListener("blur", () => {
+            bajarRapido = false;
+
+            if (jugando && !pausado) {
+                alternarPausa();
+            }
+        });
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                bajarRapido = false;
+
+                if (jugando && !pausado) {
+                    alternarPausa();
+                }
+            }
+        });
+
+        document.getElementById("izquierda").addEventListener(
+            "click",
+            () => mover(-1)
+        );
+
+        document.getElementById("derecha").addEventListener(
+            "click",
+            () => mover(1)
+        );
+
+        pausa.addEventListener("click", alternarPausa);
+        empezar.addEventListener("click", prepararPartida);
+        siguiente.addEventListener("click", comenzarRonda);
+        reiniciar.addEventListener("click", prepararPartida);
+    </script>
+</body>
+</html>
