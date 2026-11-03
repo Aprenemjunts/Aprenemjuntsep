@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica 2 - Normas de acentuación - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .contingut-detall {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-top: 8px solid #d4ed31;
+            border-radius: 8px;
+            padding: 40px;
+            margin: 60px auto;
+            max-width: 900px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .contingut-detall h2 {
+            color: #004d40;
+            margin-top: 0;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .contingut-detall p {
+            font-size: 1.1rem;
+            color: #333333;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .frases-progres {
+            color: #004d40 !important;
+            font-weight: bold;
+        }
+
+        .frases-label {
+            display: block;
+            text-align: left;
+            font-weight: bold;
+            color: #004d40;
+        }
+
+        .frases-form {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .frases-input {
+            flex: 1;
+            min-width: 0;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 18px;
+            border: 2px solid #b8df8a;
+            border-radius: 10px;
+            font: inherit;
+            font-size: 1.7rem;
+            line-height: 1.8;
+            resize: vertical;
+            color: #222222;
+            background: #ffffff;
+        }
+
+        .frases-check,
+        .frases-boto {
+            border: 2px solid #004d40;
+            border-radius: 10px;
+            background: #d4ed31;
+            color: #004d40;
+            padding: 12px 20px;
+            font: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .frases-check {
+            font-size: 2rem;
+        }
+
+        .frases-check:hover,
+        .frases-boto:hover {
+            background: #e3f47a;
+        }
+
+        .frases-input:focus-visible,
+        .frases-check:focus-visible,
+        .frases-boto:focus-visible {
+            outline: 3px solid #004d40;
+            outline-offset: 4px;
+        }
+
+        .frases-feedback {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid #b8df8a;
+            border-radius: 10px;
+            text-align: left;
+            background: #f6faef;
+        }
+
+        .frases-feedback.incorrecte {
+            border-color: #c62828;
+            background: #fff5f5;
+        }
+
+        .frases-feedback h3 {
+            margin: 0 0 12px;
+            color: #004d40;
+        }
+
+        .frases-feedback.incorrecte h3 {
+            color: #a52121;
+        }
+
+        .contingut-detall .frases-feedback p {
+            margin-bottom: 14px;
+        }
+
+        .contingut-detall .frase-corregida {
+            font-size: 1.6rem;
+            line-height: 1.8;
+        }
+
+        .frases-explicacions {
+            padding-left: 24px;
+            line-height: 1.7;
+        }
+
+        .frases-explicacions li {
+            margin-bottom: 12px;
+        }
+
+        .paraula-encertada {
+            color: #237a32;
+            font-weight: bold;
+        }
+
+        .paraula-fallada {
+            color: #bd2020;
+            font-weight: bold;
+            text-decoration: underline wavy;
+            text-underline-offset: 4px;
+        }
+
+        .frases-final {
+            padding: 20px;
+            color: #004d40;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        @media (min-width: 1200px) {
+            .content-container {
+                padding: 0 150px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .contingut-detall {
+                padding: 24px 16px;
+                margin: 30px 10px;
+            }
+
+            .frases-form {
+                gap: 8px;
+            }
+
+            .frases-check {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+
+            <div class="header-banner">
+                <img src="banner.png"
+                     alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li>
+                <a href="index.html" class="nav-link">Presentació</a>
+            </li>
+            <li>
+                <a href="Cicles.html" class="nav-link">Cicles</a>
+            </li>
+            <li>
+                <a href="Curs.html" class="nav-link">Cicle Mitjà</a>
+            </li>
+            <li>
+                <a href="arees4t.html" class="nav-link">Àrees</a>
+            </li>
+            <li>
+                <a href="ortografiagramatica.html" class="nav-link">
+                    Branques
+                </a>
+            </li>
+            <li>
+                <a href="normasacentuacion.html" class="nav-link">
+                    Normes
+                </a>
+            </li>
+            <li>
+                <a href="practica2.html"
+                   class="nav-link"
+                   aria-current="page"
+                   style="background-color: #d4ed31; color: #000000;">
+                    Pràctica2
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="content-container">
+        <section class="contingut-detall" lang="es">
+            <h2>Práctica 2</h2>
+
+            <div id="activitat">
+                <p>
+                    Corrige las palabras que necesitan tilde en cada frase.
+                    Cuando termines, pulsa el botón ✓ para comprobar tu
+                    respuesta y descubrir la regla de acentuación.
+                </p>
+
+                <p class="frases-progres" id="frases-progres"></p>
+
+                <div id="frases-joc">
+                    <label class="frases-label" for="frases-resposta">
+                        Añade las tildes que faltan:
+                    </label>
+
+                    <form class="frases-form" id="frases-form">
+                        <textarea
+                            class="frases-input"
+                            id="frases-resposta"
+                            rows="3"
+                            spellcheck="false"
+                            autocorrect="off"
+                            autocapitalize="off"
+                            autocomplete="off"
+                            aria-describedby="frases-ajuda"
+                            required
+                        ></textarea>
+
+                        <button
+                            class="frases-check"
+                            type="submit"
+                            aria-label="Comprobar la frase"
+                            title="Comprobar la frase"
+                        >✓</button>
+                    </form>
+
+                    <p id="frases-ajuda">
+                        Puedes editar directamente la frase.
+                        Revisa también que no hayas añadido tildes
+                        donde no corresponden.
+                    </p>
+
+                    <div
+                        class="frases-feedback"
+                        id="frases-feedback"
+                        role="status"
+                        aria-live="polite"
+                        aria-atomic="true"
+                        hidden
+                    ></div>
+
+                    <button
+                        class="frases-boto"
+                        id="frases-seguent"
+                        type="button"
+                        hidden
+                    >
+                        Siguiente frase →
+                    </button>
+                </div>
+
+                <div class="frases-final" id="frases-final" hidden>
+                    <h3>¡Has completado las 10 rondas!</h3>
+
+                    <p>
+                        Recuerda revisar la sílaba tónica y la terminación
+                        de cada palabra antes de escribir la tilde.
+                    </p>
+
+                    <button
+                        class="frases-boto"
+                        id="frases-reiniciar"
+                        type="button"
+                    >
+                        Volver a practicar
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>
+            &copy; 2026 Aprenem Junts -
+            Classes Virtuals d'Educació Primària.
+            Tots els drets reservats.
+        </p>
+    </footer>
+
+    <script>
+        const reglaEsdrujula =
+            "Es esdrújula y todas las palabras esdrújulas llevan tilde.";
+
+        function reglaAguda(terminacion) {
+            return "Es aguda y termina en " + terminacion +
+                ". Las palabras agudas llevan tilde cuando terminan " +
+                "en vocal, «n» o «s».";
+        }
+
+        function reglaLlana(terminacion) {
+            return "Es llana y termina en " + terminacion +
+                ". Las palabras llanas llevan tilde cuando no terminan " +
+                "en vocal, «n» o «s».";
+        }
+
+        const bancoFrases = [
+            {
+                correct: "Inés compró un melón.",
+                words: [
+                    { word: "Inés", reason: reglaAguda("«s»") },
+                    { word: "compró", reason: reglaAguda("vocal") },
+                    { word: "melón", reason: reglaAguda("«n»") }
+                ]
+            },
+            {
+                correct: "El capitán encontró un cofre.",
+                words: [
+                    { word: "capitán", reason: reglaAguda("«n»") },
+                    { word: "encontró", reason: reglaAguda("vocal") }
+                ]
+            },
+            {
+                correct: "El bebé duerme junto al balcón.",
+                words: [
+                    { word: "bebé", reason: reglaAguda("vocal") },
+                    { word: "balcón", reason: reglaAguda("«n»") }
+                ]
+            },
+            {
+                correct: "Tomás dibujó un león.",
+                words: [
+                    { word: "Tomás", reason: reglaAguda("«s»") },
+                    { word: "dibujó", reason: reglaAguda("vocal") },
+                    { word: "león", reason: reglaAguda("«n»") }
+                ]
+            },
+            {
+                correct: "Mi hermana ganó una competición.",
+                words: [
+                    { word: "ganó", reason: reglaAguda("vocal") },
+                    { word: "competición", reason: reglaAguda("«n»") }
+                ]
+            },
+            {
+                correct: "El autobús llegó a la estación.",
+                words: [
+                    { word: "autobús", reason: reglaAguda("«s»") },
+                    { word: "llegó", reason: reglaAguda("vocal") },
+                    { word: "estación", reason: reglaAguda("«n»") }
+                ]
+            },
+            {
+                correct: "Andrés preparó una ensalada.",
+                words: [
+                    { word: "Andrés", reason: reglaAguda("«s»") },
+                    { word: "preparó", reason: reglaAguda("vocal") }
+                ]
+            },
+            {
+                correct: "El tiburón nadó cerca del barco.",
+                words: [
+                    { word: "tiburón", reason: reglaAguda("«n»") },
+                    { word: "nadó", reason: reglaAguda("vocal") }
+                ]
+            },
+            {
+                correct: "Ramón guardó el compás.",
+                words: [
+                    { word: "Ramón", reason: reglaAguda("«n»") },
+                    { word: "guardó", reason: reglaAguda("vocal") },
+                    { word: "compás", reason: reglaAguda("«s»") }
+                ]
+            },
+            {
+                correct: "El camión transportó un colchón.",
+                words: [
+                    { word: "camión", reason: reglaAguda("«n»") },
+                    { word: "transportó", reason: reglaAguda("vocal") },
+                    { word: "colchón", reason: reglaAguda("«n»") }
+                ]
+            },
+            {
+                correct: "El césped del parque está mojado.",
+                words: [
+                    { word: "césped", reason: reglaLlana("«d»") },
+                    { word: "está", reason: reglaAguda("vocal") }
+                ]
+            },
+            {
+                correct: "Ese ejercicio parece difícil.",
+                words: [
+                    { word: "difícil", reason: reglaLlana("«l»") }
+                ]
+            },
+            {
+                correct: "Óscar busca un trébol.",
+                words: [
+                    { word: "Óscar", reason: reglaLlana("«r»") },
+                    { word: "trébol", reason: reglaLlana("«l»") }
+                ]
+            },
+            {
+                correct: "El móvil tiene una funda azul.",
+                words: [
+                    { word: "móvil", reason: reglaLlana("«l»") }
+                ]
+            },
+            {
+                correct: "Mi álbum tiene fotos de un cóndor.",
+                words: [
+                    { word: "álbum", reason: reglaLlana("«m»") },
+                    { word: "cóndor", reason: reglaLlana("«r»") }
+                ]
+            },
+            {
+                correct: "El cristal es frágil.",
+                words: [
+                    { word: "frágil", reason: reglaLlana("«l»") }
+                ]
+            },
+            {
+                correct: "Héctor lleva un jersey.",
+                words: [
+                    { word: "Héctor", reason: reglaLlana("«r»") }
+                ]
+            },
+            {
+                correct: "El cómic cuenta una aventura.",
+                words: [
+                    { word: "cómic", reason: reglaLlana("«c»") }
+                ]
+            },
+            {
+                correct: "El cohete aterriza en un cráter.",
+                words: [
+                    { word: "cráter", reason: reglaLlana("«r»") }
+                ]
+            },
+            {
+                correct: "El equipo juega con un líder.",
+                words: [
+                    { word: "líder", reason: reglaLlana("«r»") }
+                ]
+            },
+            {
+                correct: "La cámara tiene un número.",
+                words: [
+                    { word: "cámara", reason: reglaEsdrujula },
+                    { word: "número", reason: reglaEsdrujula }
+                ]
+            },
+            {
+                correct: "El semáforo cambia de color.",
+                words: [
+                    { word: "semáforo", reason: reglaEsdrujula }
+                ]
+            },
+            {
+                correct: "El hipopótamo abre la boca.",
+                words: [
+                    { word: "hipopótamo", reason: reglaEsdrujula }
+                ]
+            },
+            {
+                correct: "La película tiene un final mágico.",
+                words: [
+                    { word: "película", reason: reglaEsdrujula },
+                    { word: "mágico", reason: reglaEsdrujula }
+                ]
+            },
+            {
+                correct: "El helicóptero vuela rápido.",
+                words: [
+                    { word: "helicóptero", reason: reglaEsdrujula },
+                    { word: "rápido", reason: reglaEsdrujula }
+                ]
+            },
+            {
+                correct: "Un murciélago vive en la cueva.",
+                words: [
+                    { word: "murciélago", reason: reglaEsdrujula }
+                ]
+            },
+            {
+                correct: "La pirámide aparece en la página.",
+                words: [
+                    { word: "pirámide", reason: reglaEsdrujula },
+                    { word: "página", reason: reglaEsdrujula }
+                ]
+            },
+            {
+                correct: "El científico observa un rectángulo.",
+                words: [
+                    { word: "científico", reason: reglaEsdrujula },
+                    { word: "rectángulo", reason: reglaEsdrujula }
+                ]
+            },
+            {
+                correct: "La lámpara ilumina el dormitorio.",
+                words: [
+                    { word: "lámpara", reason: reglaEsdrujula }
+                ]
+            },
+            {
+                correct: "El príncipe vive en un palacio.",
+                words: [
+                    { word: "príncipe", reason: reglaEsdrujula }
+                ]
+            },
+            {
+                correct: "El dragón encontró una lámpara.",
+                words: [
+                    { word: "dragón", reason: reglaAguda("«n»") },
+                    { word: "encontró", reason: reglaAguda("vocal") },
+                    { word: "lámpara", reason: reglaEsdrujula }
+                ]
+            },
+            {
+                correct: "Ángel dibuja un triángulo.",
+                words: [
+                    { word: "Ángel", reason: reglaLlana("«l»") },
+                    { word: "triángulo", reason: reglaEsdrujula }
+                ]
+            },
+            {
+                correct: "El pingüino saltó sobre el césped.",
+                words: [
+                    { word: "saltó", reason: reglaAguda("vocal") },
+                    { word: "césped", reason: reglaLlana("«d»") }
+                ]
+            },
+            {
+                correct: "El profesor explicó una técnica.",
+                words: [
+                    { word: "explicó", reason: reglaAguda("vocal") },
+                    { word: "técnica", reason: reglaEsdrujula }
+                ]
+            },
+            {
+                correct: "El águila se posó en una roca.",
+                words: [
+                    { word: "águila", reason: reglaEsdrujula },
+                    { word: "posó", reason: reglaAguda("vocal") }
+                ]
+            },
+            {
+                correct: "El público celebró el gol.",
+                words: [
+                    { word: "público", reason: reglaEsdrujula },
+                    { word: "celebró", reason: reglaAguda("vocal") }
+                ]
+            },
+            {
+                correct: "El náufrago encontró un lugar cálido.",
+                words: [
+                    { word: "náufrago", reason: reglaEsdrujula },
+                    { word: "encontró", reason: reglaAguda("vocal") },
+                    { word: "cálido", reason: reglaEsdrujula }
+                ]
+            },
+            {
+                correct: "La tortuga encontró un fósil.",
+                words: [
+                    { word: "encontró", reason: reglaAguda("vocal") },
+                    { word: "fósil", reason: reglaLlana("«l»") }
+                ]
+            },
+            {
+                correct: "El robot reparó una máquina.",
+                words: [
+                    { word: "reparó", reason: reglaAguda("vocal") },
+                    { word: "máquina", reason: reglaEsdrujula }
+                ]
+            },
+            {
+                correct: "El jardinero plantó un árbol junto al tobogán.",
+                words: [
+                    { word: "plantó", reason: reglaAguda("vocal") },
+                    { word: "árbol", reason: reglaLlana("«l»") },
+                    { word: "tobogán", reason: reglaAguda("«n»") }
+                ]
+            }
+        ];
+
+        const CLAVE_HISTORIAL = "practica2-historial-frases-v3";
+        const FRASES_POR_PARTIDA = 10;
+
+        let historialMemoria = {
+            pendientes: [],
+            recientes: []
+        };
+
+        function cargarHistorial() {
+            try {
+                const guardado = localStorage.getItem(CLAVE_HISTORIAL);
+
+                if (guardado) {
+                    const datos = JSON.parse(guardado);
+
+                    if (
+                        datos &&
+                        Array.isArray(datos.pendientes) &&
+                        Array.isArray(datos.recientes)
+                    ) {
+                        historialMemoria = datos;
+                    }
+                }
+            } catch {
+                // Si no hay almacenamiento, se conserva el historial
+                // en memoria mientras permanezca abierta la página.
+            }
+
+            return historialMemoria;
+        }
+
+        function guardarHistorial(historial) {
+            historialMemoria = historial;
+
+            try {
+                localStorage.setItem(
+                    CLAVE_HISTORIAL,
+                    JSON.stringify(historial)
+                );
+            } catch {
+                // La actividad sigue funcionando sin almacenamiento.
+            }
+        }
+
+        function mezclar(lista) {
+            const copia = lista.slice();
+
+            for (let i = copia.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+
+                [copia[i], copia[j]] =
+                    [copia[j], copia[i]];
+            }
+
+            return copia;
+        }
+
+        function prepararFrases() {
+            const historial = cargarHistorial();
+
+            const porTexto = new Map(
+                bancoFrases.map(frase => [frase.correct, frase])
+            );
+
+            let pendientes = [
+                ...new Set(historial.pendientes)
+            ].filter(texto => porTexto.has(texto));
+
+            const recientes = historial.recientes
+                .filter(texto => porTexto.has(texto))
+                .slice(-3);
+
+            const seleccionadas = [];
+
+            while (seleccionadas.length < FRASES_POR_PARTIDA) {
+                if (pendientes.length === 0) {
+                    const yaSeleccionadas = new Set(seleccionadas);
+
+                    const disponibles = mezclar(
+                        bancoFrases
+                            .map(frase => frase.correct)
+                            .filter(texto => !yaSeleccionadas.has(texto))
+                    );
+
+                    // Al renovar el banco, evitar que las últimas
+                    // frases aparezcan de nuevo al principio.
+                    pendientes = [
+                        ...disponibles.filter(
+                            texto => !recientes.includes(texto)
+                        ),
+                        ...disponibles.filter(
+                            texto => recientes.includes(texto)
+                        )
+                    ];
+                }
+
+                seleccionadas.push(pendientes.shift());
+            }
+
+            guardarHistorial({
+                pendientes,
+                recientes
+            });
+
+            return seleccionadas.map(texto => porTexto.get(texto));
+        }
+
+        function recordarFrase(frase) {
+            const historial = cargarHistorial();
+
+            const recientes = [
+                ...historial.recientes.filter(texto => texto !== frase),
+                frase
+            ].slice(-3);
+
+            guardarHistorial({
+                pendientes: historial.pendientes,
+                recientes
+            });
+        }
+
+        let frases = prepararFrases();
+
+        const input = document.getElementById("frases-resposta");
+        const form = document.getElementById("frases-form");
+        const progress = document.getElementById("frases-progres");
+        const feedback = document.getElementById("frases-feedback");
+        const next = document.getElementById("frases-seguent");
+        const game = document.getElementById("frases-joc");
+        const finish = document.getElementById("frases-final");
+        const restart = document.getElementById("frases-reiniciar");
+
+        let position = 0;
+        let checked = false;
+
+        function withoutTildes(text) {
+            const equivalencias = {
+                "á": "a",
+                "é": "e",
+                "í": "i",
+                "ó": "o",
+                "ú": "u",
+                "Á": "A",
+                "É": "E",
+                "Í": "I",
+                "Ó": "O",
+                "Ú": "U"
+            };
+
+            return text.normalize("NFC").replace(
+                /[áéíóúÁÉÍÓÚ]/g,
+                letra => equivalencias[letra]
+            );
+        }
+
+        function normalize(text) {
+            return text
+                .normalize("NFC")
+                .toLocaleLowerCase("es")
+                .trim()
+                .replace(/[.,;:¡!¿?«»"“”]/g, "")
+                .replace(/\s+/g, " ");
+        }
+
+        function showRound(focus = false) {
+            checked = false;
+
+            input.value = withoutTildes(frases[position].correct);
+            recordarFrase(frases[position].correct);
+
+            progress.textContent =
+                "Ronda " + (position + 1) + " de " + frases.length;
+
+            feedback.hidden = true;
+            feedback.replaceChildren();
+            next.hidden = true;
+
+            next.textContent = position === frases.length - 1
+                ? "Finalizar actividad ✓"
+                : "Siguiente frase →";
+
+            if (focus) {
+                input.focus();
+            }
+        }
+
+        function wordResults(expectedText, answerText) {
+            const expected =
+                expectedText.match(/[\p{L}\p{M}]+/gu) || [];
+
+            const answer =
+                answerText.normalize("NFC")
+                    .match(/[\p{L}\p{M}]+/gu) || [];
+
+            const base = word =>
+                withoutTildes(word).toLocaleLowerCase("es");
+
+            const matrix = Array.from(
+                { length: expected.length + 1 },
+                () => Array(answer.length + 1).fill(0)
+            );
+
+            for (let i = 0; i <= expected.length; i++) {
+                matrix[i][0] = i;
+            }
+
+            for (let j = 0; j <= answer.length; j++) {
+                matrix[0][j] = j;
+            }
+
+            for (let i = 1; i <= expected.length; i++) {
+                for (let j = 1; j <= answer.length; j++) {
+                    const cost =
+                        base(expected[i - 1]) === base(answer[j - 1])
+                            ? 0
+                            : 1;
+
+                    matrix[i][j] = Math.min(
+                        matrix[i - 1][j - 1] + cost,
+                        matrix[i - 1][j] + 1,
+                        matrix[i][j - 1] + 1
+                    );
+                }
+            }
+
+            const aligned = Array(expected.length).fill("");
+
+            let i = expected.length;
+            let j = answer.length;
+
+            while (i || j) {
+                const cost =
+                    i && j &&
+                    base(expected[i - 1]) === base(answer[j - 1])
+                        ? 0
+                        : 1;
+
+                if (
+                    i && j &&
+                    matrix[i][j] === matrix[i - 1][j - 1] + cost
+                ) {
+                    aligned[i - 1] = answer[j - 1];
+                    i--;
+                    j--;
+                } else if (
+                    i && matrix[i][j] === matrix[i - 1][j] + 1
+                ) {
+                    i--;
+                } else {
+                    j--;
+                }
+            }
+
+            return expected.map((word, index) => {
+                const right =
+                    normalize(word) === normalize(aligned[index]);
+
+                let className = "";
+
+                if (!right) {
+                    className = "paraula-fallada";
+                } else if (/[áéíóú]/i.test(word)) {
+                    className = "paraula-encertada";
+                }
+
+                return { word, className };
+            });
+        }
+
+        function showColoredSentence(container, text, results) {
+            let index = 0;
+
+            const pieces = text.split(/([\p{L}\p{M}]+)/gu);
+
+            pieces.forEach(piece => {
+                if (/^[\p{L}\p{M}]+$/u.test(piece)) {
+                    const result = results[index++];
+                    const span = document.createElement("span");
+
+                    span.textContent = piece;
+                    span.className = result.className;
+
+                    if (result.className) {
+                        span.setAttribute(
+                            "aria-label",
+                            piece + (
+                                result.className === "paraula-encertada"
+                                    ? ": correcta"
+                                    : ": corregida"
+                            )
+                        );
+                    }
+
+                    container.appendChild(span);
+                } else {
+                    container.appendChild(
+                        document.createTextNode(piece)
+                    );
+                }
+            });
+        }
+
+        form.addEventListener("submit", event => {
+            event.preventDefault();
+
+            if (!input.value.trim()) {
+                input.focus();
+                return;
+            }
+
+            const current = frases[position];
+
+            const correct =
+                normalize(input.value) === normalize(current.correct);
+
+            const results = wordResults(
+                current.correct,
+                input.value
+            );
+
+            feedback.replaceChildren();
+            feedback.classList.toggle("incorrecte", !correct);
+
+            const title = document.createElement("h3");
+
+            title.textContent = correct
+                ? "¡Correcto!"
+                : "¡Revisa las tildes!";
+
+            feedback.appendChild(title);
+
+            const solution = document.createElement("p");
+            solution.className = "frase-corregida";
+            solution.textContent = "Frase corregida: ";
+
+            showColoredSentence(
+                solution,
+                current.correct,
+                results
+            );
+
+            feedback.appendChild(solution);
+
+            const legend = document.createElement("p");
+            legend.textContent =
+                "Verde: tilde acertada. " +
+                "Rojo subrayado: palabra que necesitaba corrección.";
+
+            feedback.appendChild(legend);
+
+            const list = document.createElement("ul");
+            list.className = "frases-explicacions";
+
+            current.words.forEach(entry => {
+                const item = document.createElement("li");
+                const word = document.createElement("strong");
+
+                word.textContent = entry.word + ": ";
+
+                const result = results.find(
+                    item =>
+                        normalize(item.word) === normalize(entry.word)
+                );
+
+                if (result) {
+                    word.className = result.className;
+                }
+
+                item.appendChild(word);
+                item.appendChild(
+                    document.createTextNode(entry.reason)
+                );
+
+                list.appendChild(item);
+            });
+
+            feedback.appendChild(list);
+
+            if (!correct) {
+                const tip = document.createElement("p");
+
+                tip.textContent =
+                    "Compara tu respuesta con la frase corregida. " +
+                    "Puedes corregirla y volver a pulsar ✓.";
+
+                feedback.appendChild(tip);
+            }
+
+            feedback.hidden = false;
+            checked = true;
+            next.hidden = false;
+        });
+
+        input.addEventListener("input", () => {
+            checked = false;
+            next.hidden = true;
+            feedback.hidden = true;
+        });
+
+        next.addEventListener("click", () => {
+            if (!checked) return;
+
+            position++;
+
+            if (position === frases.length) {
+                game.hidden = true;
+                finish.hidden = false;
+
+                progress.textContent =
+                    frases.length + " de " +
+                    frases.length + " rondas completadas";
+
+                restart.focus();
+            } else {
+                showRound(true);
+            }
+        });
+
+        restart.addEventListener("click", () => {
+            frases = prepararFrases();
+            position = 0;
+            game.hidden = false;
+            finish.hidden = true;
+            showRound(true);
+        });
+
+        showRound();
+    </script>
+
+</body>
+</html>
