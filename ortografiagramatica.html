@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ca">
 <head>
@@ -209,18 +208,6 @@
                             </a>
                         </li>
 
-                        <li>
-                            <a href="campolexico.html">
-                                El campo léxico (en construcción)
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="losprefijos.html">
-                                Los prefijos (en construcción)
-                            </a>
-                        </li>
-
                     </ul>
                 </li>
 
@@ -230,13 +217,15 @@
                     <a href="#"
                        class="area-link"
                        id="gramatica-btn">
-                        Gramática 
+                        Gramática
                     </a>
 
                     <ul class="dropdown-menu">
 
                         <li>
-                            <a href="sintagmanominal.html" target="_blank" rel="noopener noreferrer">
+                            <a href="sintagmanominal.html"
+                               target="_blank"
+                               rel="noopener noreferrer">
                                 El sintagma nominal
                             </a>
                         </li>
@@ -264,47 +253,35 @@
 
     <!-- JAVASCRIPT DELS DESPLEGABLES -->
     <script>
-
         // Seleccionar tots els desplegables
         const dropdowns = document.querySelectorAll('.dropdown');
 
         dropdowns.forEach(dropdown => {
-
             const btn = dropdown.querySelector('.area-link');
 
             btn.addEventListener('click', function(e) {
-
                 e.preventDefault();
 
                 // Tancar els altres desplegables
                 dropdowns.forEach(item => {
-
                     if (item !== dropdown) {
                         item.classList.remove('active');
                     }
-
                 });
 
                 // Obrir o tancar el desplegable actual
                 dropdown.classList.toggle('active');
-
             });
-
         });
 
         // Tancar els desplegables en clicar fora
         window.addEventListener('click', function(e) {
-
             if (!e.target.closest('.dropdown')) {
-
                 dropdowns.forEach(dropdown => {
                     dropdown.classList.remove('active');
                 });
-
             }
-
         });
-
     </script>
 
 </body>
