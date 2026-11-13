@@ -1,0 +1,631 @@
+
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <!-- GOOGLE ANALYTICS -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W9RPQSMZ81"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-W9RPQSMZ81');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activitat 2 - Los pronombres personales - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .actividad-container {
+            max-width: 1050px;
+            margin: 45px auto;
+            padding: 25px;
+            text-align: center;
+            min-height: 350px;
+        }
+
+        .actividad-titulo {
+            font-size: 2.5rem;
+            color: #004d40;
+            margin-bottom: 35px;
+            text-decoration: underline;
+            text-underline-offset: 8px;
+            text-decoration-thickness: 3px;
+        }
+
+        .instrucciones {
+            background: #fff4cf;
+            border: 3px solid #ffd166;
+            border-radius: 18px;
+            padding: 18px;
+            font-size: 1.25rem;
+            color: #664500;
+            margin-bottom: 25px;
+        }
+
+        .ronda-info {
+            font-size: 1.5rem;
+            color: #004d40;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .progreso {
+            background: #e0e0e0;
+            border-radius: 20px;
+            height: 16px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .progreso-barra {
+            height: 100%;
+            width: 0%;
+            background: #80c84c;
+            transition: width 0.3s;
+        }
+
+        .frases {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            text-align: left;
+        }
+
+        .frase {
+            background: #ffffff;
+            border: 2px solid #dce7e5;
+            border-left: 7px solid #d4ed31;
+            border-radius: 14px;
+            padding: 20px;
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #263c36;
+        }
+
+        .frase-numero {
+            font-weight: bold;
+            color: #00796b;
+            margin-right: 8px;
+        }
+
+        .respuesta {
+            width: 160px;
+            max-width: 100%;
+            padding: 10px;
+            font-size: 1.15rem;
+            border: 2px solid #b5c7c3;
+            border-radius: 9px;
+            text-align: center;
+            background: #fff;
+            color: #222;
+        }
+
+        .respuesta:focus {
+            outline: 3px solid #d4ed31;
+            border-color: #004d40;
+        }
+
+        .respuesta.correcta {
+            border-color: #2eaa53;
+            background: #e3f7e8;
+            color: #17682e;
+        }
+
+        .respuesta.incorrecta {
+            border-color: #e53935;
+            background: #ffe8e8;
+            color: #b71c1c;
+        }
+
+        .correccion {
+            display: block;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .correccion.bien {
+            color: #23883c;
+        }
+
+        .correccion.mal {
+            color: #d32f2f;
+        }
+
+        .botones {
+            margin: 30px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .boton {
+            background: #d4ed31;
+            color: #004d40;
+            border: none;
+            border-radius: 25px;
+            padding: 15px 28px;
+            font-size: 1.15rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #a9bf21;
+        }
+
+        .boton:hover {
+            background: #c7e326;
+        }
+
+        .boton.secundario {
+            background: #dceff5;
+            box-shadow: 0 4px 0 #a8cbd4;
+        }
+
+        .resultado {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #004d40;
+            margin: 20px 0;
+            min-height: 35px;
+        }
+
+        .final {
+            background: #e4f8e8;
+            border: 3px solid #83d28e;
+            border-radius: 20px;
+            padding: 30px;
+            color: #004d40;
+            font-size: 1.3rem;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .actividad-container {
+                padding: 15px;
+                margin: 25px auto;
+            }
+
+            .actividad-titulo {
+                font-size: 1.9rem;
+            }
+
+            .frase {
+                padding: 15px;
+                font-size: 1.1rem;
+            }
+
+            .respuesta {
+                width: 135px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CAPÇALERA -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Aprenem Junts">
+            </div>
+        </div>
+    </header>
+
+    <!-- MENÚ DE NAVEGACIÓ -->
+    <nav class="main-nav">
+        <ul>
+            <li>
+                <a href="index.html" class="nav-link">Presentació</a>
+            </li>
+            <li>
+                <a href="Cicles.html" class="nav-link">Cicles</a>
+            </li>
+            <li>
+                <a href="Curs.html" class="nav-link">Cicle Mitjà</a>
+            </li>
+            <li>
+                <a href="arees4t.html" class="nav-link">Àrees</a>
+            </li>
+            <li>
+                <a href="ortografiagramatica.html" class="nav-link">Branques</a>
+            </li>
+            <li>
+                <a href="pronombrespersonales.html" class="nav-link">Pronoms</a>
+            </li>
+            <li>
+                <a href="enpractica.html"
+                   class="nav-link"
+                   style="background-color:#d4ed31;color:#000000;">
+                    Activitat 2
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- CONTINGUT PRINCIPAL -->
+    <main class="content-container">
+
+        <section class="actividad-container">
+
+            <h1 class="actividad-titulo">
+                Los pronombres personales
+            </h1>
+
+            <div class="instrucciones">
+                ✏️ ¡Completa las oraciones con el pronombre personal correcto!
+                <p>
+                    Escribe el pronombre que falta en cada frase.
+                    Recuerda utilizar las mayúsculas y las tildes correctamente.
+                    Después, comprueba tus respuestas.
+                </p>
+            </div>
+
+            <div id="zona-juego">
+
+                <div class="ronda-info" id="ronda-info"></div>
+
+                <div class="progreso">
+                    <div class="progreso-barra" id="progreso-barra"></div>
+                </div>
+
+                <div class="frases" id="frases"></div>
+
+                <div class="resultado"
+                     id="resultado"
+                     role="status"
+                     aria-live="polite">
+                </div>
+
+                <div class="botones">
+                    <button class="boton"
+                            id="comprobar"
+                            onclick="comprobarRespuestas()">
+                        ✓ Comprobar respuestas
+                    </button>
+
+                    <button class="boton secundario"
+                            id="siguiente"
+                            onclick="siguienteRonda()"
+                            hidden>
+                        Siguiente ronda ➜
+                    </button>
+                </div>
+
+            </div>
+
+            <div id="pantalla-final" class="final" hidden>
+                <h2>🏆 ¡Actividad completada!</h2>
+                <p id="resultado-final"></p>
+
+                <button class="boton" onclick="reiniciarJuego()">
+                    🔄 Volver a jugar
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- PEU DE PÀGINA -->
+    <footer class="main-footer">
+        <p>
+            &copy; 2026 Aprenem Junts -
+            Classes Virtuals d'Educació Primària.
+            Tots els drets reservats.
+        </p>
+    </footer>
+
+    <script>
+        /*
+          BANC DE 50 FRASES DIFERENTS.
+          Cada frase té un pronom personal com a resposta.
+          Es barregen les frases a cada partida.
+        */
+
+        const bancoFrases = [
+            { frase: "___ soy la persona encargada de repartir los cuadernos.", respuestas: ["Yo"] },
+            { frase: "___ eres mi compañero de equipo.", respuestas: ["Tú"] },
+            { frase: "___ es la niña que toca el violín.", respuestas: ["Ella"] },
+            { frase: "___ somos los responsables de ordenar la biblioteca.", respuestas: ["Nosotros", "Nosotras"] },
+            { frase: "___ sois los primeros en llegar al gimnasio.", respuestas: ["Vosotros", "Vosotras"] },
+
+            { frase: "___ están preparando una obra de teatro.", respuestas: ["Ellos", "Ellas", "Ustedes"] },
+            { frase: "___ tengo una mochila de color azul.", respuestas: ["Yo"] },
+            { frase: "___ has terminado los deberes muy pronto.", respuestas: ["Tú"] },
+            { frase: "___ juega al baloncesto todos los sábados.", respuestas: ["Él", "Ella"] },
+            { frase: "___ vamos de excursión al museo mañana.", respuestas: ["Nosotros", "Nosotras"] },
+
+            { frase: "___ podéis participar en el concurso de dibujo.", respuestas: ["Vosotros", "Vosotras"] },
+            { frase: "___ viven cerca del parque de la ciudad.", respuestas: ["Ellos", "Ellas", "Ustedes"] },
+            { frase: "___ he preparado una sorpresa para mi familia.", respuestas: ["Yo"] },
+            { frase: "___ sabes resolver este problema de matemáticas.", respuestas: ["Tú"] },
+            { frase: "___ tiene una bicicleta nueva.", respuestas: ["Él", "Ella", "Usted"] },
+
+            { frase: "___ compartimos nuestros materiales de clase.", respuestas: ["Nosotros", "Nosotras"] },
+            { frase: "___ estáis aprendiendo una canción nueva.", respuestas: ["Vosotros", "Vosotras"] },
+            { frase: "___ han ganado el partido de fútbol.", respuestas: ["Ellos", "Ellas", "Ustedes"] },
+            { frase: "___ dibujo animales en mi cuaderno.", respuestas: ["Yo"] },
+            { frase: "___ lees un libro antes de dormir.", respuestas: ["Tú"] },
+
+            { frase: "___ canta muy bien en el coro del colegio.", respuestas: ["Él", "Ella", "Usted"] },
+            { frase: "___ estudiamos los planetas del sistema solar.", respuestas: ["Nosotros", "Nosotras"] },
+            { frase: "___ tenéis una misión muy importante.", respuestas: ["Vosotros", "Vosotras"] },
+            { frase: "___ escriben cuentos de aventuras.", respuestas: ["Ellos", "Ellas", "Ustedes"] },
+            { frase: "___ necesito encontrar mi estuche.", respuestas: ["Yo"] },
+
+            { frase: "___ corres muy rápido en educación física.", respuestas: ["Tú"] },
+            { frase: "___ prepara una deliciosa tarta de chocolate.", respuestas: ["Él", "Ella", "Usted"] },
+            { frase: "___ ayudamos a cuidar las plantas del colegio.", respuestas: ["Nosotros", "Nosotras"] },
+            { frase: "___ habláis en voz baja en la biblioteca.", respuestas: ["Vosotros", "Vosotras"] },
+            { frase: "___ descubrieron un tesoro escondido.", respuestas: ["Ellos", "Ellas", "Ustedes"] },
+
+            { frase: "___ quiero aprender a tocar la guitarra.", respuestas: ["Yo"] },
+            { frase: "___ escribes unas historias muy divertidas.", respuestas: ["Tú"] },
+            { frase: "___ está construyendo un castillo de arena.", respuestas: ["Él", "Ella", "Usted"] },
+            { frase: "___ jugamos juntos durante el recreo.", respuestas: ["Nosotros", "Nosotras"] },
+            { frase: "___ recogéis los juguetes después de jugar.", respuestas: ["Vosotros", "Vosotras"] },
+
+            { frase: "___ visitaron un castillo medieval.", respuestas: ["Ellos", "Ellas", "Ustedes"] },
+            { frase: "___ llevo una botella de agua en la mochila.", respuestas: ["Yo"] },
+            { frase: "___ conoces todas las reglas del juego.", respuestas: ["Tú"] },
+            { frase: "___ ha encontrado una moneda antigua.", respuestas: ["Él", "Ella", "Usted"] },
+            { frase: "___ hacemos experimentos en ciencias.", respuestas: ["Nosotros", "Nosotras"] },
+
+            { frase: "___ aprendéis palabras nuevas cada día.", respuestas: ["Vosotros", "Vosotras"] },
+            { frase: "___ observan las estrellas por la noche.", respuestas: ["Ellos", "Ellas", "Ustedes"] },
+            { frase: "___ estoy leyendo una novela de aventuras.", respuestas: ["Yo"] },
+            { frase: "___ prefieres jugar al escondite.", respuestas: ["Tú"] },
+            { frase: "___ lleva un paraguas cuando llueve.", respuestas: ["Él", "Ella", "Usted"] },
+
+            { frase: "___ organizamos una fiesta de cumpleaños.", respuestas: ["Nosotros", "Nosotras"] },
+            { frase: "___ preparáis una presentación para la clase.", respuestas: ["Vosotros", "Vosotras"] },
+            { frase: "___ cuidan a los animales de la granja.", respuestas: ["Ellos", "Ellas", "Ustedes"] },
+            { frase: "___ siempre desayuno antes de ir al colegio.", respuestas: ["Yo"] },
+            { frase: "___ tienes una gran imaginación.", respuestas: ["Tú"] }
+        ];
+
+        const TOTAL_RONDAS = 10;
+        const FRASES_POR_RONDA = 5;
+
+        let frasesPartida = [];
+        let rondaActual = 0;
+        let totalAciertos = 0;
+        let rondaCorregida = false;
+
+        function mezclar(array) {
+            const copia = [...array];
+
+            for (let i = copia.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copia[i], copia[j]] = [copia[j], copia[i]];
+            }
+
+            return copia;
+        }
+
+        // CORRECCIÓN ORTOGRÁFICA ESTRICTA:
+        // Se respetan mayúsculas y tildes.
+        // Solo se eliminan espacios al principio y al final.
+        function normalizar(texto) {
+            return texto.trim().normalize("NFC");
+        }
+
+        function detectarError(respuestaAlumno, respuestas) {
+            const respuesta = normalizar(respuestaAlumno);
+
+            if (respuesta === "") {
+                return "No has escrito ningún pronombre.";
+            }
+
+            const mismoSinMayusculas = respuestas.some(
+                correcta =>
+                    correcta.toLocaleLowerCase("es") ===
+                    respuesta.toLocaleLowerCase("es")
+            );
+
+            const quitarTildes = texto =>
+                texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+            const mismoSinTildes = respuestas.some(
+                correcta =>
+                    quitarTildes(correcta.toLocaleLowerCase("es")) ===
+                    quitarTildes(respuesta.toLocaleLowerCase("es"))
+            );
+
+            const mismoConTildes = respuestas.some(
+                correcta =>
+                    quitarTildes(correcta) === quitarTildes(respuesta)
+            );
+
+            if (mismoSinMayusculas) {
+                return "Recuerda empezar la oración con mayúscula.";
+            }
+
+            if (mismoConTildes) {
+                return "Revisa las tildes del pronombre.";
+            }
+
+            if (mismoSinTildes) {
+                return "Revisa las mayúsculas y las tildes.";
+            }
+
+            return "El pronombre no es correcto.";
+        }
+
+        function iniciarJuego() {
+            frasesPartida = mezclar(bancoFrases);
+            rondaActual = 0;
+            totalAciertos = 0;
+
+            document.getElementById("zona-juego").hidden = false;
+            document.getElementById("pantalla-final").hidden = true;
+
+            mostrarRonda();
+        }
+
+        function mostrarRonda() {
+            rondaCorregida = false;
+
+            document.getElementById("ronda-info").textContent =
+                "🌟 Ronda " + (rondaActual + 1) + " de " + TOTAL_RONDAS;
+
+            document.getElementById("progreso-barra").style.width =
+                (rondaActual / TOTAL_RONDAS * 100) + "%";
+
+            document.getElementById("resultado").textContent = "";
+            document.getElementById("comprobar").hidden = false;
+            document.getElementById("siguiente").hidden = true;
+
+            const contenedor = document.getElementById("frases");
+            contenedor.innerHTML = "";
+
+            const inicio = rondaActual * FRASES_POR_RONDA;
+            const frasesRonda = frasesPartida.slice(
+                inicio,
+                inicio + FRASES_POR_RONDA
+            );
+
+            frasesRonda.forEach((item, indice) => {
+                const div = document.createElement("div");
+                div.className = "frase";
+
+                const numero = document.createElement("span");
+                numero.className = "frase-numero";
+                numero.textContent = (indice + 1) + ".";
+
+                const input = document.createElement("input");
+                input.type = "text";
+                input.className = "respuesta";
+                input.autocomplete = "off";
+                input.spellcheck = false;
+                input.setAttribute(
+                    "aria-label",
+                    "Pronombre de la frase " + (indice + 1)
+                );
+
+                const texto = document.createElement("span");
+                texto.textContent = " " + item.frase.replace("___", "");
+
+                const correccion = document.createElement("span");
+                correccion.className = "correccion";
+
+                div.appendChild(numero);
+                div.appendChild(input);
+                div.appendChild(texto);
+                div.appendChild(correccion);
+
+                contenedor.appendChild(div);
+            });
+
+            const primerInput = contenedor.querySelector("input");
+            if (primerInput) primerInput.focus();
+        }
+
+        function comprobarRespuestas() {
+            if (rondaCorregida) return;
+
+            rondaCorregida = true;
+
+            const inicio = rondaActual * FRASES_POR_RONDA;
+            const frasesRonda = frasesPartida.slice(
+                inicio,
+                inicio + FRASES_POR_RONDA
+            );
+
+            const elementos = document.querySelectorAll(".frase");
+            let aciertosRonda = 0;
+
+            elementos.forEach((elemento, indice) => {
+                const input = elemento.querySelector("input");
+                const correccion = elemento.querySelector(".correccion");
+                const item = frasesRonda[indice];
+
+                const respuestaAlumno = normalizar(input.value);
+
+                // Comparación exacta, respetando mayúsculas y tildes.
+                const esCorrecta = item.respuestas.some(
+                    respuesta =>
+                        normalizar(respuesta) === respuestaAlumno
+                );
+
+                input.disabled = true;
+
+                if (esCorrecta) {
+                    aciertosRonda++;
+                    input.classList.add("correcta");
+                    correccion.className = "correccion bien";
+                    correccion.textContent = "✓ ¡Correcto!";
+                } else {
+                    input.classList.add("incorrecta");
+                    correccion.className = "correccion mal";
+
+                    const motivo = detectarError(
+                        respuestaAlumno,
+                        item.respuestas
+                    );
+
+                    correccion.textContent =
+                        "✗ Error. " + motivo +
+                        " Respuesta correcta: " +
+                        item.respuestas.join(" / ");
+                }
+            });
+
+            totalAciertos += aciertosRonda;
+
+            document.getElementById("resultado").textContent =
+                "⭐ Has acertado " + aciertosRonda + " de 5 frases.";
+
+            document.getElementById("comprobar").hidden = true;
+            document.getElementById("siguiente").hidden = false;
+
+            document.getElementById("siguiente").textContent =
+                rondaActual === TOTAL_RONDAS - 1
+                    ? "Ver resultado final 🏆"
+                    : "Siguiente ronda ➜";
+        }
+
+        function siguienteRonda() {
+            if (!rondaCorregida) return;
+
+            rondaActual++;
+
+            if (rondaActual >= TOTAL_RONDAS) {
+                mostrarFinal();
+            } else {
+                mostrarRonda();
+            }
+        }
+
+        function mostrarFinal() {
+            document.getElementById("zona-juego").hidden = true;
+            document.getElementById("pantalla-final").hidden = false;
+
+            document.getElementById("progreso-barra").style.width = "100%";
+
+            document.getElementById("resultado-final").textContent =
+                "Has conseguido " + totalAciertos +
+                " aciertos de 50. ¡Buen trabajo!";
+        }
+
+        function reiniciarJuego() {
+            iniciarJuego();
+        }
+
+        iniciarJuego();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+
+    <!-- GOOGLE ANALYTICS -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W9RPQSMZ81"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-W9RPQSMZ81');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Los pronombres personales - Aprenem Junts</title>
+
+    <!-- FULL D'ESTILS GENERAL -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* CONTINGUT PRINCIPAL */
+
+        .pronombres-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 30px;
+            text-align: center;
+            min-height: 350px;
+        }
+
+        /* TÍTOL SUBRATLLAT */
+
+        .pronombres-titulo {
+            font-size: 2.5rem;
+            color: #004d40;
+            margin-bottom: 35px;
+            text-decoration: underline;
+            text-underline-offset: 8px;
+            text-decoration-thickness: 3px;
+        }
+
+        /* PESTANYES D'ACTIVITATS */
+
+        .actividades-nav {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+        .actividad-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            min-height: 100px;
+            padding: 20px;
+            background-color: #ffffff;
+            color: #004d40;
+            font-size: 1.6rem;
+            font-weight: bold;
+            text-decoration: none;
+            border: 1px solid #e0e0e0;
+            border-top: 8px solid #d4ed31;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .actividad-link:hover {
+            background-color: #fafafa;
+            border-color: #bdbdbd;
+            border-top-color: #bcda22;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .actividad-link:focus-visible {
+            outline: 3px solid #004d40;
+            outline-offset: 4px;
+        }
+
+        /* ADAPTACIÓ PER A MÒBILS */
+
+        @media (max-width: 768px) {
+
+            .pronombres-container {
+                margin: 25px auto;
+                padding: 15px;
+                min-height: 300px;
+            }
+
+            .pronombres-titulo {
+                font-size: 1.9rem;
+            }
+
+            .actividades-nav {
+                gap: 15px;
+            }
+
+            .actividad-link {
+                width: 100%;
+                max-width: 300px;
+                min-height: 90px;
+                font-size: 1.4rem;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- CAPÇALERA -->
+
+    <header class="main-header">
+
+        <div class="header-container">
+
+            <!-- AVATAR -->
+            <div class="header-avatar">
+
+                <img src="avatar.png"
+                     alt="Mestre Aprenem Junts">
+
+            </div>
+
+            <!-- BÀNER -->
+            <div class="header-banner">
+
+                <img src="banner.png"
+                     alt="Bàner Classes Virtuals per l'Alumnat d'Educació Primària">
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- MENÚ PRINCIPAL -->
+
+    <nav class="main-nav">
+
+        <ul>
+
+            <li>
+                <a href="index.html"
+                   class="nav-link">
+                    Presentació
+                </a>
+            </li>
+
+            <li>
+                <a href="Cicles.html"
+                   class="nav-link">
+                    Cicles
+                </a>
+            </li>
+
+            <li>
+                <a href="Curs.html"
+                   class="nav-link">
+                    Cicle Mitjà
+                </a>
+            </li>
+
+            <li>
+                <a href="arees4t.html"
+                   class="nav-link">
+                    Àrees
+                </a>
+            </li>
+
+            <li>
+                <a href="ortografiagramatica.html"
+                   class="nav-link">
+                    Branques
+                </a>
+            </li>
+
+            <!-- PESTANYA PRONOMS -->
+
+            <li>
+                <a href="pronombrespersonales.html"
+                   class="nav-link"
+                   style="background-color: #d4ed31;
+                          color: #000000;">
+                    Pronoms
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+    <!-- CONTINGUT PRINCIPAL -->
+
+    <main class="content-container">
+
+        <section class="pronombres-container">
+
+            <!-- TÍTOL PRINCIPAL -->
+
+            <h1 class="pronombres-titulo">
+                Los pronombres personales
+            </h1>
+
+            <!-- PESTANYES D'ACTIVITATS -->
+
+            <div class="actividades-nav">
+
+                <!-- ACTIVITAT COMPLETA -->
+
+                <a href="completa.html"
+                   class="actividad-link"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Completa
+                </a>
+
+                <!-- NOVA ACTIVITAT EN PRÁCTICA -->
+
+                <a href="enpractica.html"
+                   class="actividad-link"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    En práctica
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- PEU DE PÀGINA -->
+
+    <footer class="main-footer">
+
+        <p>
+            &copy; 2026 Aprenem Junts -
+            Classes Virtuals d'Educació Primària.
+            Tots els drets reservats.
+        </p>
+
+    </footer>
+
+</body>
+</html>

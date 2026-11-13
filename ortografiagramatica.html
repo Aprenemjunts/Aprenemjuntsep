@@ -1,13 +1,32 @@
+
 <!DOCTYPE html>
 <html lang="ca">
 <head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W9RPQSMZ81"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-W9RPQSMZ81');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Lengua Castellana - 4t curs - Aprenem Junts</title>
+
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* Estils de les finestres de contingut */
+
+        /* ESTILS DE LES FINESTRES DE CONTINGUT */
+
         .arees-nav {
             display: flex;
             list-style: none;
@@ -53,7 +72,8 @@
             box-shadow: 0 6px 12px rgba(0,0,0,0.1);
         }
 
-        /* Menús desplegables */
+        /* MENÚS DESPLEGABLES */
+
         .dropdown-menu {
             display: none;
             position: absolute;
@@ -96,21 +116,27 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.08);
         }
 
-        /* Mostrar el desplegable quan està actiu */
+        /* MOSTRAR EL DESPLEGABLE ACTIU */
+
         .dropdown.active .dropdown-menu {
             display: block;
         }
+
     </style>
+
 </head>
 
 <body>
 
     <!-- CAPÇALERA -->
+
     <header class="main-header">
+
         <div class="header-container">
 
             <div class="header-avatar">
-                <img src="avatar.png" alt="Mestre Aprenem Junts">
+                <img src="avatar.png"
+                     alt="Mestre Aprenem Junts">
             </div>
 
             <div class="header-banner">
@@ -119,11 +145,16 @@
             </div>
 
         </div>
+
     </header>
 
+
     <!-- MENÚ PRINCIPAL -->
+
     <nav class="main-nav">
+
         <ul>
+
             <li>
                 <a href="index.html" class="nav-link">
                     Presentació
@@ -155,17 +186,23 @@
                     Branques
                 </a>
             </li>
+
         </ul>
+
     </nav>
 
+
     <!-- CONTINGUT PRINCIPAL -->
+
     <main class="content-container">
 
         <section class="welcome-section">
 
             <ul class="arees-nav">
 
+
                 <!-- ORTOGRAFÍA -->
+
                 <li class="dropdown">
 
                     <a href="#"
@@ -189,9 +226,12 @@
                         </li>
 
                     </ul>
+
                 </li>
 
+
                 <!-- VOCABULARIO -->
+
                 <li class="dropdown">
 
                     <a href="#"
@@ -209,9 +249,12 @@
                         </li>
 
                     </ul>
+
                 </li>
 
-                <!-- GRAMÁTICA: NOU DESPLEGABLE -->
+
+                <!-- GRAMÁTICA -->
+
                 <li class="dropdown">
 
                     <a href="#"
@@ -222,6 +265,9 @@
 
                     <ul class="dropdown-menu">
 
+
+                        <!-- EL SINTAGMA NOMINAL -->
+
                         <li>
                             <a href="sintagmanominal.html"
                                target="_blank"
@@ -230,8 +276,22 @@
                             </a>
                         </li>
 
+
+                        <!-- LOS PRONOMBRES PERSONALES -->
+
+                        <li>
+                            <a href="pronombrespersonales.html"
+                               target="_blank"
+                               rel="noopener noreferrer">
+                                Los pronombres personales
+                            </a>
+                        </li>
+
+
                     </ul>
+
                 </li>
+
 
             </ul>
 
@@ -242,46 +302,72 @@
 
     </main>
 
+
     <!-- PEU DE PÀGINA -->
+
     <footer class="main-footer">
+
         <p>
             &copy; 2026 Aprenem Junts -
             Classes Virtuals d'Educació Primària.
             Tots els drets reservats.
         </p>
+
     </footer>
 
+
     <!-- JAVASCRIPT DELS DESPLEGABLES -->
+
     <script>
+
         // Seleccionar tots els desplegables
+
         const dropdowns = document.querySelectorAll('.dropdown');
 
+
         dropdowns.forEach(dropdown => {
+
             const btn = dropdown.querySelector('.area-link');
 
             btn.addEventListener('click', function(e) {
+
                 e.preventDefault();
 
                 // Tancar els altres desplegables
+
                 dropdowns.forEach(item => {
+
                     if (item !== dropdown) {
                         item.classList.remove('active');
                     }
+
                 });
 
                 // Obrir o tancar el desplegable actual
+
                 dropdown.classList.toggle('active');
+
             });
+
         });
 
+
         // Tancar els desplegables en clicar fora
+
         window.addEventListener('click', function(e) {
+
             if (!e.target.closest('.dropdown')) {
+
                 dropdowns.forEach(dropdown => {
+
                     dropdown.classList.remove('active');
+
                 });
+
             }
+
         });
+
     </script>
 
 </body>

@@ -1,0 +1,462 @@
+
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <!-- GOOGLE ANALYTICS -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W9RPQSMZ81"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-W9RPQSMZ81');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activitat 1 - Aprenem Junts</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ESTIL INFANTIL DE L'ACTIVITAT */
+
+        .juego {
+            max-width: 1050px;
+            margin: 35px auto;
+            padding: 20px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .titulo-juego {
+            color: #004d40;
+            font-size: 2.3rem;
+            margin-bottom: 12px;
+        }
+
+        .instrucciones {
+            background: #fff4ce;
+            border: 3px solid #ffd166;
+            border-radius: 20px;
+            padding: 18px;
+            font-size: 1.2rem;
+            margin: 20px auto;
+            max-width: 850px;
+            color: #664500;
+        }
+
+        .puntuacion {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #004d40;
+            margin: 20px 0;
+        }
+
+        /* TAULA */
+
+        .tabla-wrapper {
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .tabla {
+            display: grid;
+            grid-template-columns: 125px repeat(3, minmax(160px, 1fr));
+            gap: 8px;
+            min-width: 650px;
+        }
+
+        .cabecera {
+            padding: 17px 8px;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .primera { background: #27bfd0; }
+        .segunda { background: #74c96d; }
+        .tercera { background: #9270c7; }
+
+        .fila {
+            background: #ffb12e;
+            color: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .casilla {
+            background: #ffffff;
+            border: 3px dashed #b8c8d0;
+            border-radius: 18px;
+            min-height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #004d40;
+        }
+
+        .casilla:hover:not(.correcta) {
+            background: #e8f8ff;
+            border-color: #27bfd0;
+            transform: scale(1.02);
+        }
+
+        .casilla.correcta {
+            background: #d8f8d4;
+            border: 3px solid #45b85a;
+            cursor: default;
+        }
+
+        .casilla.error {
+            background: #ffe0e0;
+            border-color: #f44336;
+            animation: sacudir 0.3s;
+        }
+
+        @keyframes sacudir {
+            0%,100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+
+        /* TARGETES DE PRONOMS */
+
+        .zona-pronombres {
+            background: #eaf7ff;
+            border-radius: 22px;
+            padding: 25px 15px;
+            margin-top: 30px;
+            border: 3px solid #c4e8ff;
+        }
+
+        .zona-pronombres h2 {
+            color: #004d40;
+            margin-top: 0;
+        }
+
+        .tarjetas {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .tarjeta {
+            border: 3px solid #f0c65a;
+            background: #fff6cf;
+            border-radius: 16px;
+            padding: 15px 18px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: #594100;
+            cursor: grab;
+            box-shadow: 0 4px 0 #e6bb53;
+            transition: 0.2s;
+            max-width: 250px;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-3px);
+        }
+
+        .tarjeta.seleccionada {
+            background: #ffe08a;
+            border-color: #ff9800;
+            box-shadow: 0 0 0 4px #ffe9ad;
+        }
+
+        .tarjeta:focus-visible,
+        .casilla:focus-visible,
+        .reiniciar:focus-visible {
+            outline: 3px solid #004d40;
+            outline-offset: 4px;
+        }
+
+        /* MISSATGES */
+
+        .mensaje {
+            min-height: 45px;
+            margin: 20px auto;
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+
+        .mensaje.bien { color: #238a35; }
+        .mensaje.mal { color: #e53935; }
+
+        .reiniciar {
+            background: #d4ed31;
+            color: #004d40;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 15px;
+            box-shadow: 0 4px 0 #a8bf20;
+        }
+
+        .reiniciar:hover {
+            background: #c5e024;
+        }
+
+        @media (max-width: 768px) {
+            .juego { padding: 12px; }
+            .titulo-juego { font-size: 1.7rem; }
+            .instrucciones { font-size: 1rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CAPÇALERA -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-avatar">
+                <img src="avatar.png" alt="Mestre Aprenem Junts">
+            </div>
+            <div class="header-banner">
+                <img src="banner.png" alt="Bàner Aprenem Junts">
+            </div>
+        </div>
+    </header>
+
+    <!-- MENÚ DE NAVEGACIÓ -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="nav-link">Presentació</a></li>
+            <li><a href="Cicles.html" class="nav-link">Cicles</a></li>
+            <li><a href="Curs.html" class="nav-link">Cicle Mitjà</a></li>
+            <li><a href="arees4t.html" class="nav-link">Àrees</a></li>
+            <li><a href="ortografiagramatica.html" class="nav-link">Branques</a></li>
+            <li><a href="pronombrespersonales.html" class="nav-link">Pronoms</a></li>
+            <li>
+                <a href="completa.html" class="nav-link"
+                   style="background-color:#d4ed31;color:#000;">
+                    Activitat 1
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- ACTIVITAT -->
+    <main class="content-container">
+        <section class="juego">
+
+            <h1 class="titulo-juego">
+                🌈 ¡El reto de los pronombres! 🌟
+            </h1>
+
+            <div class="instrucciones">
+                🎯 <strong>¡Tu misión!</strong>
+                Elige una tarjeta y colócala en la casilla correcta.
+                ¡Consigue las 6 estrellas!
+            </div>
+
+            <div class="puntuacion" id="puntuacion">
+                ⭐ 0 / 6 estrellas
+            </div>
+
+            <!-- TAULA -->
+            <div class="tabla-wrapper">
+                <div class="tabla">
+
+                    <div></div>
+                    <div class="cabecera primera">1.ª PERSONA</div>
+                    <div class="cabecera segunda">2.ª PERSONA</div>
+                    <div class="cabecera tercera">3.ª PERSONA</div>
+
+                    <div class="fila">SINGULAR</div>
+                    <div class="casilla" data-id="s1" role="button" tabindex="0" aria-label="Singular, primera persona"></div>
+                    <div class="casilla" data-id="s2" role="button" tabindex="0" aria-label="Singular, segunda persona"></div>
+                    <div class="casilla" data-id="s3" role="button" tabindex="0" aria-label="Singular, tercera persona"></div>
+
+                    <div class="fila">PLURAL</div>
+                    <div class="casilla" data-id="p1" role="button" tabindex="0" aria-label="Plural, primera persona"></div>
+                    <div class="casilla" data-id="p2" role="button" tabindex="0" aria-label="Plural, segunda persona"></div>
+                    <div class="casilla" data-id="p3" role="button" tabindex="0" aria-label="Plural, tercera persona"></div>
+
+                </div>
+            </div>
+
+            <!-- TARGETES -->
+            <div class="zona-pronombres">
+                <h2>🧩 ¡Escoge un pronombre!</h2>
+                <p>Selecciona una tarjeta y después una casilla.</p>
+                <div class="tarjetas" id="tarjetas"></div>
+            </div>
+
+            <div class="mensaje" id="mensaje" role="status" aria-live="polite"></div>
+
+            <button class="reiniciar" onclick="iniciarJuego()">
+                🔄 Volver a jugar
+            </button>
+
+        </section>
+    </main>
+
+    <!-- PEU DE PÀGINA -->
+    <footer class="main-footer">
+        <p>
+            &copy; 2026 Aprenem Junts -
+            Classes Virtuals d'Educació Primària.
+            Tots els drets reservats.
+        </p>
+    </footer>
+
+    <script>
+        const pronombres = [
+            { id: "s1", texto: "yo" },
+            { id: "s2", texto: "tú, usted" },
+            { id: "s3", texto: "él, ella" },
+            { id: "p1", texto: "nosotros, nosotras" },
+            { id: "p2", texto: "vosotros, vosotras, ustedes" },
+            { id: "p3", texto: "ellos, ellas" }
+        ];
+
+        let seleccionado = null;
+        let aciertos = 0;
+
+        function mezclar(array) {
+            return [...array].sort(() => Math.random() - 0.5);
+        }
+
+        function iniciarJuego() {
+            seleccionado = null;
+            aciertos = 0;
+
+            document.getElementById("puntuacion").textContent =
+                "⭐ 0 / 6 estrellas";
+
+            const mensaje = document.getElementById("mensaje");
+            mensaje.textContent = "";
+            mensaje.className = "mensaje";
+
+            document.querySelectorAll(".casilla").forEach(casilla => {
+                casilla.textContent = "";
+                casilla.className = "casilla";
+            });
+
+            const contenedor = document.getElementById("tarjetas");
+            contenedor.innerHTML = "";
+
+            mezclar(pronombres).forEach(pronombre => {
+                const tarjeta = document.createElement("button");
+                tarjeta.type = "button";
+                tarjeta.className = "tarjeta";
+                tarjeta.textContent = pronombre.texto;
+                tarjeta.dataset.id = pronombre.id;
+                tarjeta.draggable = true;
+
+                tarjeta.addEventListener("click", () => {
+                    seleccionarTarjeta(tarjeta);
+                });
+
+                tarjeta.addEventListener("dragstart", e => {
+                    seleccionado = tarjeta;
+                    e.dataTransfer.setData("text/plain", pronombre.id);
+                    e.dataTransfer.effectAllowed = "move";
+                });
+
+                contenedor.appendChild(tarjeta);
+            });
+        }
+
+        function seleccionarTarjeta(tarjeta) {
+            document.querySelectorAll(".tarjeta").forEach(t => {
+                t.classList.remove("seleccionada");
+            });
+
+            seleccionado = tarjeta;
+            tarjeta.classList.add("seleccionada");
+        }
+
+        function comprobar(casilla, idTarjeta = null) {
+            if (casilla.classList.contains("correcta")) return;
+
+            let tarjeta = seleccionado;
+
+            if (idTarjeta) {
+                tarjeta = document.querySelector(
+                    '.tarjeta[data-id="' + idTarjeta + '"]'
+                );
+            }
+
+            if (!tarjeta) {
+                mostrarMensaje("👆 ¡Primero elige una tarjeta!", "mal");
+                return;
+            }
+
+            if (tarjeta.dataset.id === casilla.dataset.id) {
+                casilla.textContent = "⭐ " + tarjeta.textContent;
+                casilla.classList.add("correcta");
+                tarjeta.remove();
+                seleccionado = null;
+                aciertos++;
+
+                document.getElementById("puntuacion").textContent =
+                    "⭐ " + aciertos + " / 6 estrellas";
+
+                if (aciertos === 6) {
+                    mostrarMensaje(
+                        "🏆 ¡FANTÁSTICO! ¡Has conseguido las 6 estrellas! 🎉",
+                        "bien"
+                    );
+                } else {
+                    mostrarMensaje("🎉 ¡Muy bien! ¡Correcto!", "bien");
+                }
+
+            } else {
+                casilla.classList.add("error");
+                mostrarMensaje("❌ Error. ¡Inténtalo otra vez!", "mal");
+
+                setTimeout(() => {
+                    casilla.classList.remove("error");
+                }, 500);
+            }
+        }
+
+        function mostrarMensaje(texto, tipo) {
+            const mensaje = document.getElementById("mensaje");
+            mensaje.textContent = texto;
+            mensaje.className = "mensaje " + tipo;
+        }
+
+        document.querySelectorAll(".casilla").forEach(casilla => {
+            casilla.addEventListener("click", () => comprobar(casilla));
+
+            casilla.addEventListener("keydown", e => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    comprobar(casilla);
+                }
+            });
+
+            casilla.addEventListener("dragover", e => {
+                e.preventDefault();
+            });
+
+            casilla.addEventListener("drop", e => {
+                e.preventDefault();
+                const id = e.dataTransfer.getData("text/plain");
+                if (id) comprobar(casilla, id);
+            });
+        });
+
+        iniciarJuego();
+    </script>
+
+</body>
+</html>
